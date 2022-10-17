@@ -1,0 +1,23 @@
+.enterRegWrap {
+    display: flex;
+    gap: 20px;
+    color: var(--menu-item-color);
+    font-weight: 500;
+}
+
+.item a {
+    display: block;
+    padding: 7px 12px;
+    border-radius: 10px;
+    background-color: var(--header-bg-color);
+    color: var(--base-bg-color);
+    border: 1px solid var(--base-bg-color);
+    text-decoration: none;
+    transition: color .15s ease;
+}
+
+.item a:hover {
+    background-color: var(--base-bg-color);
+    color: var(--header-bg-color);
+    border: 1px solid transparent;
+}
