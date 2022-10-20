@@ -1,0 +1,22 @@
+.enterRegWrap {
+    display: flex;
+    gap: 15px;
+    color: var(--menu-item-color);
+    font-weight: 500;
+}
+
+.link {
+    display: block;
+    padding: 5px 12px;
+    border-radius: 30px;
+    background-color: var(--header-bg-color);
+    color: var(--base-bg-color);
+    border: 1px solid var(--base-bg-color);
+    text-decoration: none;
+}
+
+.link:hover {
+    background-color: var(--base-bg-color);
+    color: var(--header-bg-color);
+    border: 1px solid transparent;
+}

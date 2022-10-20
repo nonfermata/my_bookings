@@ -1,0 +1,7 @@
+.footer {
+    background-color: var(--header-bg-color);
+    padding: 20px;
+    color: var(--base-bg-color);
+    min-height: 120px;
+    align-self: flex-end;
+}

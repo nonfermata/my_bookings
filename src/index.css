@@ -1,45 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  --base-color: #111;
-  --base-bg-color: #fffff5;
-  --header-bg-color: #00758c;
-  --menu-item-color: var(--base-bg-color);
-  --menu-item-active-color: #99eeff;
-  --light-beige-color: #e0e0d1;
-  /*--light-grey-color: hsl(50, 10%, 75%);*/
-  /*--sidebar-bg-color: hsl(60, 40%, 90%);*/
-  /*--active-dialog-arrow-color: hsl(60, 40%, 80%);*/
-  /*--incom-msg-bg-color: hsl(60, 100%, 88%);*/
-  /*--outcom-msg-bg-color: hsl(100, 80%, 90%);*/
-  /*--extra-light-grey-color: hsl(50, 10%, 95%);*/
-  /*--time-grey-color: hsl(50, 10%, 60%);*/
-  /*--semi-grey-color: hsl(50, 10%, 50%);*/
-  /*--user-data-color: var(--semi-grey-color);*/
-  /*--links-hover-color: hsl(170, 60%, 40%);*/
-  /*--links-active-color: hsl(20, 100%, 45%);*/
-  /*--post-border-color: var(--sidebar-bg-color);*/
-  /*--likes-color: hsl(60, 40%, 40%);*/
+    --base-color: #111;
+    --base-bg-color: #fffff5;
+    --header-bg-color: #00758c;
+    --menu-item-color: var(--base-bg-color);
+    --menu-item-active-color: #99eeff;
+    --light-grey-color: hsl(50, 10%, 75%);
+    --ex-light-beige-color: #f5f5e9;
+    --light-beige-color: #e0e0d1;
+    --semi-beige-color: #d4d4c6;
+    --brown-grey-color: #665c47;
+    --light-orange-color: #ffd580;
+    --semi-orange-color: #ffbb33;
+    --orange-color: #ffaa00;
+    --light-beige-border: 1px solid var(--light-beige-color);
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 15px;
+    line-height: 16px;
+    color: var(--base-color);
 }
 
 textarea,
 button,
 input {
-  font-family: inherit;
-  font-size: inherit;
-  border: none;
-  outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    outline: none;
 }
 
-body {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 15px;
-  color: var(--base-color);
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
+.mainTitle {
+    font-size: 1.3em;
+    font-weight: 500;
+    padding-bottom: 1em;
+    padding-left: 1em;
+}

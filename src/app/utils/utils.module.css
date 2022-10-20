@@ -1,0 +1,25 @@
+.loader {
+    padding-top: 50px;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.5em;
+}
+
+.buttonBlue {
+    display: block;
+    font-weight: 400;
+    padding: 5px 12px;
+    border-radius: 30px;
+    background-color: var(--header-bg-color);
+    color: var(--base-bg-color);
+    border: 1px solid var(--base-bg-color);
+    cursor: pointer;
+    width: fit-content;
+    transition: all .2s ease;
+}
+
+.buttonBlue:hover {
+    background-color: var(--base-bg-color);
+    color: var(--header-bg-color);
+    border: 1px solid var(--header-bg-color);
+}

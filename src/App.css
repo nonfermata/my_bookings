@@ -1,8 +1,0 @@
-.container {
-    background-color: var(--base-bg-color);
-    width: 100%;
-    height: 700px;
-    border: 1px solid var(--light-beige-color);
-    max-width: 1200px;
-    margin: 0 auto 100px;
-}
