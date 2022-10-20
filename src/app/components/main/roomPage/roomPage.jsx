@@ -4,7 +4,7 @@ import Loader from "../../../utils/loader";
 import api from "../../../api";
 import ButtonBlue from "../../../utils/buttonBlue";
 import classes from "./roomPage.module.css";
-import CarouselBox from "../../carouselBox/carouselBox";
+import CarouselBox from "../../../utils/carouselBox/carouselBox";
 
 const RoomPage = () => {
     const history = useHistory();
@@ -35,7 +35,7 @@ const RoomPage = () => {
                     {photosHTML}
                 </CarouselBox>
                 <ButtonBlue>
-                    <div onClick={handleAllRooms}>Назад</div>
+                    <div className={classes.buttonSize} onClick={handleAllRooms}>Назад</div>
                 </ButtonBlue>
             </>
         );

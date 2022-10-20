@@ -4,7 +4,7 @@
     padding-top: 64%;
     overflow: hidden;
     border: var(--light-beige-border);
-    background-color: var(--ex-light-beige-color);
+    /*background-color: var(--ex-light-beige-color);*/
 }
 
 .imageHor,
@@ -21,4 +21,8 @@
 
 .imageVert {
     height: 100%;
+}
+
+.buttonSize {
+    font-size: 1.2em;
 }

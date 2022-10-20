@@ -7,8 +7,7 @@
 
 .buttonBlue {
     display: block;
-    font-weight: 400;
-    padding: 5px 12px;
+    padding: 7px 14px;
     border-radius: 30px;
     background-color: var(--header-bg-color);
     color: var(--base-bg-color);
