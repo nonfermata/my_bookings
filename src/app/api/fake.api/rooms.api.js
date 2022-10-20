@@ -1,177 +1,229 @@
-import defaultPhoto from "../../assets/default-room.png";
-
 const rooms = [
     {
-        id: 26817601,
+        id: "26817601",
         name: "Двухместный номер «Эконом-1»",
         capacity: 2,
         price: 30,
-        mainPhoto: defaultPhoto,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/01/02e1-1.jpg",
         briefDescription: [
             "Количество гостей: 2",
             "Площадь номера: 15 кв. м",
             "1 двуспальная кровать",
             "Санузел общий, вне номера"
         ],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/01/02e1-1.jpg" },
+            { orient: "vert", url: "https://bgvmusic.ru/temp-hotel-photos/01/02e1-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/01/02e1-3.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/01/02e1-4.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/01/02e1-5.jpg" }
+        ],
         amenities: [],
         isBooked: false,
         isFavourite: false
     },
     {
-        id: 26817602,
+        id: "26817602",
         name: "Двухместный номер «Эконом-2»",
         capacity: 2,
         price: 30,
-        mainPhoto: defaultPhoto,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/02/02e2-1.jpg",
         briefDescription: [
             "Количество гостей: 2",
             "Площадь номера: 15 кв. м",
             "2 односпальные кровати",
             "Санузел общий, вне номера"
         ],
-        photos: [],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/02/02e2-1.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/02/02e2-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/02/02e2-3.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/02/02e2-4.jpg" }
+        ],
         amenities: [],
         isBooked: false,
         isFavourite: false
     },
     {
-        id: 26817603,
+        id: "26817603",
         name: "Двухместный номер «Стандарт-1»",
         capacity: 3,
         price: 50,
-        mainPhoto: defaultPhoto,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/03/02s1-1.jpg",
         briefDescription: [
             "Количество гостей: 2",
             "Площадь номера: 18 кв. м",
             "1 двуспальная кровать",
             "Санузел в номере"
         ],
-        photos: [],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/03/02s1-1.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/03/02s1-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/03/02s1-3.jpg" }
+        ],
         amenities: [],
         isBooked: false,
         isFavourite: false
     },
     {
-        id: 26817604,
+        id: "26817604",
         name: "Двухместный номер «Стандарт-2»",
         capacity: 2,
         price: 50,
-        mainPhoto: defaultPhoto,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/04/02s2-1.jpg",
         briefDescription: [
             "Количество гостей: 2",
             "Площадь номера: 18 кв. м",
             "2 односпальные кровати",
             "Санузел в номере"
         ],
-        photos: [],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/04/02s2-1.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/04/02s2-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/04/02s2-3.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/04/02s2-4.jpg" }
+        ],
         amenities: [],
         isBooked: false,
         isFavourite: false
     },
     {
-        id: 26817605,
+        id: "26817605",
         name: "Трехместный номер «Эконом»",
         capacity: 3,
         price: 50,
-        mainPhoto: defaultPhoto,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/05/03e-1.jpg",
+        briefDescription: [
+            "Количество гостей: 3",
+            "Площадь номера: 16 кв. м",
+            "3 односпальные кровати",
+            "Санузел общий, вне номера"
+        ],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/05/03e-1.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/05/03e-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/05/03e-3.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/05/03e-4.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/05/03e-5.jpg" }
+        ],
+        amenities: [],
+        isBooked: false,
+        isFavourite: false
+    },
+    {
+        id: "26817606",
+        name: "Трехместный номер «Стандарт»",
+        capacity: 3,
+        price: 80,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/06/03s-1.jpg",
         briefDescription: [
             "Количество гостей: 3",
             "Площадь номера: 20 кв. м",
-            "1 двуспальная кровать",
-            "Санузел общий, вне номера"
-        ],
-        photos: [],
-        amenities: [],
-        isBooked: false,
-        isFavourite: false
-    },
-    {
-        id: 26817606,
-        name: "Трехместный номер «Стандарт»",
-        capacity: 3,
-        price: 70,
-        mainPhoto: defaultPhoto,
-        briefDescription: [
-            "Количество гостей: 3",
-            "Площадь номера: 22 кв. м",
-            "1 двуспальная кровать",
+            "3 односпальные кровати",
             "Санузел в номере"
         ],
-        photos: [],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/06/03s-1.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/06/03s-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/06/03s-3.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/06/03s-4.jpg" }
+        ],
         amenities: [],
         isBooked: false,
         isFavourite: false
     },
     {
-        id: 26817607,
-        name: "Семейный номер с собственной кухней",
-        capacity: 5,
+        id: "26817607",
+        name: "Двухместные апартаменты",
+        capacity: 2,
         price: 100,
-        mainPhoto: defaultPhoto,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/07/ap-1.jpg",
+        briefDescription: [
+            "Количество гостей: 2",
+            "Площадь номера: 25 кв. м",
+            "1 двуспальная кровать",
+            "Санузел в номере",
+            "Кухня"
+        ],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/07/ap-1.jpg" },
+            { orient: "vert", url: "https://bgvmusic.ru/temp-hotel-photos/07/ap-2.jpg" },
+            { orient: "vert", url: "https://bgvmusic.ru/temp-hotel-photos/07/ap-3.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/07/ap-4.jpg" }
+        ],
+        amenities: [],
+        isBooked: false,
+        isFavourite: false
+    },
+    {
+        id: "26817608",
+        name: "Семейный номер с собственной кухней",
+        capacity: 4,
+        price: 120,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/08/fam-1.jpg",
+        briefDescription: [
+            "Количество гостей: 4",
+            "Площадь номера: 25 кв. м",
+            "2 двуспальные кровати",
+            "Санузел в номере",
+            "Кухня"
+        ],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/08/fam-1.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/08/fam-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/08/fam-3.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/08/fam-4.jpg" }
+        ],
+        amenities: [],
+        isBooked: false,
+        isFavourite: false
+    },
+    {
+        id: "26817609",
+        name: "Апартаменты «Люкс»",
+        capacity: 4,
+        price: 150,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/09/lux-1.jpg",
+        briefDescription: [
+            "Количество гостей: 4",
+            "Площадь номера: 30 кв. м",
+            "1 двуспальная кровать, 1 диван-кровать",
+            "Санузел в номере",
+            "Кухня",
+            "Мини-бар"
+        ],
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/09/lux-1.jpg" },
+            { orient: "vert", url: "https://bgvmusic.ru/temp-hotel-photos/09/lux-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/09/lux-3.jpg" },
+            { orient: "vert", url: "https://bgvmusic.ru/temp-hotel-photos/09/lux-4.jpg" },
+            { orient: "vert", url: "https://bgvmusic.ru/temp-hotel-photos/09/lux-5.jpg" },
+            { orient: "vert", url: "https://bgvmusic.ru/temp-hotel-photos/09/lux-6.jpg" }
+        ],
+        amenities: [],
+        isBooked: false,
+        isFavourite: false
+    },
+    {
+        id: "26817610",
+        name: "Апартаменты «Супер-люкс»",
+        capacity: 5,
+        price: 200,
+        mainPhoto: "https://bgvmusic.ru/temp-hotel-photos/10/delux-1.jpg",
         briefDescription: [
             "Количество гостей: 5",
-            "Площадь номера: 35 кв. м",
+            "Площадь номера: 60 кв. м",
             "1 двуспальная кровать, 3 односпальные кровати",
             "Санузел в номере",
-            "Кухня"
-        ],
-        photos: [],
-        amenities: [],
-        isBooked: false,
-        isFavourite: false
-    },
-    {
-        id: 26817608,
-        name: "Семейный номер с собственной кухней",
-        capacity: 5,
-        price: 100,
-        mainPhoto: defaultPhoto,
-        briefDescription: [
-            "Количество гостей: 5",
-            "Площадь номера: 35 кв. м",
-            "1 двуспальная кровать, 1 двуспальный диван-кровать, 1 односпальная кровать",
-            "Санузел в номере",
-            "Кухня"
-        ],
-        photos: [],
-        amenities: [],
-        isBooked: false,
-        isFavourite: false
-    },
-    {
-        id: 26817609,
-        name: "Апартаменты-студия «Люкс-1»",
-        capacity: 4,
-        price: 120,
-        mainPhoto: defaultPhoto,
-        briefDescription: [
-            "Количество гостей: 4",
-            "Площадь номера: 30 кв. м",
-            "1 двуспальная кровать, 1 двуспальный диван-кровать",
-            "Санузел в номере",
             "Кухня",
             "Мини-бар"
         ],
-        photos: [],
-        amenities: [],
-        isBooked: false,
-        isFavourite: false
-    },
-    {
-        id: 26817610,
-        name: "Апартаменты-студия «Люкс-2»",
-        capacity: 4,
-        price: 120,
-        mainPhoto: defaultPhoto,
-        briefDescription: [
-            "Количество гостей: 4",
-            "Площадь номера: 30 кв. м",
-            "1 двуспальная кровать, 2 односпальные кровати",
-            "Санузел в номере",
-            "Кухня",
-            "Мини-бар"
+        photos: [
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/10/delux-1.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/10/delux-2.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/10/delux-3.jpg" },
+            { orient: "hor", url: "https://bgvmusic.ru/temp-hotel-photos/10/delux-4.jpg" }
         ],
-        photos: [],
         amenities: [],
         isBooked: false,
         isFavourite: false
@@ -182,14 +234,14 @@ const fetchAll = () =>
     new Promise((resolve) => {
         window.setTimeout(function () {
             resolve(rooms);
-        }, 1000);
+        }, 700);
     });
 
 const getById = (id) =>
     new Promise((resolve) => {
         window.setTimeout(function () {
-            resolve(rooms.find((user) => user._id === id));
-        }, 1000);
+            resolve(rooms.find((room) => room.id === id));
+        }, 700);
     });
 
 export default {

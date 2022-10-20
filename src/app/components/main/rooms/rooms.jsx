@@ -19,7 +19,7 @@ const Rooms = () => {
                         <Link
                             className={classes.roomLink}
                             key={room.id}
-                            to={"rooms/" + room.id}
+                            to={"/rooms/" + room.id}
                         >
                             <RoomBrief {...room} />
                         </Link>

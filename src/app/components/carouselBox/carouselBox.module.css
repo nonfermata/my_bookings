@@ -1,0 +1,48 @@
+.mainContainer {
+    background-color: #ffaa00;
+    width: 50%;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.window {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.allPhotos {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    transition: all 1s ease;
+}
+
+.control {
+    position: absolute;
+    width: 40px;
+    padding: 5px 0 8px;
+    font-size: 17px;
+    text-align: center;
+    background-color: var(--slider-button-bg);
+    color: var(--slider-button-text);
+    border: var(--slider-button-border);
+    z-index: 1;
+    cursor: pointer;
+    transition: all .2s;
+    top: calc(50% - 20px);
+    transform: scaleY(1.5);
+    user-select: none;
+}
+
+.control:hover {
+    background-color: var(--slider-button-bg-hover);
+}
+
+.previous {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}

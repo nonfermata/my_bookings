@@ -6,12 +6,13 @@ import Favourites from "./favourites/favourites";
 import Admin from "./admin/admin";
 import SignIn from "./signIn-signUp/signIn";
 import SignUp from "./signIn-signUp/signUp";
+import RoomPage from "./roomPage/roomPage";
 
 const Main = () => {
     return (
         <div className={classes.mainContentBlock}>
-            <Route path="/rooms" component={Rooms} />
-            {/* <Route path="/rooms/:roomId" component={}/> */}
+            <Route exact path="/rooms" component={Rooms} />
+            <Route path="/rooms/:roomId" component={RoomPage} />
             <Route path="/favourites" component={Favourites} />
             <Route path="/admin" component={Admin} />
             <Route path="/sign-in" component={SignIn} />

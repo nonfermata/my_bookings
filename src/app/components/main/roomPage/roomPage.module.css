@@ -1,0 +1,24 @@
+.imgWrap {
+    position: relative;
+    min-width: 100%;
+    padding-top: 64%;
+    overflow: hidden;
+    border: var(--light-beige-border);
+    background-color: var(--ex-light-beige-color);
+}
+
+.imageHor,
+.imageVert {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.imageHor {
+    width: 100%;
+}
+
+.imageVert {
+    height: 100%;
+}

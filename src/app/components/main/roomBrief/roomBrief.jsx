@@ -1,15 +1,16 @@
 import React from "react";
 import classes from "./roomBrief.module.css";
-import photo from "../../../assets/default-room.png";
 import PropTypes from "prop-types";
 
-const RoomBrief = ({ name, briefDescription, price }) => {
+const RoomBrief = ({ name, briefDescription, price, mainPhoto }) => {
     const briefDescriptionHTML = briefDescription.map((item) => (
         <li key={item}>{item}</li>
     ));
     return (
         <div className={classes.roomWrap} title="Посмотреть и забронировать">
-            <img className={classes.image} src={photo} alt="Photo" />
+            <div className={classes.imgWrap}>
+                <img className={classes.image} src={mainPhoto} alt="Photo" />
+            </div>
             <h1>{name}</h1>
             <ul className={classes.briefDescriptionList}>
                 {briefDescriptionHTML}
@@ -21,6 +22,7 @@ const RoomBrief = ({ name, briefDescription, price }) => {
 
 RoomBrief.propTypes = {
     name: PropTypes.string.isRequired,
+    mainPhoto: PropTypes.string.isRequired,
     briefDescription: PropTypes.array.isRequired,
     price: PropTypes.number.isRequired
 };
