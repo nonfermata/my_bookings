@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import Loader from "../../../utils/loader";
-import api from "../../../api";
+import api from "../../../../../api";
 import ButtonBlue from "../../../utils/buttonBlue";
 import classes from "./roomPage.module.css";
 
