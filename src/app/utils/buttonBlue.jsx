@@ -11,7 +11,7 @@ const ButtonBlue = ({ children }) => {
 };
 
 ButtonBlue.propTypes = {
-    children: PropTypes.array.isRequired
+    children: PropTypes.object.isRequired
 };
 
 export default ButtonBlue;
