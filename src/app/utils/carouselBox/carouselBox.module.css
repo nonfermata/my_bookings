@@ -2,6 +2,7 @@
     width: 60%;
     position: relative;
     margin-bottom: 30px;
+    border: var(--light-beige-border);
 }
 
 .window {
@@ -14,7 +15,13 @@
     height: 100%;
     width: 100%;
     display: flex;
-    transition: all 1s ease;
+    opacity: 1;
+    transition: opacity .6s ease;
+}
+
+.hidden {
+    opacity: 0;
+    transition: none;
 }
 
 .control {
@@ -45,3 +52,34 @@
 .next {
     right: 20px;
 }
+
+.indicators {
+    position: absolute;
+    bottom: -20px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+}
+
+.indicatorWrap {
+    display: flex;
+    align-items: center;
+    width: 26px;
+    height: 12px;
+    cursor: pointer;
+    opacity: .3;
+}
+
+.indicatorWrapActive {
+    cursor: default;
+    opacity: .8;
+}
+
+.indicator {
+    height: 4px;
+    width: 100%;
+    background-color: var(--slider-indicators-color);
+}
+
+
+

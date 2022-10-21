@@ -1,42 +1,91 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./carouselBox.module.css";
 import PropTypes from "prop-types";
 
 const CarouselBox = ({ children }) => {
-    const [offset, setOffset] = useState(0);
+    const gallery = children;
+    const [galleryOffset, setGalleryOffset] = useState(0);
 
     const handlePreviousPhoto = () => {
-        if (offset === 0) {
-            setOffset(offset - (children.length - 1) * 100);
+        if (galleryOffset === 0) {
+            setIndicatorActiveIndex(gallery.length - 1);
+            // setGalleryOffset(-(gallery.length - 1) * 100);
         } else {
-            setOffset(offset + 100);
+            setIndicatorActiveIndex(indicatorActiveIndex - 1);
+            // setGalleryOffset(galleryOffset + 100);
         }
     };
 
     const handleNextPhoto = () => {
-        if (offset === -(children.length - 1) * 100) {
-            setOffset(0);
+        if (galleryOffset === -(gallery.length - 1) * 100) {
+            setIndicatorActiveIndex(0);
+            // setGalleryOffset(0);
         } else {
-            setOffset(offset - 100);
+            setIndicatorActiveIndex(indicatorActiveIndex + 1);
+            // setGalleryOffset(galleryOffset - 100);
         }
     };
 
+    const [indicatorActiveIndex, setIndicatorActiveIndex] = useState(0);
+
+    const indicatorsOffset = (gallery.length * 26 + (gallery.length - 1) * 6) / 2;
+
+    const handleSlideChange = (index) => {
+        setIndicatorActiveIndex(index);
+    };
+
+    const [galleryClass, setGalleryClass] = useState(classes.allPhotos);
+
+    useEffect(() => {
+        setGalleryClass(classes.allPhotos + " " + classes.hidden);
+        setTimeout(() => {
+            setGalleryOffset(-(indicatorActiveIndex * 100));
+            setGalleryClass(classes.allPhotos);
+        }, 70);
+    }, [indicatorActiveIndex]);
+
+    const indicatorsHTML = (
+        <div
+            style={{ left: `calc(50% - ${indicatorsOffset}px)` }}
+            className={classes.indicators}
+        >
+            {gallery.map((element, index) => (
+                <div
+                    key={index}
+                    className={classes.indicatorWrap + (index === indicatorActiveIndex ? " " + classes.indicatorWrapActive : "")}
+                    onClick={() => handleSlideChange(index)}
+                >
+                    <div className={classes.indicator}></div>
+                </div>
+            ))}
+        </div>
+    );
+
     return (
         <div className={classes.mainContainer}>
-            <div className={classes.control + " " + classes.previous} onClick={handlePreviousPhoto}>
+            {indicatorsHTML}
+            <div
+                className={classes.control + " " + classes.previous}
+                onClick={handlePreviousPhoto}
+                title="Previous photo"
+            >
                 &lt;
             </div>
-            <div className={classes.control + " " + classes.next} onClick={handleNextPhoto}>
+            <div
+                className={classes.control + " " + classes.next}
+                onClick={handleNextPhoto}
+                title="Next photo"
+            >
                 &gt;
             </div>
             <div className={classes.window}>
                 <div
-                    className={classes.allPhotos}
+                    className={galleryClass}
                     style={{
-                        transform: `translateX(${offset}%)`
+                        transform: `translateX(${galleryOffset}%)`
                     }}
                 >
-                    {children}
+                    {gallery}
                 </div>
             </div>
         </div>

@@ -15,10 +15,11 @@
     --semi-orange-color: #ffbb33;
     --orange-color: #ffaa00;
     --light-beige-border: 1px solid var(--light-beige-color);
-    --slider-button-bg: #80807766;
-    --slider-button-bg-hover: #808077b3;
+    --slider-button-bg: #80808066;
+    --slider-button-bg-hover: #808080b3;
     --slider-button-text: #f5f5e9b3;
     --slider-button-border: 1px solid #ccccbe88;
+    --slider-indicators-color: #808080;
 }
 
 * {
