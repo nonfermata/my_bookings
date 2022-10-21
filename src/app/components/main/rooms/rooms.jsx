@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import api from "../../../api";
 import Loader from "../../../utils/loader";
 import classes from "./rooms.module.css";
 import RoomBrief from "../roomBrief/roomBrief";
@@ -8,7 +7,11 @@ import { Link } from "react-router-dom";
 const Rooms = () => {
     const [rooms, setRooms] = useState();
     useEffect(() => {
-        api.rooms.fetchAll().then((data) => setRooms(data));
+        setTimeout(() => {
+            fetch("http://localhost:3001/rooms")
+                .then((response) => response.json())
+                .then((data) => setRooms(data));
+        }, 700);
     }, []);
     if (rooms) {
         return (
