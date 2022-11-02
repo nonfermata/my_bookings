@@ -13,14 +13,14 @@
 }
 
 .item a:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 100%;
     left: 50%;
     background-color: var(--menu-item-color);
     width: 0;
     height: 2px;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
 }
 
 .item a:hover:after {

@@ -1,8 +1,7 @@
-.imgWrap {
-    position: relative;
-    min-width: 100%;
-    padding-top: 64%;
-    overflow: hidden;
+.roomContentWrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 4%;
 }
 
 .imageHor,
@@ -19,6 +18,70 @@
 
 .imageVert {
     height: 100%;
+}
+
+.roomDescription {
+    width: 36%;
+    padding-top: 5px;
+}
+
+.roomHeader {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    line-height: 1.2em;
+    font-size: 1.3em;
+    color: var(--brown-grey-color);
+    padding: 0 .4em 1em;
+}
+
+.price {
+    white-space: nowrap;
+}
+
+.briefDescriptionList {
+    line-height: 1.2em;
+    list-style: none;
+}
+
+.amenitiesTitle {
+    margin: 1.5em 0 .5em 1em;
+    font-weight: 500;
+}
+
+.amenitiesList {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1em;
+    row-gap: .15em;
+    font-size: .95em;
+    list-style: none;
+}
+
+.amenitiesList li:before {
+    content: '';
+    margin-right: 5px;
+    margin-bottom: 2px;
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #62a38d;
+}
+
+.imgWrap {
+    position: relative;
+    min-width: 100%;
+    padding-top: 64%;
+    overflow: hidden;
+}
+
+.buttonsWrap {
+    display: flex;
+    padding-top: 30px;
+    padding-right: 30px;
+    justify-content: flex-end;
+    gap: 30px;
 }
 
 .buttonSize {

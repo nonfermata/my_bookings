@@ -6,7 +6,10 @@
     --header-bg-color: #00758c;
     --menu-item-color: var(--base-bg-color);
     --menu-item-active-color: #99eeff;
-    --light-grey-color: hsl(50, 10%, 75%);
+    --light-grey-color: hsl(51, 10%, 75%);
+    --light-semi-grey-color: #aaa;
+    --semi-grey-color: #888;
+    --dark-grey-color: #646464;
     --ex-light-beige-color: #f5f5e9;
     --light-beige-color: #e0e0d1;
     --semi-beige-color: #d4d4c6;
@@ -20,6 +23,7 @@
     --slider-button-text: #f5f5e9b3;
     --slider-button-border: 1px solid #ccccbe88;
     --slider-indicators-color: #808080;
+    --button-green-color: #008c75;
 }
 
 * {
@@ -37,17 +41,27 @@ body,
 body {
     font-family: "Ubuntu", sans-serif;
     font-size: 15px;
-    line-height: 16px;
+    line-height: 1.2em;
     color: var(--base-color);
 }
 
 textarea,
 button,
-input {
+input,
+select {
     font-family: inherit;
+    color: inherit;
     font-size: inherit;
     border: none;
     outline: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.invisible {
+    opacity: 0;
 }
 
 a {

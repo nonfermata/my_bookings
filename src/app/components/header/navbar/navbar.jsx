@@ -4,9 +4,10 @@ import classes from "./navbar.module.css";
 
 const Navbar = () => {
     const menu = [
-        { id: 716345601, label: "rooms", name: "Наши номера" },
-        { id: 716345602, label: "favourites", name: "Избранное" },
-        { id: 716345603, label: "admin", name: "Панель администратора" }
+        { id: 716345601, label: "booking", name: "Главная" },
+        { id: 716345602, label: "rooms", name: "Наши номера" },
+        { id: 716345603, label: "favourites", name: "Избранное" }
+        // { id: 716345604, label: "admin", name: "Панель администратора" }
     ];
     const menuHTML = menu.map((item) => (
         <li key={item.id} className={classes.item}>

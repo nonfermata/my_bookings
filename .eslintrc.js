@@ -11,20 +11,13 @@ module.exports = {
     },
     plugins: ["react"],
     rules: {
-        // Отступ, кол-во пробелов
-        indent: ["error", 4],
-        "multiline-ternary": ["error", "always-multiline"],
-
-        // Точка с запятой в конце строки
+        indent: ["error", 4, { SwitchCase: 1 }],
         semi: [2, "always"],
-
-        // Пробел при обозночении функции
         "space-before-function-paren": [
             "error",
             { anonymous: "always", named: "never" }
         ],
-
-        // Использование двойных кавычек
-        quotes: ["error", "double", { allowTemplateLiterals: true }]
-    }
+        quotes: ["error", "double", { allowTemplateLiterals: true }],
+        "multiline-ternary": ["off"]
+}
 };

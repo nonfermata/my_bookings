@@ -2,14 +2,14 @@ import React from "react";
 import classes from "./header.module.css";
 import Navbar from "./navbar/navbar";
 import Logo from "./logo/logo";
-import SignInUpLinks from "./signInUpLinks/signInUpLinks";
+import LoginLink from "./loginLink/loginLink";
 
 const Header = () => {
     return (
         <header className={classes.header}>
             <Logo />
             <Navbar />
-            <SignInUpLinks />
+            <LoginLink />
         </header>
     );
 };

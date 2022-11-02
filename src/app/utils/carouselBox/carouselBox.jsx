@@ -28,7 +28,8 @@ const CarouselBox = ({ children }) => {
 
     const [indicatorActiveIndex, setIndicatorActiveIndex] = useState(0);
 
-    const indicatorsOffset = (gallery.length * 26 + (gallery.length - 1) * 6) / 2;
+    const indicatorsOffset =
+        (gallery.length * 26 + (gallery.length - 1) * 6) / 2;
 
     const handleSlideChange = (index) => {
         setIndicatorActiveIndex(index);
@@ -52,7 +53,12 @@ const CarouselBox = ({ children }) => {
             {gallery.map((element, index) => (
                 <div
                     key={index}
-                    className={classes.indicatorWrap + (index === indicatorActiveIndex ? " " + classes.indicatorWrapActive : "")}
+                    className={
+                        classes.indicatorWrap +
+                        (index === indicatorActiveIndex
+                            ? " " + classes.indicatorWrapActive
+                            : "")
+                    }
                     onClick={() => handleSlideChange(index)}
                 >
                     <div className={classes.indicator}></div>
