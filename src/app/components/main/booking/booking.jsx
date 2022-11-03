@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import classes from "./booking.module.css";
+import classes from "./booking.module.css";
 import DateChoice from "../../common/dateChoice/dateChoice";
 import moment from "moment";
 import "moment/locale/ru";
@@ -12,8 +12,22 @@ const Booking = () => {
 
     const handleSetDate = (key, date, opositeKey) => {
         setBookingData((prevState) => ({ ...prevState, [key]: date }));
-        if (opositeKey) setBookingData((prevState) => ({ ...prevState, [opositeKey]: "" }));
+        if (opositeKey) {
+            setBookingData((prevState) => ({ ...prevState, [opositeKey]: "" }));
+        }
     };
+
+    useEffect(() => {
+        if (bookingData.checkIn && bookingData.checkOut) {
+            const totalDays =
+                (Date.parse(bookingData.checkOut) -
+                    Date.parse(bookingData.checkIn)) /
+                86400000;
+            setBookingData((prevState) => ({ ...prevState, totalDays }));
+        } else {
+            setBookingData((prevState) => ({ ...prevState, totalDays: "" }));
+        }
+    }, [bookingData.checkIn, bookingData.checkOut]);
 
     useEffect(() => {
         const checkIn = bookingData.checkIn
@@ -24,23 +38,27 @@ const Booking = () => {
             ? moment(bookingData.checkOut).format("D MMMM, ddd")
             : "Выезд";
         setCheckOut(checkOut);
-        console.log(bookingData);
+        // console.log(bookingData);
     }, [bookingData]);
 
     return (
         <>
-            <DateChoice
-                choiceKey="checkIn"
-                choiceName={checkIn}
-                onSetDate={handleSetDate}
-                checkOutDate={bookingData.checkOut}
-            />
-            <DateChoice
-                choiceKey="checkOut"
-                choiceName={checkOut}
-                onSetDate={handleSetDate}
-                checkInDate={bookingData.checkIn}
-            />
+            <div className="mainTitle">Введите данные своей поездки,</div>
+            <div className={classes.subtitle}>и мы подберем для Вас лучшие номера!</div>
+            <div className={classes.bookingFormWrap}>
+                <DateChoice
+                    choiceKey="checkIn"
+                    choiceName={checkIn}
+                    onSetDate={handleSetDate}
+                    checkOutDate={bookingData.checkOut}
+                />
+                <DateChoice
+                    choiceKey="checkOut"
+                    choiceName={checkOut}
+                    onSetDate={handleSetDate}
+                    checkInDate={bookingData.checkIn}
+                />
+            </div>
         </>
     );
 };

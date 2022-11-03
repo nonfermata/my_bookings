@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {
+    getMonths,
+    getPossibleStartDate
+} from "../../../utils/renderCalendar/renderCalendar";
 import classes from "./dateChoice.module.css";
-import { getMonthDays, getMonths } from "../../../utils/calendarRender";
 import PropTypes from "prop-types";
+import MonthBlock from "./monthBlock";
 
 const DateChoice = ({
     choiceKey,
@@ -10,7 +14,7 @@ const DateChoice = ({
     checkInDate,
     checkOutDate
 }) => {
-    const [startPossibleDate, setStartPossibleDate] = useState();
+    const [possibleStartDate, setPossibleStartDate] = useState();
     const months = getMonths();
     const newDate = new Date();
     const currentDate = new Date(
@@ -19,24 +23,6 @@ const DateChoice = ({
         newDate.getDate()
     );
     const nextToCurrentDate = new Date(Date.parse(currentDate) + 86400000);
-
-    useEffect(() => {
-        if (choiceKey === "checkIn") {
-            setStartPossibleDate(new Date(Date.parse(currentDate)));
-        } else if (choiceKey === "checkOut") {
-            if (checkInDate) {
-                setStartPossibleDate(
-                    new Date(Date.parse(checkInDate) + 86400000)
-                );
-            } else {
-                setStartPossibleDate(
-                    new Date(Date.parse(currentDate) + 86400000)
-                );
-            }
-        }
-    }, [checkInDate, checkOutDate]);
-
-    const week = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"];
     const [monthPosition, setMonthPosition] = useState(0);
     const [showCalendar, setShowCalendar] = useState(false);
 
@@ -55,6 +41,12 @@ const DateChoice = ({
             setShowCalendar(false);
         }
     });
+
+    useEffect(() => {
+        setPossibleStartDate(
+            getPossibleStartDate(choiceKey, currentDate, checkInDate)
+        );
+    }, [checkInDate]);
 
     const handleSetDate = (key, date) => {
         if (date) {
@@ -102,6 +94,7 @@ const DateChoice = ({
                     classes.calendarWindow + (showCalendar ? "" : " hidden")
                 }
             >
+                <div className={classes.topArrow}></div>
                 <div
                     className={classes.calendarWrap}
                     style={{ marginLeft: monthPosition + "px" }}
@@ -118,49 +111,23 @@ const DateChoice = ({
                     <div
                         className={
                             classes.rightArrow +
-                            (monthPosition === -920 ? " hidden" : "")
+                            (monthPosition === -(months.length - 2) * 230
+                                ? " hidden"
+                                : "")
                         }
                         onClick={() => handleMovePosition(-1)}
                     >
                         &#9002;
                     </div>
                     {months.map((month) => (
-                        <div
-                            className={classes.monthWrap}
+                        <MonthBlock
                             key={month.monthName}
-                        >
-                            <div className={classes.monthName}>
-                                {month.monthName}
-                            </div>
-                            <div className={classes.daysGrid}>
-                                {week.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className={classes.dayNameCell}
-                                    >
-                                        <>{item}</>
-                                    </div>
-                                ))}
-                                {getMonthDays(month.startDate).map(
-                                    (date, index) => (
-                                        <div
-                                            key={index}
-                                            onClick={() =>
-                                                handleSetDate(choiceKey, date)
-                                            }
-                                            className={
-                                                (date >= startPossibleDate
-                                                    ? classes.dayCell
-                                                    : classes.passiveDayCell) +
-                                                (date ? "" : " invisible")
-                                            }
-                                        >
-                                            <>{date && date.getDate()}</>
-                                        </div>
-                                    )
-                                )}
-                            </div>
-                        </div>
+                            monthName={month.monthName}
+                            startDate={month.startDate}
+                            handleSetDate={handleSetDate}
+                            choiceKey={choiceKey}
+                            possibleStartDate={possibleStartDate}
+                        />
                     ))}
                 </div>
             </div>

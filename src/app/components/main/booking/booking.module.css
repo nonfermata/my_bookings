@@ -1,3 +1,12 @@
-.choiceWrap {
-    background-color: #99eeff;
+.bookingFormWrap {
+    display: flex;
+    gap: 20px;
+}
+
+.subtitle {
+    color: var(--header-bg-color);
+    font-size: 1.2em;
+    padding-left: 20px;
+    padding-bottom: 30px;
+    margin-top: -10px;
 }

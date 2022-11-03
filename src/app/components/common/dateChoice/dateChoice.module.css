@@ -1,16 +1,19 @@
 .choiceWrap {
     margin-bottom: 15px;
+    position: relative;
 }
 
 .choiceInitial,
 .choiceDate {
     width: 200px;
     padding: 8px;
+    height: 35px;
     border-radius: 3px;
     border: 1px solid var(--header-bg-color);
     background-color: white;
     text-align: center;
     user-select: none;
+    position: relative;
 }
 
 .choiceDate {
@@ -18,12 +21,25 @@
 }
 
 .calendarWindow {
+    position: absolute;
+    left: 0;
+    top: 35px;
     width: 480px;
-    padding: 15px 20px;
+    padding: 20px;
     overflow: hidden;
     border: var(--light-beige-border);
     border-radius: 5px;
-    position: relative;
+}
+
+.topArrow {
+    position: absolute;
+    top: 0;
+    left: 75px;
+    box-sizing: content-box;
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-top-color: var(--header-bg-color);
 }
 
 .leftArrow,
