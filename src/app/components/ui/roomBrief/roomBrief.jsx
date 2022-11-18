@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "./roomBrief.module.css";
 import PropTypes from "prop-types";
-import DeleteCrossButton from "../../common/deleteCrossButton";
+// import DeleteCrossButton from "../../common/deleteCrossButton";
 import Button from "../../common/button";
 import { NavLink } from "react-router-dom";
 
@@ -32,10 +32,10 @@ const RoomBrief = ({ id, name, briefDescription, price, mainPhoto, deleteRoom, f
             </ul>
             <div className={classes.price}>${price}</div>
             <div className={optionsClass}>
-                <DeleteCrossButton
-                    title="Delete"
-                    deleteItem={() => deleteRoom(id)}
-                />
+                {/* <DeleteCrossButton */}
+                {/*    title="Delete" */}
+                {/*    deleteItem={() => deleteRoom(id)} */}
+                {/* /> */}
             </div>
             <div className={classes.goToNumberBtn}>
                 <Button color="blue">

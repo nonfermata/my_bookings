@@ -3,42 +3,41 @@ import classes from "./booking.module.css";
 import DateChoice from "../../components/common/dateChoice/dateChoice";
 import moment from "moment";
 import "moment/locale/ru";
+import Button from "../../components/common/button";
+import { Link } from "react-router-dom";
 moment.locale("ru");
 
 const Booking = () => {
-    const [bookingData, setBookingData] = useState({});
+    const [booking, setBooking] = useState({});
     const [checkIn, setCheckIn] = useState();
     const [checkOut, setCheckOut] = useState();
 
     const handleSetDate = (key, date, checkOutReset) => {
-        setBookingData((prevState) => ({ ...prevState, [key]: date }));
+        setBooking((prevState) => ({ ...prevState, [key]: date }));
         if (checkOutReset) {
-            setBookingData((prevState) => ({ ...prevState, checkOut: "" }));
+            setBooking((prevState) => ({ ...prevState, checkOut: "" }));
         }
     };
-
     useEffect(() => {
-        if (bookingData.checkIn && bookingData.checkOut) {
+        if (booking.checkIn && booking.checkOut) {
             const totalDays =
-                (Date.parse(bookingData.checkOut) -
-                    Date.parse(bookingData.checkIn)) /
+                (Date.parse(booking.checkOut) - Date.parse(booking.checkIn)) /
                 86400000;
-            setBookingData((prevState) => ({ ...prevState, totalDays }));
+            setBooking((prevState) => ({ ...prevState, totalDays }));
         } else {
-            setBookingData((prevState) => ({ ...prevState, totalDays: "" }));
+            setBooking((prevState) => ({ ...prevState, totalDays: "" }));
         }
-    }, [bookingData.checkIn, bookingData.checkOut]);
-
+    }, [booking.checkIn, booking.checkOut]);
     useEffect(() => {
-        const checkIn = bookingData.checkIn
-            ? moment(bookingData.checkIn).format("D MMMM, ddd")
+        const checkIn = booking.checkIn
+            ? moment(booking.checkIn).format("D MMMM, ddd")
             : "Заезд";
         setCheckIn(checkIn);
-        const checkOut = bookingData.checkOut
-            ? moment(bookingData.checkOut).format("D MMMM, ddd")
+        const checkOut = booking.checkOut
+            ? moment(booking.checkOut).format("D MMMM, ddd")
             : "Выезд";
         setCheckOut(checkOut);
-    }, [bookingData]);
+    }, [booking]);
 
     return (
         <>
@@ -51,20 +50,25 @@ const Booking = () => {
                     choiceKey="checkIn"
                     choiceName={checkIn}
                     onSetDate={handleSetDate}
-                    checkOutDate={bookingData.checkOut}
+                    checkOutDate={booking.checkOut}
                 />
                 <p>–</p>
                 <DateChoice
                     choiceKey="checkOut"
                     choiceName={checkOut}
                     onSetDate={handleSetDate}
-                    checkInDate={bookingData.checkIn}
+                    checkInDate={booking.checkIn}
                 />
-                {bookingData.totalDays && (
-                    <div className={classes.totalDays}>
-                        Количество дней:
-                        <span className="fw500"> {bookingData.totalDays}</span>
-                    </div>
+                {booking.totalDays && (
+                    <>
+                        <div className={classes.totalDays}>
+                            Количество дней:
+                            <span className="fw500"> {booking.totalDays}</span>
+                        </div>
+                        <Link to="/rooms">
+                            <Button color="blue">Выбрать номер</Button>
+                        </Link>
+                    </>
                 )}
             </div>
         </>

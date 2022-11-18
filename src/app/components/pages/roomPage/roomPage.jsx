@@ -5,27 +5,17 @@ import Button from "../../common/button";
 import classes from "./roomPage.module.css";
 import CarouselBox from "../../ui/carouselBox/carouselBox";
 import api from "../../../api";
-import query from "query-string";
 import PropTypes from "prop-types";
 
-const RoomPage = ({ location }) => {
+const RoomPage = ({ booking }) => {
     const [room, setRoom] = useState();
     const { roomId } = useParams();
     useEffect(() => {
         api.rooms.getById(roomId).then((object) => setRoom(object));
     }, []);
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         fetch(`http://localhost:3001/rooms?id=${roomId}`)
-    //             .then((response) => response.json())
-    //             .then((data) => setRoom(...data));
-    //     }, 700);
-    // }, []);
-
     const history = useHistory();
-    const from = query.parse(location.search).from;
     const handleBack = () => {
-        history.push("/" + from);
+        history.goBack();
     };
 
     if (room) {
@@ -55,7 +45,9 @@ const RoomPage = ({ location }) => {
                     <div className={classes.roomDescription}>
                         <div className={classes.roomHeader}>
                             <p>{room.name}</p>
-                            <p className={classes.price}>{"$" + room.price + " / ночь"}</p>
+                            <p className={classes.price}>
+                                {"$" + room.price + " / ночь"}
+                            </p>
                         </div>
                         <ul className={classes.briefDescriptionList}>
                             {getHTMLList("briefDescription")}
@@ -84,12 +76,7 @@ const RoomPage = ({ location }) => {
                         </div>
                     </Button>
                     <Button color="green">
-                        <div
-                            className={classes.buttonSize}
-                            onClick={handleBack}
-                        >
-                            Забронировать
-                        </div>
+                        <div className={classes.buttonSize}>Забронировать</div>
                     </Button>
                 </div>
             </>
@@ -97,9 +84,8 @@ const RoomPage = ({ location }) => {
     }
     return <Loader />;
 };
-
 RoomPage.propTypes = {
-    location: PropTypes.object.isRequired
+    booking: PropTypes.object
 };
 
 export default RoomPage;

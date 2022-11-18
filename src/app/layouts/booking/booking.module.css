@@ -15,4 +15,5 @@
 .totalDays {
     font-size: 1.2em;
     color: var(--header-bg-color);
+    margin-right: 30px;
 }

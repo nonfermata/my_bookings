@@ -9,14 +9,6 @@ const Rooms = () => {
     useEffect(() => {
         api.rooms.fetchAll().then((data) => setRooms(data));
     }, []);
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         fetch("http://localhost:3001/rooms")
-    //             .then((response) => response.json())
-    //             .then((data) => setRooms(data));
-    //     }, 700);
-    // }, []);
-
     const handleDeleteRoom = (id) => {
         setRooms((rooms) => rooms.filter((room) => room.id !== id));
     };
@@ -30,7 +22,6 @@ const Rooms = () => {
                         <RoomBrief
                             key={room.id}
                             {...room}
-                            from="rooms"
                             deleteRoom={handleDeleteRoom}
                         />
                     ))}
