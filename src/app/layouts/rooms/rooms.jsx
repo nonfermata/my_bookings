@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Loader from "../../../utils/loader/loader";
+import Loader from "../../components/common/loader/loader";
 import classes from "./rooms.module.css";
-import RoomBrief from "../roomBrief/roomBrief";
-import api from "../../../../my-api";
+import RoomBrief from "../../components/ui/roomBrief/roomBrief";
+import api from "../../api";
 
 const Rooms = () => {
     const [rooms, setRooms] = useState();

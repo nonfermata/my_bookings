@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./booking.module.css";
-import DateChoice from "../../common/dateChoice/dateChoice";
+import DateChoice from "../../components/common/dateChoice/dateChoice";
 import moment from "moment";
 import "moment/locale/ru";
 moment.locale("ru");
@@ -43,7 +43,9 @@ const Booking = () => {
     return (
         <>
             <div className="mainTitle">Введите данные своей поездки,</div>
-            <div className={classes.subtitle}>и мы подберем для Вас лучшие номера!</div>
+            <div className={classes.subtitle}>
+                и мы подберем для Вас лучшие номера!
+            </div>
             <div className={classes.bookingFormWrap}>
                 <DateChoice
                     choiceKey="checkIn"
@@ -58,6 +60,12 @@ const Booking = () => {
                     onSetDate={handleSetDate}
                     checkInDate={bookingData.checkIn}
                 />
+                {bookingData.totalDays && (
+                    <div className={classes.totalDays}>
+                        Количество дней:
+                        <span className="fw500"> {bookingData.totalDays}</span>
+                    </div>
+                )}
             </div>
         </>
     );

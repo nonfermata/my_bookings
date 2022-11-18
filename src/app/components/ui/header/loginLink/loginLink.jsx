@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Button from "../../common/button";
+import Button from "../../../common/button";
 
 const LoginLink = () => {
     return (

@@ -44,7 +44,7 @@
     width: 20px;
     height: 20px;
     border: var(--light-beige-border);
-    background: url(../../assets/delete-btn.png);
+    background: url(../../assets/images/delete-btn.png);
     background-size: cover;
     cursor: pointer;
     opacity: .7;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
     getMonths,
     getPossibleStartDate
-} from "../../../utils/renderCalendar/renderCalendar";
+} from "../../../utils/renderCalendar";
 import classes from "./dateChoice.module.css";
 import PropTypes from "prop-types";
 import MonthBlock from "./monthBlock";

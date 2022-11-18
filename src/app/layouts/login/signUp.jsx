@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import classes from "./login.module.css";
-import Button from "../../common/button";
-import TextField from "../../common/form/textField";
-import validator from "../../../utils/validator";
-import validatorFields from "../../../utils/validatorFields";
-import RadioField from "../../common/form/radioField";
-import CheckBoxField from "../../common/form/checkBoxField";
-import SelectField from "../../common/form/selectField";
-import dataForDate from "../../../utils/dataForDate";
-import validateDate from "../../../utils/validateDate";
+import Button from "../../components/common/button";
+import TextField from "../../components/common/form/textField";
+import validator from "../../utils/validator";
+import validatorFields from "../../utils/validatorFields";
+import RadioField from "../../components/common/form/radioField";
+import CheckBoxField from "../../components/common/form/checkBoxField";
+import SelectField from "../../components/common/form/selectField";
+import dataForDate from "../../utils/dataForDate";
+import validateDate from "../../utils/validateDate";
 
 const SignUp = () => {
     const initialState = {

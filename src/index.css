@@ -69,9 +69,34 @@ a {
     text-decoration: none;
 }
 
+.container {
+    background-color: var(--base-bg-color);
+    width: 100%;
+    border: 1px solid var(--light-beige-color);
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100%;
+}
+
 .mainTitle {
     font-size: 1.5em;
     font-weight: 300;
     padding-bottom: 1em;
     padding-left: 20px;
+}
+
+.fw300 {
+    font-weight: 300;
+}
+.fw400 {
+    font-weight: 400;
+}
+.fw500 {
+    font-weight: 500;
+}
+.fw600 {
+    font-weight: 600;
+}
+.fw700 {
+    font-weight: 700;
 }

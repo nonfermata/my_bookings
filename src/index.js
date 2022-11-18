@@ -17,4 +17,3 @@ const renderAll = () => {
     );
 };
 renderAll();
-store.subscribe(renderAll);

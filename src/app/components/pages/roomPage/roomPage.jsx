@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import Loader from "../../../utils/loader/loader";
+import Loader from "../../common/loader/loader";
 import Button from "../../common/button";
 import classes from "./roomPage.module.css";
-import CarouselBox from "../../../utils/carouselBox/carouselBox";
-import api from "../../../../my-api";
+import CarouselBox from "../../ui/carouselBox/carouselBox";
+import api from "../../../api";
 import query from "query-string";
 import PropTypes from "prop-types";
 

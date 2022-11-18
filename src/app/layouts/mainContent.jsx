@@ -1,14 +1,14 @@
 import React from "react";
-import classes from "./main.module.css";
+import classes from "./mainContent.module.css";
 import { Route, Redirect } from "react-router-dom";
 import Favourites from "./favourites/favourites";
 import Admin from "./admin/admin";
-import RoomPage from "./roomPage/roomPage";
+import RoomPage from "../components/pages/roomPage/roomPage";
 import Booking from "./booking/booking";
 import Rooms from "./rooms/rooms";
 import Login from "./login/login";
 
-const Main = () => {
+const MainContent = () => {
     return (
         <div className={classes.mainContentBlock}>
             <Route
@@ -45,4 +45,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default MainContent;

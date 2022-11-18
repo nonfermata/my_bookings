@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import classes from "./login.module.css";
-import Button from "../../common/button";
-import TextField from "../../common/form/textField";
-import validator from "../../../utils/validator";
-import validatorFields from "../../../utils/validatorFields";
+import Button from "../../components/common/button";
+import TextField from "../../components/common/form/textField";
+import validator from "../../utils/validator";
+import validatorFields from "../../utils/validatorFields";
 
 const SignIn = () => {
     const initialState = {

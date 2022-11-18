@@ -1,5 +1,5 @@
 import React from "react";
-import { getMonthDays } from "../../../utils/renderCalendar/renderCalendar";
+import { getMonthDays } from "../../../utils/renderCalendar";
 import classes from "./dateChoice.module.css";
 import PropTypes from "prop-types";
 
