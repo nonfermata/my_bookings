@@ -106,7 +106,7 @@
 .checkBoxInput+label::before {
     content: '';
     display: block;
-    width: 17px;
+    width: 16px;
     height: 14px;
     border: 1px solid var(--header-bg-color);
     border-radius: 4px;

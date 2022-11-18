@@ -10,10 +10,10 @@ const Booking = () => {
     const [checkIn, setCheckIn] = useState();
     const [checkOut, setCheckOut] = useState();
 
-    const handleSetDate = (key, date, opositeKey) => {
+    const handleSetDate = (key, date, checkOutReset) => {
         setBookingData((prevState) => ({ ...prevState, [key]: date }));
-        if (opositeKey) {
-            setBookingData((prevState) => ({ ...prevState, [opositeKey]: "" }));
+        if (checkOutReset) {
+            setBookingData((prevState) => ({ ...prevState, checkOut: "" }));
         }
     };
 
@@ -38,7 +38,6 @@ const Booking = () => {
             ? moment(bookingData.checkOut).format("D MMMM, ddd")
             : "Выезд";
         setCheckOut(checkOut);
-        // console.log(bookingData);
     }, [bookingData]);
 
     return (
@@ -52,6 +51,7 @@ const Booking = () => {
                     onSetDate={handleSetDate}
                     checkOutDate={bookingData.checkOut}
                 />
+                <p>–</p>
                 <DateChoice
                     choiceKey="checkOut"
                     choiceName={checkOut}

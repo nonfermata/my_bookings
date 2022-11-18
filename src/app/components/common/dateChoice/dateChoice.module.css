@@ -1,11 +1,11 @@
 .choiceWrap {
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
     position: relative;
 }
 
 .choiceInitial,
 .choiceDate {
-    width: 200px;
+    width: 150px;
     padding: 8px;
     height: 35px;
     border-radius: 3px;
@@ -34,7 +34,7 @@
 .topArrow {
     position: absolute;
     top: 0;
-    left: 75px;
+    left: 50px;
     box-sizing: content-box;
     width: 0;
     height: 0;

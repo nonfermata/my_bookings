@@ -50,19 +50,15 @@ const DateChoice = ({
 
     const handleSetDate = (key, date) => {
         if (date) {
-            if (choiceKey === "checkIn") {
-                if (date >= currentDate) {
-                    if (date > checkOutDate) {
-                        onSetDate(key, date, "checkOut");
-                    } else onSetDate(key, date);
-                }
-            } else if (choiceKey === "checkOut") {
-                if (date >= nextToCurrentDate) {
-                    if (checkInDate) {
-                        if (date > checkInDate) {
-                            onSetDate(key, date);
-                        }
-                    } else {
+            if (choiceKey === "checkIn" && date >= currentDate) {
+                if (date >= checkOutDate) {
+                    onSetDate(key, date, "checkOutReset");
+                } else onSetDate(key, date);
+            } else if (choiceKey === "checkOut" && date >= nextToCurrentDate) {
+                if (!checkInDate) {
+                    onSetDate(key, date);
+                } else {
+                    if (date > checkInDate) {
                         onSetDate(key, date);
                     }
                 }
