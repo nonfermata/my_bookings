@@ -8,7 +8,11 @@ import { Link } from "react-router-dom";
 moment.locale("ru");
 
 const Booking = () => {
-    const [booking, setBooking] = useState({});
+    const [booking, setBooking] = useState({
+        checkIn: "",
+        checkOut: "",
+        totalDays: ""
+    });
     const [checkIn, setCheckIn] = useState();
     const [checkOut, setCheckOut] = useState();
 
@@ -47,15 +51,15 @@ const Booking = () => {
             </div>
             <div className={classes.bookingFormWrap}>
                 <DateChoice
-                    choiceKey="checkIn"
-                    choiceName={checkIn}
+                    choiceName="checkIn"
+                    choiceValue={checkIn}
                     onSetDate={handleSetDate}
                     checkOutDate={booking.checkOut}
                 />
                 <p>–</p>
                 <DateChoice
-                    choiceKey="checkOut"
-                    choiceName={checkOut}
+                    choiceName="checkOut"
+                    choiceValue={checkOut}
                     onSetDate={handleSetDate}
                     checkInDate={booking.checkIn}
                 />

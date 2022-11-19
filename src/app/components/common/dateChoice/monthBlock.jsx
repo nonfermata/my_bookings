@@ -7,14 +7,12 @@ const MonthBlock = ({
     monthName,
     startDate,
     handleSetDate,
-    choiceKey,
+    choiceName,
     possibleStartDate
 }) => {
     const week = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"];
     return (
-        <div
-            className={classes.monthWrap}
-        >
+        <div className={classes.monthWrap}>
             <div className={classes.monthName}>{monthName}</div>
             <div className={classes.daysGrid}>
                 {week.map((item, index) => (
@@ -28,7 +26,7 @@ const MonthBlock = ({
                 {getMonthDays(startDate).map((date, index) => (
                     <div
                         key={index}
-                        onClick={() => handleSetDate(choiceKey, date)}
+                        onClick={() => handleSetDate(choiceName, date)}
                         className={
                             (date >= possibleStartDate
                                 ? classes.dayCell
@@ -47,7 +45,7 @@ MonthBlock.propTypes = {
     monthName: PropTypes.string,
     startDate: PropTypes.object,
     handleSetDate: PropTypes.func,
-    choiceKey: PropTypes.string,
+    choiceName: PropTypes.string,
     possibleStartDate: PropTypes.object
 };
 

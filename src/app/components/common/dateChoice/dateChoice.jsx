@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-    getMonths,
-    getPossibleStartDate
-} from "../../../utils/renderCalendar";
+import { getMonths, getPossibleStartDate } from "../../../utils/renderCalendar";
 import classes from "./dateChoice.module.css";
 import PropTypes from "prop-types";
 import MonthBlock from "./monthBlock";
 
 const DateChoice = ({
-    choiceKey,
     choiceName,
+    choiceValue,
     onSetDate,
     checkInDate,
     checkOutDate
@@ -36,7 +33,7 @@ const DateChoice = ({
             !target.className.includes("dayNameCell") &&
             !target.className.includes("passiveDayCell") &&
             !target.className.includes("monthWrap") &&
-            target.id !== choiceKey
+            target.id !== choiceName
         ) {
             setShowCalendar(false);
         }
@@ -44,17 +41,17 @@ const DateChoice = ({
 
     useEffect(() => {
         setPossibleStartDate(
-            getPossibleStartDate(choiceKey, currentDate, checkInDate)
+            getPossibleStartDate(choiceName, currentDate, checkInDate)
         );
     }, [checkInDate]);
 
     const handleSetDate = (key, date) => {
         if (date) {
-            if (choiceKey === "checkIn" && date >= currentDate) {
+            if (choiceName === "checkIn" && date >= currentDate) {
                 if (date >= checkOutDate) {
                     onSetDate(key, date, "checkOutReset");
                 } else onSetDate(key, date);
-            } else if (choiceKey === "checkOut" && date >= nextToCurrentDate) {
+            } else if (choiceName === "checkOut" && date >= nextToCurrentDate) {
                 if (!checkInDate) {
                     onSetDate(key, date);
                 } else {
@@ -76,14 +73,14 @@ const DateChoice = ({
         <div className={classes.choiceWrap}>
             <div
                 className={
-                    /\d/g.test(choiceName)
+                    /\d/g.test(choiceValue)
                         ? classes.choiceDate
                         : classes.choiceInitial
                 }
                 onClick={handleChoice}
-                id={choiceKey}
+                id={choiceName}
             >
-                {choiceName}
+                {choiceValue}
             </div>
             <div
                 className={
@@ -121,7 +118,7 @@ const DateChoice = ({
                             monthName={month.monthName}
                             startDate={month.startDate}
                             handleSetDate={handleSetDate}
-                            choiceKey={choiceKey}
+                            choiceName={choiceName}
                             possibleStartDate={possibleStartDate}
                         />
                     ))}
@@ -131,8 +128,8 @@ const DateChoice = ({
     );
 };
 DateChoice.propTypes = {
-    choiceKey: PropTypes.string,
     choiceName: PropTypes.string,
+    choiceValue: PropTypes.string,
     checkInDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     checkOutDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     onSetDate: PropTypes.func
