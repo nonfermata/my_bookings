@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Rooms from "./rooms";
+import AllRooms from "./allRooms";
 import { isFavouriteChangeAC } from "../../../redux/roomsReducer";
 
 const mapStateToProps = (state) => ({
@@ -12,6 +12,6 @@ const mapDispatchToProps = (dispatch) => ({
     }
 });
 
-const RoomsContainer = connect(mapStateToProps, mapDispatchToProps)(Rooms);
+const AllRoomsContainer = connect(mapStateToProps, mapDispatchToProps)(AllRooms);
 
-export default RoomsContainer;
+export default AllRoomsContainer;

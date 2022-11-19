@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../../components/common/loader/loader";
-import classes from "./rooms.module.css";
+import classes from "./allRooms.module.css";
 import RoomBrief from "../../components/ui/roomBrief/roomBrief";
 import PropTypes from "prop-types";
 
-const Rooms = ({ roomsState, isFavouriteChange }) => {
+const AllRooms = ({ roomsState, isFavouriteChange }) => {
     const [rooms, setRooms] = useState();
     useEffect(() => {
         setRooms(roomsState);
@@ -21,6 +21,7 @@ const Rooms = ({ roomsState, isFavouriteChange }) => {
                     {rooms.map((room) => (
                         <RoomBrief
                             key={room._id}
+                            parent="allRooms"
                             handleFavouriteChange={handleFavouriteChange}
                             {...room}
                         />
@@ -31,9 +32,9 @@ const Rooms = ({ roomsState, isFavouriteChange }) => {
     }
     return <Loader />;
 };
-Rooms.propTypes = {
+AllRooms.propTypes = {
     roomsState: PropTypes.arrayOf(PropTypes.object),
     isFavouriteChange: PropTypes.func
 };
 
-export default Rooms;
+export default AllRooms;

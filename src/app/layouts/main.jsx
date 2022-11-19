@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import classes from "./main.module.css";
 import { Route, Redirect } from "react-router-dom";
-import Favourites from "./favourites/favourites";
 import Admin from "./admin/admin";
 import RoomPage from "../components/pages/roomPage/roomPage";
 import BookingContainer from "./booking/bookingContainer";
 import Login from "./login/login";
-import RoomsContainer from "./rooms/roomsContainer";
+import AllRoomsContainer from "./allRooms/allRoomsContainer";
 import axios from "axios";
 import PropTypes from "prop-types";
+import FavouritesContainer from "./favourites/favouritesContainer";
 
 const Main = ({ setRoomsToState }) => {
     useEffect(() => {
@@ -26,7 +26,7 @@ const Main = ({ setRoomsToState }) => {
             <Route
                 exact
                 path="/rooms"
-                component={RoomsContainer}
+                component={AllRoomsContainer}
             />
             <Route
                 path="/rooms/:roomId"
@@ -34,7 +34,7 @@ const Main = ({ setRoomsToState }) => {
             />
             <Route
                 path="/favourites"
-                component={Favourites}
+                component={FavouritesContainer}
             />
             <Route
                 path="/admin"
