@@ -1,10 +1,11 @@
 const NUMBER_OF_MONTHS = 6;
 
 export const getMonthDays = (startDate) => {
-    const month = startDate.getMonth();
-    const year = startDate.getFullYear();
+    const date = new Date(startDate);
+    const month = date.getMonth();
+    const year = date.getFullYear();
     const monthsDays = [];
-    const emptyDays = (startDate.getDay() + 6) % 7;
+    const emptyDays = (date.getDay() + 6) % 7;
     for (let i = 1; i <= emptyDays; i += 1) {
         monthsDays.push("");
     }
@@ -16,9 +17,8 @@ export const getMonthDays = (startDate) => {
         else daysNumber = 28;
     } else daysNumber = 31;
     for (let i = 1; i <= daysNumber; i += 1) {
-        startDate.setDate(i);
-        const ms = Date.parse(startDate);
-        monthsDays.push(new Date(ms));
+        date.setDate(i);
+        monthsDays.push(Date.parse(date));
     }
     return monthsDays;
 };
@@ -37,7 +37,7 @@ export const getMonths = () => {
             year += 1;
         }
         months.push({
-            startDate: new Date(year, month, 1),
+            startDate: Date.parse(new Date(year, month, 1)),
             monthName: getMonthName(month) + " " + year
         });
     }
@@ -62,14 +62,14 @@ function getMonthName(month) {
     return arr[month];
 }
 
-export const getPossibleStartDate = (choiceKey, currentDate, checkInDate) => {
-    if (choiceKey === "checkIn") {
-        return new Date(Date.parse(currentDate));
-    } else if (choiceKey === "checkOut") {
+export const getPossibleStartDate = (choiceName, currentDate, checkInDate) => {
+    if (choiceName === "checkIn") {
+        return currentDate;
+    } else if (choiceName === "checkOut") {
         if (checkInDate) {
-            return new Date(Date.parse(checkInDate) + 86400000);
+            return checkInDate + 86400000;
         } else {
-            return new Date(Date.parse(currentDate) + 86400000);
+            return currentDate + 86400000;
         }
     }
 };

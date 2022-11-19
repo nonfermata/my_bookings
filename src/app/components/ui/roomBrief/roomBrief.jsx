@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Button from "../../common/button";
 import { NavLink } from "react-router-dom";
 
-const RoomBrief = ({ id, name, briefDescription, price, mainPhoto, deleteRoom, from }) => {
+const RoomBrief = ({ id, name, briefDescription, price, mainPhoto, deleteRoom }) => {
     const briefDescriptionHTML = briefDescription.map((item) => (
         <li key={item}>{item}</li>
     ));
@@ -39,7 +39,7 @@ const RoomBrief = ({ id, name, briefDescription, price, mainPhoto, deleteRoom, f
             </div>
             <div className={classes.goToNumberBtn}>
                 <Button color="blue">
-                    <NavLink to={"/rooms/" + id + "?from=" + from}>Посмотреть</NavLink>
+                    <NavLink to={"/rooms/" + id}>Посмотреть</NavLink>
                 </Button>
             </div>
         </div>
@@ -48,7 +48,6 @@ const RoomBrief = ({ id, name, briefDescription, price, mainPhoto, deleteRoom, f
 
 RoomBrief.propTypes = {
     name: PropTypes.string.isRequired,
-    from: PropTypes.string.isRequired,
     mainPhoto: PropTypes.string.isRequired,
     briefDescription: PropTypes.array.isRequired,
     price: PropTypes.number.isRequired,

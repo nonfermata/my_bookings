@@ -11,6 +11,10 @@ const MonthBlock = ({
     possibleStartDate
 }) => {
     const week = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"];
+    function getDayNumber(date) {
+        const newDate = new Date(date);
+        return newDate.getDate();
+    }
     return (
         <div className={classes.monthWrap}>
             <div className={classes.monthName}>{monthName}</div>
@@ -34,7 +38,7 @@ const MonthBlock = ({
                             (date ? "" : " invisible")
                         }
                     >
-                        <>{date && date.getDate()}</>
+                        <>{date && getDayNumber(date)}</>
                     </div>
                 ))}
             </div>
@@ -43,10 +47,10 @@ const MonthBlock = ({
 };
 MonthBlock.propTypes = {
     monthName: PropTypes.string,
-    startDate: PropTypes.object,
+    startDate: PropTypes.number,
     handleSetDate: PropTypes.func,
     choiceName: PropTypes.string,
-    possibleStartDate: PropTypes.object
+    possibleStartDate: PropTypes.number
 };
 
 export default MonthBlock;

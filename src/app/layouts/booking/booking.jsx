@@ -13,8 +13,8 @@ const Booking = () => {
         checkOut: "",
         totalDays: ""
     });
-    const [checkIn, setCheckIn] = useState();
-    const [checkOut, setCheckOut] = useState();
+    // const [checkInString, setCheckInString] = useState();
+    // const [checkOutString, setCheckOutString] = useState();
 
     const handleSetDate = (key, date, checkOutReset) => {
         setBooking((prevState) => ({ ...prevState, [key]: date }));
@@ -24,24 +24,15 @@ const Booking = () => {
     };
     useEffect(() => {
         if (booking.checkIn && booking.checkOut) {
-            const totalDays =
-                (Date.parse(booking.checkOut) - Date.parse(booking.checkIn)) /
-                86400000;
+            const totalDays = (booking.checkOut - booking.checkIn) / 86400000;
             setBooking((prevState) => ({ ...prevState, totalDays }));
         } else {
             setBooking((prevState) => ({ ...prevState, totalDays: "" }));
         }
     }, [booking.checkIn, booking.checkOut]);
-    useEffect(() => {
-        const checkIn = booking.checkIn
-            ? moment(booking.checkIn).format("D MMMM, ddd")
-            : "Заезд";
-        setCheckIn(checkIn);
-        const checkOut = booking.checkOut
-            ? moment(booking.checkOut).format("D MMMM, ddd")
-            : "Выезд";
-        setCheckOut(checkOut);
-    }, [booking]);
+    const handleClick = () => {
+        console.log(booking);
+    };
 
     return (
         <>
@@ -52,25 +43,30 @@ const Booking = () => {
             <div className={classes.bookingFormWrap}>
                 <DateChoice
                     choiceName="checkIn"
-                    choiceValue={checkIn}
+                    choiceValue={booking.checkIn}
                     onSetDate={handleSetDate}
                     checkOutDate={booking.checkOut}
                 />
                 <p>–</p>
                 <DateChoice
                     choiceName="checkOut"
-                    choiceValue={checkOut}
+                    choiceValue={booking.checkOut}
                     onSetDate={handleSetDate}
                     checkInDate={booking.checkIn}
                 />
                 {booking.totalDays && (
                     <>
                         <div className={classes.totalDays}>
-                            Количество дней:
+                            Количество ночей:
                             <span className="fw500"> {booking.totalDays}</span>
                         </div>
                         <Link to="/rooms">
-                            <Button color="blue">Выбрать номер</Button>
+                            <Button
+                                color="blue"
+                                onClick={handleClick}
+                            >
+                                Выбрать номер
+                            </Button>
                         </Link>
                     </>
                 )}

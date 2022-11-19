@@ -3,6 +3,9 @@ import { getMonths, getPossibleStartDate } from "../../../utils/renderCalendar";
 import classes from "./dateChoice.module.css";
 import PropTypes from "prop-types";
 import MonthBlock from "./monthBlock";
+import moment from "moment";
+import "moment/locale/ru";
+moment.locale("ru");
 
 const DateChoice = ({
     choiceName,
@@ -11,15 +14,24 @@ const DateChoice = ({
     checkInDate,
     checkOutDate
 }) => {
+    let choiceValueString, dateClass;
+    if (!choiceValue) {
+        dateClass = classes.choiceInitial;
+        choiceValueString = choiceName === "checkIn" ? "Заезд" : "Выезд";
+    } else {
+        dateClass = classes.choiceDate;
+        choiceValueString = moment(choiceValue).format("D MMMM, ddd");
+    }
     const [possibleStartDate, setPossibleStartDate] = useState();
     const months = getMonths();
-    const newDate = new Date();
-    const currentDate = new Date(
-        newDate.getFullYear(),
-        newDate.getMonth(),
-        newDate.getDate()
+    const date = new Date();
+    const roundDate = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
     );
-    const nextToCurrentDate = new Date(Date.parse(currentDate) + 86400000);
+    const currentDate = Date.parse(roundDate);
+    const nextToCurrentDate = currentDate + 86400000;
     const [monthPosition, setMonthPosition] = useState(0);
     const [showCalendar, setShowCalendar] = useState(false);
 
@@ -45,18 +57,18 @@ const DateChoice = ({
         );
     }, [checkInDate]);
 
-    const handleSetDate = (key, date) => {
+    const handleSetDate = (name, date) => {
         if (date) {
             if (choiceName === "checkIn" && date >= currentDate) {
                 if (date >= checkOutDate) {
-                    onSetDate(key, date, "checkOutReset");
-                } else onSetDate(key, date);
+                    onSetDate(name, date, "checkOutReset");
+                } else onSetDate(name, date);
             } else if (choiceName === "checkOut" && date >= nextToCurrentDate) {
                 if (!checkInDate) {
-                    onSetDate(key, date);
+                    onSetDate(name, date);
                 } else {
                     if (date > checkInDate) {
-                        onSetDate(key, date);
+                        onSetDate(name, date);
                     }
                 }
             }
@@ -72,15 +84,11 @@ const DateChoice = ({
     return (
         <div className={classes.choiceWrap}>
             <div
-                className={
-                    /\d/g.test(choiceValue)
-                        ? classes.choiceDate
-                        : classes.choiceInitial
-                }
+                className={dateClass}
                 onClick={handleChoice}
                 id={choiceName}
             >
-                {choiceValue}
+                {choiceValueString}
             </div>
             <div
                 className={
@@ -129,9 +137,9 @@ const DateChoice = ({
 };
 DateChoice.propTypes = {
     choiceName: PropTypes.string,
-    choiceValue: PropTypes.string,
-    checkInDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-    checkOutDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    choiceValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    checkInDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    checkOutDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     onSetDate: PropTypes.func
 };
 
