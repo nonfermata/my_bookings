@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 import Favourites from "./favourites/favourites";
 import Admin from "./admin/admin";
 import RoomPage from "../components/pages/roomPage/roomPage";
-import Booking from "./booking/booking";
+import BookingContainer from "./booking/bookingContainer";
 import Rooms from "./rooms/rooms";
 import Login from "./login/login";
 
@@ -14,7 +14,7 @@ const MainContent = () => {
             <Route
                 exact
                 path="/booking"
-                component={Booking}
+                component={BookingContainer}
             />
             <Route
                 exact

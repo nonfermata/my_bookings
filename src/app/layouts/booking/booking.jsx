@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import classes from "./booking.module.css";
 import DateChoice from "../../components/common/dateChoice/dateChoice";
+import Button from "../../components/common/button";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ru";
-import Button from "../../components/common/button";
-import { Link } from "react-router-dom";
 moment.locale("ru");
 
-const Booking = () => {
-    const [booking, setBooking] = useState({
-        checkIn: "",
-        checkOut: "",
-        totalDays: ""
-    });
-    // const [checkInString, setCheckInString] = useState();
-    // const [checkOutString, setCheckOutString] = useState();
+const Booking = ({ bookingState, setBookingState }) => {
+    const [booking, setBooking] = useState(bookingState);
 
     const handleSetDate = (key, date, checkOutReset) => {
         setBooking((prevState) => ({ ...prevState, [key]: date }));
@@ -32,6 +27,7 @@ const Booking = () => {
     }, [booking.checkIn, booking.checkOut]);
     const handleClick = () => {
         console.log(booking);
+        setBookingState(booking);
     };
 
     return (
@@ -73,6 +69,10 @@ const Booking = () => {
             </div>
         </>
     );
+};
+Booking.propTypes = {
+    bookingState: PropTypes.object,
+    setBookingState: PropTypes.func
 };
 
 export default Booking;
