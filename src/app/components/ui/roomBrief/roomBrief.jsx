@@ -67,7 +67,7 @@ const RoomBrief = ({
             <div className={classes.price}>${price}</div>
             <div className={classes.goToNumberBtn}>
                 <Button color="blue">
-                    <NavLink to={"/allRooms/" + _id}>Посмотреть</NavLink>
+                    <NavLink to={"/rooms/" + _id}>Посмотреть</NavLink>
                 </Button>
             </div>
         </div>

@@ -4,14 +4,14 @@ import Loader from "../../common/loader/loader";
 import Button from "../../common/button";
 import classes from "./roomPage.module.css";
 import CarouselBox from "../../ui/carouselBox/carouselBox";
-import api from "../../../api";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const RoomPage = () => {
-    const [room, setRoom] = useState();
+const RoomPage = ({ roomsState }) => {
     const { roomId } = useParams();
+    const [room, setRoom] = useState();
     useEffect(() => {
-        api.rooms.getById(roomId).then((object) => setRoom(object));
+        setRoom(roomsState.find((room) => room._id === roomId));
     }, []);
     const history = useHistory();
     const handleBack = () => {
@@ -85,7 +85,12 @@ const RoomPage = () => {
     return <Loader />;
 };
 RoomPage.propTypes = {
-    booking: PropTypes.object
+    booking: PropTypes.object,
+    roomsState: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default RoomPage;
+const mapStateToProps = ({ roomsState }) => ({
+    roomsState
+});
+
+export default connect(mapStateToProps)(RoomPage);

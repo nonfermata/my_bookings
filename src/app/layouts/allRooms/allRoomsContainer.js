@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import AllRooms from "./allRooms";
 import { isFavouriteChangeAC } from "../../../redux/roomsReducer";
+import AllRooms from "./allRooms";
 
-const mapStateToProps = (state) => ({
-    roomsState: state.roomsState
+const mapStateToProps = ({ roomsState }) => ({
+    roomsState
 });
 
 const mapDispatchToProps = (dispatch) => ({

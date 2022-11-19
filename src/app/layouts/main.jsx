@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import classes from "./main.module.css";
 import { Route, Redirect } from "react-router-dom";
 import Admin from "./admin/admin";
-import RoomPage from "../components/pages/roomPage/roomPage";
 import BookingContainer from "./booking/bookingContainer";
 import Login from "./login/login";
 import AllRoomsContainer from "./allRooms/allRoomsContainer";
 import PropTypes from "prop-types";
 import FavouritesContainer from "./favourites/favouritesContainer";
 import api from "../api";
+import RoomPage from "../components/pages/roomPage/roomPage";
 // import axios from "axios";
 
 const Main = ({ setRoomsToState }) => {
