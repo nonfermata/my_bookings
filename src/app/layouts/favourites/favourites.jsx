@@ -30,7 +30,7 @@ const Favourites = ({ roomsState, isFavouriteChange }) => {
                         ))
                     ) : (
                         <div className={classes.noFavourites}>
-                            Здесь пока ничего нет :(
+                            Вы пока ничего сюда не добавили :(
                         </div>
                     )}
                 </div>

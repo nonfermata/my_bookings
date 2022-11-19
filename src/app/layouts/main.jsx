@@ -6,15 +6,17 @@ import RoomPage from "../components/pages/roomPage/roomPage";
 import BookingContainer from "./booking/bookingContainer";
 import Login from "./login/login";
 import AllRoomsContainer from "./allRooms/allRoomsContainer";
-import axios from "axios";
 import PropTypes from "prop-types";
 import FavouritesContainer from "./favourites/favouritesContainer";
+import api from "../api";
+// import axios from "axios";
 
 const Main = ({ setRoomsToState }) => {
     useEffect(() => {
-        axios
-            .get("http://localhost:3001/rooms")
-            .then((response) => setRoomsToState(response.data));
+        api.rooms.fetchAll().then((response) => setRoomsToState(response));
+        // axios
+        //     .get("http://localhost:3001/rooms")
+        //     .then((response) => setRoomsToState(response.data));
     }, []);
     return (
         <div className={classes.mainContentBlock}>

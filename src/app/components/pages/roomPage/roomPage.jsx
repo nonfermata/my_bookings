@@ -7,7 +7,7 @@ import CarouselBox from "../../ui/carouselBox/carouselBox";
 import api from "../../../api";
 import PropTypes from "prop-types";
 
-const RoomPage = ({ booking }) => {
+const RoomPage = () => {
     const [room, setRoom] = useState();
     const { roomId } = useParams();
     useEffect(() => {
@@ -17,31 +17,31 @@ const RoomPage = ({ booking }) => {
     const handleBack = () => {
         history.goBack();
     };
+    const getHTMLList = (prop) => {
+        return room[prop].map((item) => <li key={item}>{item}</li>);
+    };
 
     if (room) {
-        const photosHTML = room.photos.map((photo) => (
-            <div
-                className={classes.imgWrap}
-                key={photo.url}
-            >
-                <img
-                    className={
-                        photo.orient === "hor"
-                            ? classes.imageHor
-                            : classes.imageVert
-                    }
-                    src={photo.url}
-                />
-            </div>
-        ));
-        const getHTMLList = (prop) => {
-            return room[prop].map((item) => <li key={item}>{item}</li>);
-        };
-
         return (
             <>
                 <div className={classes.roomContentWrap}>
-                    <CarouselBox>{photosHTML}</CarouselBox>
+                    <CarouselBox>
+                        {room.photos.map((photo) => (
+                            <div
+                                className={classes.imgWrap}
+                                key={photo.url}
+                            >
+                                <img
+                                    className={
+                                        photo.orient === "hor"
+                                            ? classes.imageHor
+                                            : classes.imageVert
+                                    }
+                                    src={photo.url}
+                                />
+                            </div>
+                        ))}
+                    </CarouselBox>
                     <div className={classes.roomDescription}>
                         <div className={classes.roomHeader}>
                             <p>{room.name}</p>

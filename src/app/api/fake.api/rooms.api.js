@@ -1,6 +1,6 @@
 const rooms = [
     {
-        id: "26817601",
+        _id: "26817601",
         name: "Двухместный номер «Эконом-1»",
         capacity: 2,
         price: 30,
@@ -67,7 +67,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817602",
+        _id: "26817602",
         name: "Двухместный номер «Эконом-2»",
         capacity: 2,
         price: 30,
@@ -129,7 +129,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817603",
+        _id: "26817603",
         name: "Двухместный номер «Стандарт-1»",
         capacity: 3,
         price: 50,
@@ -187,7 +187,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817604",
+        _id: "26817604",
         name: "Двухместный номер «Стандарт-2»",
         capacity: 2,
         price: 50,
@@ -250,7 +250,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817605",
+        _id: "26817605",
         name: "Трехместный номер «Эконом»",
         capacity: 3,
         price: 50,
@@ -317,7 +317,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817606",
+        _id: "26817606",
         name: "Трехместный номер «Стандарт»",
         capacity: 3,
         price: 80,
@@ -379,7 +379,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817607",
+        _id: "26817607",
         name: "Двухместные апартаменты",
         capacity: 2,
         price: 100,
@@ -442,7 +442,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817608",
+        _id: "26817608",
         name: "Семейный номер с собственной кухней",
         capacity: 4,
         price: 120,
@@ -508,7 +508,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817609",
+        _id: "26817609",
         name: "Апартаменты «Люкс»",
         capacity: 4,
         price: 150,
@@ -582,7 +582,7 @@ const rooms = [
         isFavourite: false
     },
     {
-        id: "26817610",
+        _id: "26817610",
         name: "Апартаменты «Супер-люкс»",
         capacity: 5,
         price: 200,
