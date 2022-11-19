@@ -4,11 +4,13 @@ import PropTypes from "prop-types";
 import eye from "../eye";
 
 const TextField = ({ type, onChange, placeholder, name, value, error }) => {
+    const [isFirstRender, setIsFirstRender] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const toogleShowPassword = () => {
         setShowPassword((prevState) => !prevState);
     };
     const handleChange = ({ target }) => {
+        if (isFirstRender) setIsFirstRender(false);
         onChange(name, target.value);
     };
     return (
@@ -31,7 +33,7 @@ const TextField = ({ type, onChange, placeholder, name, value, error }) => {
                     {showPassword ? eye.slash : eye.open}
                 </div>
             )}
-            {error && <p className={classes.error}>{error}</p>}
+            {error && !isFirstRender && <p className={classes.error}>{error}</p>}
         </div>
     );
 };
