@@ -4,7 +4,7 @@ import bookingReducer from "./bookingReducer";
 
 const reducers = combineReducers({
     rooms: roomsReducer,
-    booking: bookingReducer
+    bookingState: bookingReducer
 });
 
 const store = createStore(reducers);

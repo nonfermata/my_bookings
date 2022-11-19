@@ -26,7 +26,6 @@ const Booking = ({ bookingState, setBookingState }) => {
         }
     }, [booking.checkIn, booking.checkOut]);
     const handleClick = () => {
-        console.log(booking);
         setBookingState(booking);
     };
 

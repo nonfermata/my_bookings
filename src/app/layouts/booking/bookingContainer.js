@@ -3,7 +3,7 @@ import Booking from "./booking";
 import { setBookingAC } from "../../../redux/bookingReducer";
 
 const mapStateToProps = (state) => ({
-    bookingState: state.booking
+    bookingState: state.bookingState
 });
 
 const mapDispatchToProps = (dispatch) => ({
