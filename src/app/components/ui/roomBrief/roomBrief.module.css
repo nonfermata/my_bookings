@@ -57,12 +57,16 @@
     color: var(--brown-grey-color);
 }
 
-.options {
+.heart {
     position: absolute;
-    top: 17px;
-    left: 17px;
-    display: flex;
-    gap: 3px;
+    z-index: 1;
+    top: 18px;
+    right: 18px;
+    color: var(--ex-light-beige-color);
+    background-color: #00000055;
+    padding: 5px 5px 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .hidden {
