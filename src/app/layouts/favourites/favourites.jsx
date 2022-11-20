@@ -3,6 +3,8 @@ import Loader from "../../components/common/loader/loader";
 import classes from "./favourites.module.css";
 import RoomBrief from "../../components/ui/roomBrief/roomBrief";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { isFavouriteChangeAC } from "../../../redux/roomsReducer";
 
 const Favourites = ({ roomsState, isFavouriteChange }) => {
     const [rooms, setRooms] = useState();
@@ -44,4 +46,14 @@ Favourites.propTypes = {
     isFavouriteChange: PropTypes.func
 };
 
-export default Favourites;
+const mapStateToProps = ({ roomsState }) => ({
+    roomsState
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    isFavouriteChange: (id) => {
+        dispatch(isFavouriteChangeAC(id));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favourites);

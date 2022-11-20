@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../../components/common/loader/loader";
-import classes from "./allRooms.module.css";
+import classes from "./rooms.module.css";
 import RoomBrief from "../../components/ui/roomBrief/roomBrief";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { isFavouriteChangeAC } from "../../../redux/roomsReducer";
 
-const AllRooms = ({ roomsState, isFavouriteChange }) => {
+const Rooms = ({ roomsState, isFavouriteChange }) => {
     const [rooms, setRooms] = useState();
     useEffect(() => {
         setRooms(roomsState);
@@ -32,9 +34,19 @@ const AllRooms = ({ roomsState, isFavouriteChange }) => {
     }
     return <Loader />;
 };
-AllRooms.propTypes = {
+Rooms.propTypes = {
     roomsState: PropTypes.arrayOf(PropTypes.object),
     isFavouriteChange: PropTypes.func
 };
 
-export default AllRooms;
+const mapStateToProps = ({ roomsState }) => ({
+    roomsState
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    isFavouriteChange: (id) => {
+        dispatch(isFavouriteChangeAC(id));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Rooms);

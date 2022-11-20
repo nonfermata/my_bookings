@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ru";
+import { connect } from "react-redux";
+import { setBookingAC } from "../../../redux/bookingReducer";
 moment.locale("ru");
 
 const Booking = ({ bookingState, setBookingState }) => {
@@ -74,4 +76,14 @@ Booking.propTypes = {
     setBookingState: PropTypes.func
 };
 
-export default Booking;
+const mapStateToProps = ({ bookingState }) => ({
+    bookingState
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setBookingState: (booking) => {
+        dispatch(setBookingAC(booking));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Booking);

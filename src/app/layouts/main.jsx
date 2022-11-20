@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import classes from "./main.module.css";
 import { Route, Redirect } from "react-router-dom";
-import Admin from "./admin/admin";
-import BookingContainer from "./booking/bookingContainer";
-import Login from "./login/login";
-import AllRoomsContainer from "./allRooms/allRoomsContainer";
+import classes from "./main.module.css";
+import Admin from "./admin";
+import Booking from "./booking";
+import Login from "./login";
+import Rooms from "./rooms";
 import PropTypes from "prop-types";
-import FavouritesContainer from "./favourites/favouritesContainer";
+import Favourites from "./favourites";
 import api from "../api";
-import RoomPage from "../components/pages/roomPage/roomPage";
+import RoomPage from "../components/pages/roomPage";
 // import axios from "axios";
 
 const Main = ({ setRoomsToState }) => {
@@ -23,12 +23,12 @@ const Main = ({ setRoomsToState }) => {
             <Route
                 exact
                 path="/booking"
-                component={BookingContainer}
+                component={Booking}
             />
             <Route
                 exact
                 path="/rooms"
-                component={AllRoomsContainer}
+                component={Rooms}
             />
             <Route
                 path="/rooms/:roomId"
@@ -36,7 +36,7 @@ const Main = ({ setRoomsToState }) => {
             />
             <Route
                 path="/favourites"
-                component={FavouritesContainer}
+                component={Favourites}
             />
             <Route
                 path="/admin"
