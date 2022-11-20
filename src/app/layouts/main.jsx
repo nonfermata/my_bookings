@@ -1,22 +1,24 @@
 import React, { useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import classes from "./main.module.css";
-import Admin from "./admin";
 import Booking from "./booking";
-import Login from "./login";
 import Rooms from "./rooms";
-import PropTypes from "prop-types";
 import Favourites from "./favourites";
-import api from "../api";
+import Admin from "./admin";
+import Login from "./login";
 import RoomPage from "../components/pages/roomPage";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { setRoomsToStoreAC } from "../../redux/roomsReducer";
+import api from "../api";
 // import axios from "axios";
 
-const Main = ({ setRoomsToState }) => {
+const Main = ({ setRoomsToStore }) => {
     useEffect(() => {
-        api.rooms.fetchAll().then((response) => setRoomsToState(response));
+        api.rooms.fetchAll().then((response) => setRoomsToStore(response));
         // axios
         //     .get("http://localhost:3001/rooms")
-        //     .then((response) => setRoomsToState(response.data));
+        //     .then((response) => setRoomsToStore(response.data));
     }, []);
     return (
         <div className={classes.mainContentBlock}>
@@ -54,7 +56,13 @@ const Main = ({ setRoomsToState }) => {
     );
 };
 Main.propTypes = {
-    setRoomsToState: PropTypes.func
+    setRoomsToStore: PropTypes.func
 };
 
-export default Main;
+const mapDispatchToProps = (dispatch) => ({
+    setRoomsToStore: (rooms) => {
+        dispatch(setRoomsToStoreAC(rooms));
+    }
+});
+
+export default connect(() => ({}), mapDispatchToProps)(Main);

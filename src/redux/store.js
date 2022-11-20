@@ -3,8 +3,8 @@ import roomsReducer from "./roomsReducer";
 import bookingReducer from "./bookingReducer";
 
 const reducers = combineReducers({
-    roomsState: roomsReducer,
-    bookingState: bookingReducer
+    rooms: roomsReducer,
+    booking: bookingReducer
 });
 
 const store = createStore(reducers);

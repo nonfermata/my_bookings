@@ -1,10 +1,10 @@
 const initialState = [];
 
-const setRoomsToState = "SET_ROOMS_TO_STATE";
+const setRoomsToStore = "SET_ROOMS_TO_STORE";
 const isFavouriteChange = "IS_FAVOURITE_CHANGE";
 
-export const setRoomsToStateAC = (rooms) => ({
-    type: setRoomsToState,
+export const setRoomsToStoreAC = (rooms) => ({
+    type: setRoomsToStore,
     rooms
 });
 
@@ -15,7 +15,7 @@ export const isFavouriteChangeAC = (id) => ({
 
 const roomsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case setRoomsToState:
+        case setRoomsToStore:
             return [...action.rooms];
         case isFavouriteChange:
             return state.map((room) => {

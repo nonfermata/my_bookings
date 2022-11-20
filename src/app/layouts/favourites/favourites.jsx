@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { isFavouriteChangeAC } from "../../../redux/roomsReducer";
 
-const Favourites = ({ roomsState, isFavouriteChange }) => {
+const Favourites = ({ rooms: roomsState, isFavouriteChange }) => {
     const [rooms, setRooms] = useState();
     useEffect(() => {
         setRooms(roomsState.filter((room) => room.isFavourite === true));
@@ -42,12 +42,12 @@ const Favourites = ({ roomsState, isFavouriteChange }) => {
     return <Loader />;
 };
 Favourites.propTypes = {
-    roomsState: PropTypes.arrayOf(PropTypes.object),
+    rooms: PropTypes.arrayOf(PropTypes.object),
     isFavouriteChange: PropTypes.func
 };
 
-const mapStateToProps = ({ roomsState }) => ({
-    roomsState
+const mapStateToProps = ({ rooms }) => ({
+    rooms
 });
 
 const mapDispatchToProps = (dispatch) => ({

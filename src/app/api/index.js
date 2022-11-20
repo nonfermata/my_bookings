@@ -1,5 +1,5 @@
 import rooms from "./fake.api/rooms.api";
-const API = {
+const api = {
     rooms
 };
-export default API;
+export default api;

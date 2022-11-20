@@ -657,14 +657,6 @@ const fetchAll = () =>
         }, 500);
     });
 
-const getById = (id) =>
-    new Promise((resolve) => {
-        window.setTimeout(function () {
-            resolve(rooms.find((room) => room.id === id));
-        }, 500);
-    });
-
 export default {
-    fetchAll,
-    getById
+    fetchAll
 };

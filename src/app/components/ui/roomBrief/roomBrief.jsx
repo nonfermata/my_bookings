@@ -16,25 +16,30 @@ const RoomBrief = ({
     handleFavouriteChange,
     parent
 }) => {
-    const [heartClass, setHeartClass] = useState(
-        isFavourite && parent === "allRooms"
-            ? classes.heart
-            : classes.heart + " hidden"
+    const [topButtonClass, setTopButtonClass] = useState(
+        isFavourite && parent === "rooms"
+            ? classes.topButton
+            : classes.topButton + " hidden"
     );
     const showHeart = () => {
-        setHeartClass(classes.heart);
+        setTopButtonClass(classes.topButton);
     };
     const hideHeart = () => {
         if (!isFavourite || parent === "favourites") {
-            setHeartClass(classes.heart + " hidden");
+            setTopButtonClass(classes.topButton + " hidden");
         }
     };
-    const renderOption = () => {
-        if (parent === "allRooms") {
+    const getTopButton = () => {
+        if (parent === "rooms") {
             return isFavourite ? heart.filled : heart.contoured;
         } else if (parent === "favourites") {
             return cross;
         }
+    };
+    const getTopButtonTitle = () => {
+        if (parent === "favourites") {
+            return "Удалить из Избранного";
+        } else return null;
     };
 
     return (
@@ -43,14 +48,15 @@ const RoomBrief = ({
             onMouseOver={showHeart}
             onMouseLeave={hideHeart}
         >
-            <div
-                className={heartClass}
+            <button
+                className={topButtonClass}
+                title={getTopButtonTitle()}
                 onClick={() => {
                     handleFavouriteChange(_id);
                 }}
             >
-                {renderOption()}
-            </div>
+                {getTopButton()}
+            </button>
             <div className={classes.imgWrap}>
                 <img
                     className={classes.image}

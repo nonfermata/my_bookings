@@ -57,7 +57,7 @@
     color: var(--brown-grey-color);
 }
 
-.heart {
+.topButton {
     position: absolute;
     z-index: 1;
     top: 18px;

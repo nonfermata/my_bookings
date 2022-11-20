@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { setBookingAC } from "../../../redux/bookingReducer";
 moment.locale("ru");
 
-const Booking = ({ bookingState, setBookingState }) => {
+const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
     const [booking, setBooking] = useState(bookingState);
 
     const handleSetDate = (key, date, checkOutReset) => {
@@ -28,7 +28,7 @@ const Booking = ({ bookingState, setBookingState }) => {
         }
     }, [booking.checkIn, booking.checkOut]);
     const handleClick = () => {
-        setBookingState(booking);
+        setBookingToStore(booking);
     };
 
     return (
@@ -72,16 +72,16 @@ const Booking = ({ bookingState, setBookingState }) => {
     );
 };
 Booking.propTypes = {
-    bookingState: PropTypes.object,
-    setBookingState: PropTypes.func
+    booking: PropTypes.object,
+    setBooking: PropTypes.func
 };
 
-const mapStateToProps = ({ bookingState }) => ({
-    bookingState
+const mapStateToProps = ({ booking }) => ({
+    booking
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setBookingState: (booking) => {
+    setBooking: (booking) => {
         dispatch(setBookingAC(booking));
     }
 });

@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "./components/ui/header/header";
-import MainContainer from "./layouts/mainContainer";
+import Main from "./layouts/main";
 
 const App = () => {
     return (
         <div className="container">
             <Header />
-            <MainContainer />
+            <Main />
         </div>
     );
 };

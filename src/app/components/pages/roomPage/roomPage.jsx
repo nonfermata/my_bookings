@@ -7,7 +7,7 @@ import CarouselBox from "../../ui/carouselBox/carouselBox";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const RoomPage = ({ roomsState }) => {
+const RoomPage = ({ rooms: roomsState }) => {
     const { roomId } = useParams();
     const [room, setRoom] = useState();
     useEffect(() => {
@@ -86,11 +86,11 @@ const RoomPage = ({ roomsState }) => {
 };
 RoomPage.propTypes = {
     booking: PropTypes.object,
-    roomsState: PropTypes.arrayOf(PropTypes.object)
+    rooms: PropTypes.arrayOf(PropTypes.object)
 };
 
-const mapStateToProps = ({ roomsState }) => ({
-    roomsState
+const mapStateToProps = ({ rooms }) => ({
+    rooms
 });
 
 export default connect(mapStateToProps)(RoomPage);
