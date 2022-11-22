@@ -19,7 +19,7 @@ const Favourites = ({ rooms: roomsState, isFavouriteChange }) => {
     if (rooms) {
         return (
             <>
-                <div className="mainTitle">Избраное</div>
+                <div className="mainTitle">Избранное</div>
                 <div className={classes.roomsWrap}>
                     {rooms.length !== 0 ? (
                         rooms.map((room) => (
