@@ -6,8 +6,11 @@ import classes from "./roomPage.module.css";
 import CarouselBox from "../../ui/carouselBox/carouselBox";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { isFavouriteChangeAC } from "../../../../redux/roomsReducer";
+import TopButton from "../../common/topButton";
+import heart from "../../common/heart";
 
-const RoomPage = ({ rooms: roomsState }) => {
+const RoomPage = ({ rooms: roomsState, isFavouriteChange }) => {
     const { roomId } = useParams();
     const [room, setRoom] = useState();
     useEffect(() => {
@@ -19,6 +22,9 @@ const RoomPage = ({ rooms: roomsState }) => {
     };
     const getHTMLList = (prop) => {
         return room[prop].map((item) => <li key={item}>{item}</li>);
+    };
+    const getTopButtonSVG = () => {
+        return room.isFavourite ? heart.filled : heart.contoured;
     };
 
     if (room) {
@@ -43,6 +49,18 @@ const RoomPage = ({ rooms: roomsState }) => {
                         ))}
                     </CarouselBox>
                     <div className={classes.roomDescription}>
+                        <TopButton
+                            title={room.isFavourite ? "Удалить из Избранного" : "Добавить в Избранное"}
+                            handleClick={() => isFavouriteChange(room._id)}
+                            style={{
+                                top: "45px",
+                                right: "10px",
+                                color: "var(--orange-color)",
+                                backgroundColor: "transparent"
+                            }}
+                        >
+                            {getTopButtonSVG()}
+                        </TopButton>
                         <div className={classes.roomHeader}>
                             <p>{room.name}</p>
                             <p className={classes.price}>
@@ -86,11 +104,18 @@ const RoomPage = ({ rooms: roomsState }) => {
 };
 RoomPage.propTypes = {
     booking: PropTypes.object,
-    rooms: PropTypes.arrayOf(PropTypes.object)
+    rooms: PropTypes.arrayOf(PropTypes.object),
+    isFavouriteChange: PropTypes.func
 };
 
 const mapStateToProps = ({ rooms }) => ({
     rooms
 });
 
-export default connect(mapStateToProps)(RoomPage);
+const mapDispatchToProps = (dispatch) => ({
+    isFavouriteChange: (id) => {
+        dispatch(isFavouriteChangeAC(id));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);

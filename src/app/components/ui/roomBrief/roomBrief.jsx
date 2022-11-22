@@ -5,6 +5,7 @@ import Button from "../../common/button";
 import { NavLink } from "react-router-dom";
 import heart from "../../common/heart";
 import cross from "../../common/loader/cross";
+import TopButton from "../../common/topButton";
 
 const RoomBrief = ({
     _id,
@@ -16,20 +17,18 @@ const RoomBrief = ({
     handleFavouriteChange,
     parent
 }) => {
-    const [topButtonClass, setTopButtonClass] = useState(
-        isFavourite && parent === "rooms"
-            ? classes.topButton
-            : classes.topButton + " hidden"
+    const [topButtonStyle, setTopButtonStyle] = useState(
+        isFavourite && parent === "rooms" ? {} : { display: "none" }
     );
-    const showHeart = () => {
-        setTopButtonClass(classes.topButton);
+    const showTopButton = () => {
+        setTopButtonStyle({});
     };
-    const hideHeart = () => {
+    const hideTopButton = () => {
         if (!isFavourite || parent === "favourites") {
-            setTopButtonClass(classes.topButton + " hidden");
+            setTopButtonStyle({ display: "none" });
         }
     };
-    const getTopButton = () => {
+    const getTopButtonSVG = () => {
         if (parent === "rooms") {
             return isFavourite ? heart.filled : heart.contoured;
         } else if (parent === "favourites") {
@@ -45,18 +44,18 @@ const RoomBrief = ({
     return (
         <div
             className={classes.roomWrap}
-            onMouseOver={showHeart}
-            onMouseLeave={hideHeart}
+            onMouseOver={showTopButton}
+            onMouseLeave={hideTopButton}
         >
-            <button
-                className={topButtonClass}
+            <TopButton
+                style={topButtonStyle}
                 title={getTopButtonTitle()}
-                onClick={() => {
+                handleClick={() => {
                     handleFavouriteChange(_id);
                 }}
             >
-                {getTopButton()}
-            </button>
+                {getTopButtonSVG()}
+            </TopButton>
             <div className={classes.imgWrap}>
                 <img
                     className={classes.image}
@@ -71,7 +70,7 @@ const RoomBrief = ({
                 ))}
             </ul>
             <div className={classes.price}>${price}</div>
-            <div className={classes.goToNumberBtn}>
+            <div className={classes.goToRoomBtn}>
                 <Button color="blue">
                     <NavLink to={"/rooms/" + _id}>Посмотреть</NavLink>
                 </Button>

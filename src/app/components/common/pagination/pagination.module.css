@@ -1,0 +1,27 @@
+.pagination {
+    margin: 0 auto;
+    width: fit-content;
+    list-style: none;
+    display: flex;
+    gap: 7px;
+    font-size: 1.2em;
+}
+
+.pagination li {
+    cursor: pointer;
+    display: block;
+    padding: 7px 10px;
+    border: var(--light-beige-border);
+    color: var(--header-bg-color);
+    transition: .15s ease all;
+}
+
+.pagination li:hover {
+    background-color: var(--ex-light-grey-color);
+}
+
+.pagination li.active {
+    background-color: var(--header-bg-color);
+    color: var(--base-bg-color);
+}
+

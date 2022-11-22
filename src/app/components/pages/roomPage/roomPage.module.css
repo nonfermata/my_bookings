@@ -23,6 +23,7 @@
 .roomDescription {
     width: 36%;
     padding-top: 5px;
+    position: relative;
 }
 
 .roomHeader {
