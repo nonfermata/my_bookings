@@ -21,7 +21,9 @@ const Main = ({ setRoomsToStore }) => {
         //     .then((response) => setRoomsToStore(response.data));
     }, []);
     return (
-        <div className={classes.mainContentBlock}>
+        <div
+            className={classes.mainContentBlock}
+        >
             <Route
                 exact
                 path="/booking"

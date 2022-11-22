@@ -1,9 +1,15 @@
-.header {
+.headerWrap {
     background-color: var(--header-bg-color);
+
+}
+
+.header {
     display: grid;
     grid-template-columns: 1fr auto auto;
     grid-template-rows: 50px;
     align-items: center;
     gap: 40px;
     padding: 10px 30px 10px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
 }

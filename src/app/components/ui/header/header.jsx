@@ -6,10 +6,12 @@ import LoginLink from "./loginLink/loginLink";
 
 const Header = () => {
     return (
-        <header className={classes.header}>
-            <Logo />
-            <Navbar />
-            <LoginLink />
+        <header className={classes.headerWrap}>
+            <div className={classes.header}>
+                <Logo />
+                <Navbar />
+                <LoginLink />
+            </div>
         </header>
     );
 };

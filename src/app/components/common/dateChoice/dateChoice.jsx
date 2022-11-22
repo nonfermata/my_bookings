@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import MonthBlock from "./monthBlock";
 import moment from "moment";
 import "moment/locale/ru";
+import { connect } from "react-redux";
+
 moment.locale("ru");
 
 const DateChoice = ({
@@ -12,7 +14,10 @@ const DateChoice = ({
     choiceValue,
     onSetDate,
     checkInDate,
-    checkOutDate
+    checkOutDate,
+    onMainClick,
+    activeCalendar,
+    activateCalendar
 }) => {
     let choiceValueString, dateClass;
     if (!choiceValue) {
@@ -35,22 +40,6 @@ const DateChoice = ({
     const [monthPosition, setMonthPosition] = useState(0);
     const [showCalendar, setShowCalendar] = useState(false);
 
-    document.addEventListener("click", ({ target }) => {
-        if (
-            !target.className.includes("Arrow") &&
-            !target.className.includes("monthName") &&
-            !target.className.includes("calendarWrap") &&
-            !target.className.includes("calendarWindow") &&
-            !target.className.includes("daysGrid") &&
-            !target.className.includes("dayNameCell") &&
-            !target.className.includes("passiveDayCell") &&
-            !target.className.includes("monthWrap") &&
-            target.id !== choiceName
-        ) {
-            setShowCalendar(false);
-        }
-    });
-
     useEffect(() => {
         setPossibleStartDate(
             getPossibleStartDate(choiceName, currentDate, checkInDate)
@@ -60,10 +49,12 @@ const DateChoice = ({
     const handleSetDate = (name, date) => {
         if (date) {
             if (choiceName === "checkIn" && date >= currentDate) {
+                setShowCalendar(false);
                 if (date >= checkOutDate) {
                     onSetDate(name, date, "checkOutReset");
                 } else onSetDate(name, date);
             } else if (choiceName === "checkOut" && date >= nextToCurrentDate) {
+                setShowCalendar(false);
                 if (!checkInDate) {
                     onSetDate(name, date);
                 } else {
@@ -78,7 +69,16 @@ const DateChoice = ({
     const handleMovePosition = (direction) => {
         setMonthPosition((prevState) => prevState + 230 * direction);
     };
+    useEffect(() => {
+        if (activeCalendar !== choiceName) {
+            setShowCalendar(false);
+        }
+    }, [activeCalendar]);
+    useEffect(() => {
+        setShowCalendar(false);
+    }, [onMainClick]);
     const handleChoice = () => {
+        activateCalendar(choiceName);
         setShowCalendar((prevState) => !prevState);
     };
     return (
@@ -136,11 +136,18 @@ const DateChoice = ({
     );
 };
 DateChoice.propTypes = {
-    choiceName: PropTypes.string,
     choiceValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     checkInDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     checkOutDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    onSetDate: PropTypes.func
+    choiceName: PropTypes.string,
+    onSetDate: PropTypes.func,
+    onMainClick: PropTypes.bool,
+    activeCalendar: PropTypes.string,
+    activateCalendar: PropTypes.func
 };
 
-export default DateChoice;
+const mapStateToProps = ({ onMainClick }) => ({
+    onMainClick
+});
+
+export default connect(mapStateToProps)(DateChoice);

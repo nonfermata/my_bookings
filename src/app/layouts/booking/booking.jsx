@@ -12,7 +12,10 @@ moment.locale("ru");
 
 const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
     const [booking, setBooking] = useState(bookingState);
-
+    const [activeCalendar, setActiveCalendar] = useState();
+    const activateCalendar = (calendar) => {
+        setActiveCalendar(calendar);
+    };
     const handleSetDate = (key, date, checkOutReset) => {
         setBooking((prevState) => ({ ...prevState, [key]: date }));
         if (checkOutReset) {
@@ -26,6 +29,7 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
         } else {
             setBooking((prevState) => ({ ...prevState, totalDays: "" }));
         }
+        setBookingToStore(booking);
     }, [booking.checkIn, booking.checkOut]);
     const handleClick = () => {
         setBookingToStore(booking);
@@ -43,6 +47,8 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
                     choiceValue={booking.checkIn}
                     onSetDate={handleSetDate}
                     checkOutDate={booking.checkOut}
+                    activeCalendar={activeCalendar}
+                    activateCalendar={activateCalendar}
                 />
                 <p>–</p>
                 <DateChoice
@@ -50,6 +56,8 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
                     choiceValue={booking.checkOut}
                     onSetDate={handleSetDate}
                     checkInDate={booking.checkIn}
+                    activeCalendar={activeCalendar}
+                    activateCalendar={activateCalendar}
                 />
                 {booking.totalDays && (
                     <>
