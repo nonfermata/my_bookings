@@ -4,7 +4,7 @@ import classes from "./rooms.module.css";
 import RoomBrief from "../../components/ui/roomBrief/roomBrief";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { isFavouriteChangeAC } from "../../../redux/roomsReducer";
+import { isFavouriteChange } from "../../../redux/roomsReducer";
 import Pagination from "../../components/common/pagination/pagination";
 import { paginate } from "../../utils/paginate";
 
@@ -57,10 +57,6 @@ const mapStateToProps = ({ rooms }) => ({
     rooms
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    isFavouriteChange: (id) => {
-        dispatch(isFavouriteChangeAC(id));
-    }
-});
+const mapDispatchToProps = { isFavouriteChange };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rooms);

@@ -1,13 +1,13 @@
-const changeState = "CHANGE_STATE";
+const cngState = "CHANGE_STATE";
 
-export const changeStateAC = (event) => ({
-    type: changeState,
+export const changeState = (event) => ({
+    type: cngState,
     event
 });
 
 const onMainClickReducer = (state = false, action) => {
     switch (action.type) {
-        case changeState:
+        case cngState:
             action.event.stopPropagation();
             if (action.event.target.tagName !== "svg" && action.event.target.tagName !== "path") {
                 if (!action.event.target.className.includes("dateChoice")) {

@@ -6,7 +6,7 @@ import classes from "./roomPage.module.css";
 import CarouselBox from "../../ui/carouselBox/carouselBox";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { isFavouriteChangeAC } from "../../../../redux/roomsReducer";
+import { isFavouriteChange } from "../../../../redux/roomsReducer";
 import TopButton from "../../common/topButton";
 import heart from "../../common/heart";
 
@@ -50,7 +50,11 @@ const RoomPage = ({ rooms: roomsState, isFavouriteChange }) => {
                     </CarouselBox>
                     <div className={classes.roomDescription}>
                         <TopButton
-                            title={room.isFavourite ? "Удалить из Избранного" : "Добавить в Избранное"}
+                            title={
+                                room.isFavourite
+                                    ? "Удалить из Избранного"
+                                    : "Добавить в Избранное"
+                            }
                             handleClick={() => isFavouriteChange(room._id)}
                             style={{
                                 top: "45px",
@@ -112,10 +116,6 @@ const mapStateToProps = ({ rooms }) => ({
     rooms
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    isFavouriteChange: (id) => {
-        dispatch(isFavouriteChangeAC(id));
-    }
-});
+const mapDispatchToProps = { isFavouriteChange };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);

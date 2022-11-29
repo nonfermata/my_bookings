@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ru";
 import { connect } from "react-redux";
-import { setBookingAC } from "../../../redux/bookingReducer";
+import { setBooking } from "../../../redux/bookingReducer";
 moment.locale("ru");
 
 const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
@@ -88,10 +88,6 @@ const mapStateToProps = ({ booking }) => ({
     booking
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setBooking: (booking) => {
-        dispatch(setBookingAC(booking));
-    }
-});
+const mapDispatchToProps = { setBooking };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Booking);

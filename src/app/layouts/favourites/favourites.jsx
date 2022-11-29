@@ -4,7 +4,7 @@ import classes from "./favourites.module.css";
 import RoomBrief from "../../components/ui/roomBrief/roomBrief";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { isFavouriteChangeAC } from "../../../redux/roomsReducer";
+import { isFavouriteChange } from "../../../redux/roomsReducer";
 import { paginate } from "../../utils/paginate";
 import Pagination from "../../components/common/pagination/pagination";
 
@@ -43,7 +43,8 @@ const Favourites = ({ rooms: roomsState, isFavouriteChange }) => {
                         ))
                     ) : (
                         <div className={classes.noFavourites}>
-                            Вы пока ничего не добавили в &quot;Избранное&quot; :(
+                            Вы пока ничего не добавили в &quot;Избранное&quot;
+                            :(
                         </div>
                     )}
                 </div>
@@ -67,10 +68,6 @@ const mapStateToProps = ({ rooms }) => ({
     rooms
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    isFavouriteChange: (id) => {
-        dispatch(isFavouriteChangeAC(id));
-    }
-});
+const mapDispatchToProps = { isFavouriteChange };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Favourites);

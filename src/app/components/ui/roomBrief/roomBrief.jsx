@@ -38,7 +38,11 @@ const RoomBrief = ({
     const getTopButtonTitle = () => {
         if (parent === "favourites") {
             return "Удалить из Избранного";
-        } else return null;
+        } else if (parent === "rooms") {
+            return isFavourite
+                ? "Удалить из Избранного"
+                : "Добавить в Избранное";
+        }
     };
 
     return (

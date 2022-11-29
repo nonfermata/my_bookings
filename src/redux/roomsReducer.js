@@ -1,23 +1,23 @@
 const initialState = [];
 
-const setRoomsToStore = "SET_ROOMS_TO_STORE";
-const isFavouriteChange = "IS_FAVOURITE_CHANGE";
+const setRooms = "SET_ROOMS_TO_STORE";
+const isFavouriteCng = "IS_FAVOURITE_CHANGE";
 
-export const setRoomsToStoreAC = (rooms) => ({
-    type: setRoomsToStore,
+export const setRoomsToStore = (rooms) => ({
+    type: setRooms,
     rooms
 });
 
-export const isFavouriteChangeAC = (id) => ({
-    type: isFavouriteChange,
+export const isFavouriteChange = (id) => ({
+    type: isFavouriteCng,
     id
 });
 
 const roomsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case setRoomsToStore:
+        case setRooms:
             return [...action.rooms];
-        case isFavouriteChange:
+        case isFavouriteCng:
             return state.map((room) => {
                 if (room._id === action.id) {
                     room.isFavourite = !room.isFavourite;
