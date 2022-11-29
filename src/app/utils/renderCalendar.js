@@ -1,4 +1,4 @@
-const NUMBER_OF_MONTHS = 6;
+const NUMBER_OF_MONTHS = 12;
 
 export const getMonthDays = (startDate) => {
     const date = new Date(startDate);

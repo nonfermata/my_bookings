@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import classes from "./main.module.css";
 import Booking from "./booking";
@@ -10,20 +10,22 @@ import RoomPage from "../components/pages/roomPage";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setRoomsToStoreAC } from "../../redux/roomsReducer";
-import api from "../api";
+import { useRooms } from "../hooks/useRooms";
 // import axios from "axios";
+// import api from "../api";
 
 const Main = ({ setRoomsToStore }) => {
-    useEffect(() => {
-        api.rooms.fetchAll().then((response) => setRoomsToStore(response));
-        // axios
-        //     .get("http://localhost:3001/rooms")
-        //     .then((response) => setRoomsToStore(response.data));
-    }, []);
+    // useEffect(() => {
+    //     api.rooms.fetchAll().then((response) => setRoomsToStore(response));
+    //     axios
+    //         .get("http://localhost:3001/rooms")
+    //         .then((response) => setRoomsToStore(response.data));
+    //
+    // }, []);
+    const { rooms } = useRooms();
+    setRoomsToStore(rooms);
     return (
-        <div
-            className={classes.mainContentBlock}
-        >
+        <div className={classes.mainContentBlock}>
             <Route
                 exact
                 path="/booking"

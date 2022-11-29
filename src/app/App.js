@@ -4,6 +4,9 @@ import Main from "./layouts/main";
 import { changeStateAC } from "../redux/onMainClickReducer";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import RoomsProvider from "./hooks/useRooms";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = ({ onMainClick }) => {
     return (
@@ -12,7 +15,10 @@ const App = ({ onMainClick }) => {
             onClick={onMainClick}
         >
             <Header />
-            <Main />
+            <RoomsProvider>
+                <Main />
+            </RoomsProvider>
+            <ToastContainer />
         </div>
     );
 };
