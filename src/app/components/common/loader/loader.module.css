@@ -1,6 +1,17 @@
 .loader {
     padding-top: 50px;
     text-align: center;
-    font-weight: 300;
-    font-size: 1.5em;
+    font-weight: 200;
+    font-size: 1.6rem;
+}
+
+.normal {
+}
+
+.small {
+    transform: scale(0.7);
+}
+
+.xSmall {
+    transform: scale(0.5);
 }

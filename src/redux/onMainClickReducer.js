@@ -1,16 +1,22 @@
-const cngState = "CHANGE_STATE";
+const changeState = "CHANGE_STATE";
 
-export const changeState = (event) => ({
-    type: cngState,
+export const onMainClick = (event) => ({
+    type: changeState,
     event
 });
 
 const onMainClickReducer = (state = false, action) => {
     switch (action.type) {
-        case cngState:
+        case changeState:
             action.event.stopPropagation();
-            if (action.event.target.tagName !== "svg" && action.event.target.tagName !== "path") {
-                if (!action.event.target.className.includes("dateChoice")) {
+            if (
+                action.event.target.tagName !== "svg" &&
+                action.event.target.tagName !== "path"
+            ) {
+                if (
+                    !action.event.target.className.includes("dateChoice") &&
+                    !action.event.target.className.includes("profile")
+                ) {
                     return !state;
                 } else return state;
             } else return state;
@@ -18,5 +24,4 @@ const onMainClickReducer = (state = false, action) => {
             return state;
     }
 };
-
 export default onMainClickReducer;

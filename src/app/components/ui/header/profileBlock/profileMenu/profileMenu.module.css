@@ -1,0 +1,24 @@
+.profileMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    line-height: 1.2em;
+    padding: 25px 10px 10px;
+    background-color: var(--profile-bg-color);
+    list-style: none;
+    z-index: 100;
+}
+
+.profileMenu li {
+    margin-bottom: 15px;
+}
+
+.profileMenu a {
+    display: flex;
+    gap: 10px;
+    transition: all ease 0.15s;
+}
+
+.profileMenu a:hover {
+    color: var(--menu-item-active-color);
+}

@@ -1,10 +1,13 @@
+/* eslint-disable indent */
 import axios from "axios";
 import { toast } from "react-toastify";
 import configFile from "../config.json";
 
-axios.defaults.baseURL = configFile.apiEndpoint;
+const http = axios.create({
+    baseURL: configFile.apiEndpoint
+});
 
-axios.interceptors.request.use(
+http.interceptors.request.use(
     function (request) {
         if (configFile.isFireBase) {
             request.url =
@@ -19,8 +22,15 @@ axios.interceptors.request.use(
     }
 );
 
-axios.interceptors.response.use(
+const transformData = (data) => {
+    return data && !data._id ? Object.values(data) : data;
+};
+
+http.interceptors.response.use(
     function (response) {
+        if (configFile.isFireBase) {
+            return transformData(response.data);
+        }
         return response;
     },
     function (error) {
@@ -30,17 +40,18 @@ axios.interceptors.response.use(
             error.response.status < 500;
         if (!expectedErrors) {
             console.log(error);
-            toast.error("Something is wrong... Try later.");
+            toast.error("Что-то пошло не так... Попробуйте позднее.");
         }
         return Promise.reject(error);
     }
 );
 
 const httpService = {
-    get: axios.get,
-    put: axios.put,
-    post: axios.post,
-    delete: axios.delete
+    get: http.get,
+    put: http.put,
+    post: http.post,
+    delete: http.delete,
+    patch: http.patch
 };
 
 export default httpService;

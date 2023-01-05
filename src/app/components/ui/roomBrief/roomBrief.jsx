@@ -3,9 +3,10 @@ import classes from "./roomBrief.module.css";
 import PropTypes from "prop-types";
 import Button from "../../common/button";
 import { NavLink } from "react-router-dom";
-import heart from "../../common/heart";
-import cross from "../../common/loader/cross";
+import heart from "../../common/svg/heart";
+import cross from "../../common/svg/cross";
 import TopButton from "../../common/topButton";
+import { useAuth } from "../../../hooks/useAuth";
 
 const RoomBrief = ({
     _id,
@@ -13,13 +14,25 @@ const RoomBrief = ({
     briefDescription,
     price,
     mainPhoto,
-    isFavourite,
-    handleFavouriteChange,
     parent
 }) => {
+    const { currentUser, updateUserFavourites } = useAuth();
+    const isFavourite =
+        currentUser &&
+        currentUser.favourites &&
+        currentUser.favourites.some((item) => item === _id);
     const [topButtonStyle, setTopButtonStyle] = useState(
-        isFavourite && parent === "rooms" ? {} : { display: "none" }
+        currentUser && isFavourite && parent === "rooms"
+            ? {}
+            : { display: "none" }
     );
+    const handleFavouriteChange = async () => {
+        try {
+            await updateUserFavourites(_id);
+        } catch (e) {
+            console.log(e.message);
+        }
+    };
     const showTopButton = () => {
         setTopButtonStyle({});
     };
@@ -51,15 +64,15 @@ const RoomBrief = ({
             onMouseOver={showTopButton}
             onMouseLeave={hideTopButton}
         >
-            <TopButton
-                style={topButtonStyle}
-                title={getTopButtonTitle()}
-                handleClick={() => {
-                    handleFavouriteChange(_id);
-                }}
-            >
-                {getTopButtonSVG()}
-            </TopButton>
+            {currentUser && parent !== "setBooking" && (
+                <TopButton
+                    style={topButtonStyle}
+                    title={getTopButtonTitle()}
+                    handleClick={handleFavouriteChange}
+                >
+                    {getTopButtonSVG()}
+                </TopButton>
+            )}
             <div className={classes.imgWrap}>
                 <img
                     className={classes.image}
@@ -67,7 +80,7 @@ const RoomBrief = ({
                     alt="Photo"
                 />
             </div>
-            <h1>{name}</h1>
+            <h1 className={classes.title}>{name}</h1>
             <ul className={classes.briefDescriptionList}>
                 {briefDescription.map((item) => (
                     <li key={item}>{item}</li>
@@ -89,8 +102,6 @@ RoomBrief.propTypes = {
     briefDescription: PropTypes.array,
     price: PropTypes.number,
     _id: PropTypes.string,
-    isFavourite: PropTypes.bool,
-    handleFavouriteChange: PropTypes.func,
     parent: PropTypes.string
 };
 

@@ -1,19 +1,23 @@
-const initialState = {
-    checkIn: "",
-    checkOut: ""
-};
+const initialState = { persons: "" };
 
-const setBook = "SET_BOOKING";
+const SET_BOOKING = "SET_BOOKING";
+const RESET_BOOKING = "RESET_BOOKING";
 
 export const setBooking = (booking) => ({
-    type: setBook,
+    type: SET_BOOKING,
     booking
+});
+
+export const resetBooking = () => ({
+    type: RESET_BOOKING
 });
 
 const bookingReducer = (state = initialState, action) => {
     switch (action.type) {
-        case setBook:
+        case SET_BOOKING:
             return { ...action.booking };
+        case RESET_BOOKING:
+            return initialState;
         default:
             return state;
     }

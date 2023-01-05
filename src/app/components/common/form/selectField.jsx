@@ -8,7 +8,8 @@ const SelectField = ({
     defaultOption,
     name,
     value,
-    onChange
+    onChange,
+    style
 }) => {
     const handleChange = ({ target }) => {
         onChange(name, target.value);
@@ -26,6 +27,7 @@ const SelectField = ({
             <select
                 name={name}
                 className={classes.selectInput}
+                style={style}
                 id={name}
                 onChange={handleChange}
                 value={value}
@@ -55,7 +57,8 @@ SelectField.propTypes = {
     value: PropTypes.string,
     label: PropTypes.string,
     defaultOption: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    style: PropTypes.object
 };
 
 export default SelectField;

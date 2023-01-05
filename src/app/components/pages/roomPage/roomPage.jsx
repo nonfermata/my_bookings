@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import React from "react";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Loader from "../../common/loader/loader";
 import Button from "../../common/button";
 import classes from "./roomPage.module.css";
-import CarouselBox from "../../ui/carouselBox/carouselBox";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { isFavouriteChange } from "../../../../redux/roomsReducer";
+import CarouselBox from "./carouselBox/carouselBox";
 import TopButton from "../../common/topButton";
-import heart from "../../common/heart";
+import heart from "../../common/svg/heart";
+import { useAuth } from "../../../hooks/useAuth";
+import { useRooms } from "../../../hooks/useRooms";
 
-const RoomPage = ({ rooms: roomsState, isFavouriteChange }) => {
+const RoomPage = () => {
+    const { rooms } = useRooms();
+    const { currentUser, updateUserFavourites } = useAuth();
     const { roomId } = useParams();
-    const [room, setRoom] = useState();
-    useEffect(() => {
-        setRoom(roomsState.find((room) => room._id === roomId));
-    }, []);
+    const isFavourite =
+        currentUser &&
+        currentUser.favourites &&
+        currentUser.favourites.some((item) => item === roomId);
+    const room = rooms.find((room) => room._id === roomId);
     const history = useHistory();
     const handleBack = () => {
         history.goBack();
@@ -24,8 +26,20 @@ const RoomPage = ({ rooms: roomsState, isFavouriteChange }) => {
         return room[prop].map((item) => <li key={item}>{item}</li>);
     };
     const getTopButtonSVG = () => {
-        return room.isFavourite ? heart.filled : heart.contoured;
+        return isFavourite ? heart.filled : heart.contoured;
     };
+
+    const handleFavouriteChange = async () => {
+        try {
+            await updateUserFavourites(roomId);
+        } catch (e) {
+            console.log(e.message);
+        }
+    };
+
+    const isBookingButton =
+        !currentUser ||
+        (currentUser && currentUser._id !== process.env.REACT_APP_ADMIN);
 
     if (room) {
         return (
@@ -49,22 +63,26 @@ const RoomPage = ({ rooms: roomsState, isFavouriteChange }) => {
                         ))}
                     </CarouselBox>
                     <div className={classes.roomDescription}>
-                        <TopButton
-                            title={
-                                room.isFavourite
-                                    ? "Удалить из Избранного"
-                                    : "Добавить в Избранное"
-                            }
-                            handleClick={() => isFavouriteChange(room._id)}
-                            style={{
-                                top: "45px",
-                                right: "10px",
-                                color: "var(--orange-color)",
-                                backgroundColor: "transparent"
-                            }}
-                        >
-                            {getTopButtonSVG()}
-                        </TopButton>
+                        {currentUser && (
+                            <TopButton
+                                title={
+                                    isFavourite
+                                        ? "Удалить из Избранного"
+                                        : "Добавить в Избранное"
+                                }
+                                handleClick={() =>
+                                    handleFavouriteChange(room._id)
+                                }
+                                style={{
+                                    top: "45px",
+                                    right: "10px",
+                                    color: "var(--orange-color)",
+                                    backgroundColor: "transparent"
+                                }}
+                            >
+                                {getTopButtonSVG()}
+                            </TopButton>
+                        )}
                         <div className={classes.roomHeader}>
                             <p>{room.name}</p>
                             <p className={classes.price}>
@@ -89,33 +107,26 @@ const RoomPage = ({ rooms: roomsState, isFavouriteChange }) => {
                     </div>
                 </div>
                 <div className={classes.buttonsWrap}>
-                    <Button color="blue">
-                        <div
-                            className={classes.buttonSize}
-                            onClick={handleBack}
-                        >
-                            Назад
-                        </div>
+                    <Button
+                        color="blue"
+                        onClick={handleBack}
+                    >
+                        <div className={classes.buttonSize}>Назад</div>
                     </Button>
-                    <Button color="green">
-                        <div className={classes.buttonSize}>Забронировать</div>
-                    </Button>
+                    {isBookingButton && (
+                        <Link to={"/set-booking/" + roomId}>
+                            <Button color="green">
+                                <div className={classes.buttonSize}>
+                                    Забронировать
+                                </div>
+                            </Button>
+                        </Link>
+                    )}
                 </div>
             </>
         );
     }
     return <Loader />;
 };
-RoomPage.propTypes = {
-    booking: PropTypes.object,
-    rooms: PropTypes.arrayOf(PropTypes.object),
-    isFavouriteChange: PropTypes.func
-};
 
-const mapStateToProps = ({ rooms }) => ({
-    rooms
-});
-
-const mapDispatchToProps = { isFavouriteChange };
-
-export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);
+export default RoomPage;

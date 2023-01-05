@@ -4,13 +4,15 @@
     list-style: none;
     display: flex;
     gap: 7px;
-    font-size: 1.2em;
+    font-size: 1.1rem;
 }
 
 .pagination li {
     cursor: pointer;
     display: block;
+    text-align: center;
     padding: 7px 10px;
+    min-width: 34px;
     border: var(--light-beige-border);
     color: var(--header-bg-color);
     transition: .15s ease all;

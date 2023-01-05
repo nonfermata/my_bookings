@@ -1,0 +1,18 @@
+.bookingFormWrap {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.subtitle {
+    color: var(--header-bg-color);
+    font-size: 1.15rem;
+    padding-left: 20px;
+    padding-bottom: 30px;
+    margin-top: -10px;
+}
+
+.totalDays {
+    font-size: 1rem;
+    margin: 0 30px;
+}

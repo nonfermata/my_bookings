@@ -1,27 +1,39 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./navbar.module.css";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const Navbar = () => {
+    const { currentUser } = useAuth();
+    const adminStatus = currentUser && currentUser._id === process.env.REACT_APP_ADMIN;
     const menu = [
-        { id: 716345601, label: "booking", name: "Главная" },
-        { id: 716345602, label: "rooms", name: "Наши номера" },
-        { id: 716345603, label: "favourites", name: "Избранное" }
-        // { id: 716345604, label: "admin", name: "Панель администратора" }
+        { path: "rooms", name: "Наши номера" },
+        { path: "booking", name: "Забронировать", noadmin: true },
+        { path: "admin", name: "Панель администратора", admin: true }
     ];
-    const menuHTML = menu.map((item) => (
-        <li key={item.id} className={classes.item}>
-            <NavLink
-                to={"/" + item.label}
-                className={(isActive) => (isActive ? classes.active : null)}
-            >
-                {item.name}
-            </NavLink>
-        </li>
-    ));
     return (
-        <nav>
-            <ul className={classes.menu}>{menuHTML}</ul>
+        <nav className={classes.nav}>
+            <ul className={classes.menu}>
+                {menu.map(
+                    ({ path, name, admin, noadmin }) =>
+                        ((adminStatus && !noadmin) ||
+                            (!adminStatus && !admin)) && (
+                            <li
+                                key={path}
+                                className={classes.item}
+                            >
+                                <NavLink
+                                    to={"/" + path}
+                                    className={(isActive) =>
+                                        isActive ? classes.active : null
+                                    }
+                                >
+                                    {name}
+                                </NavLink>
+                            </li>
+                        )
+                )}
+            </ul>
         </nav>
     );
 };

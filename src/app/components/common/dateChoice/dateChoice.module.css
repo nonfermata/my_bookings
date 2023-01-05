@@ -7,7 +7,7 @@
     width: 150px;
     padding: 8px;
     height: 35px;
-    border-radius: 3px;
+    border-radius: 5px;
     border: 1px solid var(--header-bg-color);
     background-color: white;
     text-align: center;
@@ -16,7 +16,7 @@
 }
 
 .choiceDate {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .calendarWindow {
@@ -28,6 +28,7 @@
     overflow: hidden;
     border: var(--light-beige-border);
     border-radius: 5px;
+    background-color: var(--base-bg-color);
 }
 
 .topArrow {
@@ -45,7 +46,7 @@
 .rightArrow {
     position: absolute;
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1.1rem;
     top: 12px;
     color: var(--semi-grey-color);
     cursor: pointer;
@@ -69,16 +70,15 @@
 .calendarWrap {
     display: flex;
     gap: 20px;
-    transition: all .4s ease;
+    transition: all 0.4s ease;
     background-color: white;
 }
 
 .monthWrap {
-
 }
 
 .monthName {
-    font-weight: 500;
+    font-weight: 600;
     text-align: center;
     padding-bottom: 5px;
     user-select: none;

@@ -1,7 +1,6 @@
 .button-blue,
 .button-green {
-    display: block;
-    padding: 7px 14px;
+    padding: 5px 14px 7px;
     border-radius: 30px;
     cursor: pointer;
     width: fit-content;
@@ -50,4 +49,5 @@
     padding: 5px 5px 0 5px;
     border-radius: 5px;
     cursor: pointer;
+    transform: scale(1.125);
 }

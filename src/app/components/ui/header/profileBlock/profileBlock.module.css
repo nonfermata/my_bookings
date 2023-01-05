@@ -1,0 +1,29 @@
+.profileBlockWrap {
+    position: relative;
+    color: var(--base-bg-color);
+    font-weight: 300;
+}
+
+.profileBlock {
+    padding: 7px 10px;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    align-items: center;
+    transition: all ease 0.15s;
+}
+
+.profileBlock:hover {
+    background-color: var(--profile-bg-color);
+}
+
+.icon {
+    width: 35px;
+    border-radius: 50%;
+    border: 2px solid var(--menu-item-active-color);
+    background-color: var(--base-bg-color);
+}
+
+.name {
+    font-weight: 400;
+}

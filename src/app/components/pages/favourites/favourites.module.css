@@ -1,0 +1,13 @@
+.roomsWrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 2%;
+    row-gap: 25px;
+}
+
+.noFavourites {
+    font-weight: 300;
+    font-size: 1.2rem;
+    margin: 30px 20px;
+}
