@@ -3,9 +3,9 @@ import { getMonths, getPossibleStartDate } from "../../../utils/renderCalendar";
 import classes from "./dateChoice.module.css";
 import PropTypes from "prop-types";
 import MonthBlock from "./monthBlock";
+import { connect } from "react-redux";
 import moment from "moment";
 import "moment/locale/ru";
-import { connect } from "react-redux";
 
 moment.locale("ru");
 

@@ -3,26 +3,30 @@ import classes from "./roomExBrief.module.css";
 import PropTypes from "prop-types";
 import moment from "moment";
 import "moment/locale/ru";
-import Button from "../../common/button";
-import { Link } from "react-router-dom";
 import { useRooms } from "../../../hooks/useRooms";
 import { useAuth } from "../../../hooks/useAuth";
 import Loader from "../../common/loader/loader";
+import PopupSubmit from "../../common/popupSubmit/popupSubmit";
+import { useBookings } from "../../../hooks/useBookings";
+import { Link } from "react-router-dom";
 moment.locale("ru");
 
-const RoomExBrief = ({
-    _id,
-    checkIn,
-    checkOut,
-    persons,
-    roomId,
-    status,
-    userId,
-    userPhone,
-    admin
-}) => {
+const RoomExBrief = ({ booking, admin }) => {
+    const {
+        _id,
+        checkIn,
+        checkOut,
+        persons,
+        roomId,
+        status,
+        userId,
+        userPhone
+    } = booking;
     const [user, setUser] = useState();
+    const { updateBooking } = useBookings();
     const { getUserById } = useAuth();
+    const room = useRooms().getRoomById(roomId);
+    const [isPopup, setIsPopup] = useState(false);
     const extStatus = {};
     if (status === "ok") {
         const date = Date.now();
@@ -43,7 +47,7 @@ const RoomExBrief = ({
         extStatus.name = "отменено администратором";
         extStatus.value = "adminCancelled";
     }
-    const room = useRooms().rooms.find((item) => item._id === roomId);
+    const isEdit = extStatus.value === "upcoming" || extStatus.value === "now";
 
     useEffect(() => {
         getUserById(userId).then((result) => setUser(result));
@@ -57,6 +61,22 @@ const RoomExBrief = ({
         } else {
             return "гостя";
         }
+    };
+
+    const handleCancelBooking = () => {
+        setIsPopup(true);
+    };
+
+    const onSubmitCancellation = async () => {
+        await updateBooking({
+            ...booking,
+            status: admin ? "adminCancelled" : "userCancelled"
+        });
+        setIsPopup(false);
+    };
+
+    const onExit = () => {
+        setIsPopup(false);
     };
 
     if (user) {
@@ -87,8 +107,8 @@ const RoomExBrief = ({
                         />
                     </div>
                     <div className={classes.description}>
-                        <h1 className={classes.title}>{room.name}</h1>
-                        {admin ? (
+                        <h1 className={classes.roomTitle}>{room.name}</h1>
+                        {admin && (
                             <>
                                 <h2 className={classes.userTitle}>
                                     Контактное лицо:
@@ -107,25 +127,45 @@ const RoomExBrief = ({
                                         {"+7 " + userPhone}
                                     </span>
                                 </p>
-                                {(extStatus.value === "upcoming" ||
-                                    extStatus.value === "now") && (
-                                    <p
-                                        className={classes.cancelBooking}
-                                        title="Отменить бронирование"
-                                    >
-                                        Отменить бронирование
-                                    </p>
-                                )}
                             </>
-                        ) : (
-                            <Link to={"/edit-booking/" + _id}>
-                                <Button color="blue">
-                                    Управлять бронированием
-                                </Button>
-                            </Link>
+                        )}
+                        {isEdit && (
+                            <div className={classes.editWrap}>
+                                <Link to={"edit-booking/" + _id}>
+                                    <p
+                                        className={
+                                            classes.edit +
+                                            " " +
+                                            classes.editBooking
+                                        }
+                                        title="Редактировать"
+                                    >
+                                        Редактировать
+                                    </p>
+                                </Link>
+                                <p
+                                    className={
+                                        classes.edit +
+                                        " " +
+                                        classes.cancelBooking
+                                    }
+                                    title="Отменить бронирование"
+                                    onClick={handleCancelBooking}
+                                >
+                                    Отменить бронирование
+                                </p>
+                            </div>
                         )}
                     </div>
                 </div>
+                {isPopup && (
+                    <PopupSubmit
+                        onSubmit={onSubmitCancellation}
+                        onExit={onExit}
+                    >
+                        Вы уверены, что хотите отменить это бронирование?
+                    </PopupSubmit>
+                )}
             </div>
         );
     } else {
@@ -134,14 +174,7 @@ const RoomExBrief = ({
 };
 
 RoomExBrief.propTypes = {
-    _id: PropTypes.string,
-    checkIn: PropTypes.number,
-    checkOut: PropTypes.number,
-    persons: PropTypes.string,
-    roomId: PropTypes.string,
-    status: PropTypes.string,
-    userId: PropTypes.string,
-    userPhone: PropTypes.string,
+    booking: PropTypes.object,
     admin: PropTypes.bool
 };
 

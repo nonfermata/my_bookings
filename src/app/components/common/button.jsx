@@ -6,7 +6,9 @@ const Button = ({ children, color, disabled, onClick }) => {
     return (
         <button
             className={
-                classes["button-" + color] +
+                classes.button +
+                " " +
+                classes[color] +
                 (disabled ? " " + classes.btnDisabled : "")
             }
             disabled={disabled}
@@ -18,7 +20,10 @@ const Button = ({ children, color, disabled, onClick }) => {
 };
 
 Button.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]),
     color: PropTypes.string,
     disabled: PropTypes.bool,
     onClick: PropTypes.func

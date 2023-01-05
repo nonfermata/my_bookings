@@ -1,3 +1,27 @@
-.editWrap {
+.bookingFormWrap {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
 
+.totalDays {
+    font-size: 1rem;
+    margin: 0 30px;
+}
+
+.staticCheckIn {
+    width: 150px;
+    padding: 8px;
+    height: 35px;
+    border-radius: 5px;
+    border: var(--light-beige-border);
+    background-color: white;
+    text-align: center;
+    font-weight: 600;
+    user-select: none;
+}
+
+.phoneLabel {
+    margin-bottom: 10px;
+    font-size: 1rem;
 }

@@ -1,28 +1,46 @@
-.button-blue,
-.button-green {
+.button {
     padding: 5px 14px 7px;
     border-radius: 30px;
     cursor: pointer;
     width: fit-content;
     color: var(--base-bg-color);
     border: 1px solid var(--base-bg-color);
-    background-color: var(--header-bg-color);
     transition: all 0.15s ease;
 }
 
-.button-green {
-    background-color: var(--green-color);
+.blue {
+    background-color: var(--header-bg-color);
 }
-
-.button-blue:hover {
+.blue:hover {
     color: var(--header-bg-color);
     border: 1px solid var(--header-bg-color);
     background-color: var(--base-bg-color);
 }
 
-.button-green:hover {
+.green {
+    background-color: var(--green-color);
+}
+.green:hover {
     color: var(--green-color);
     border: 1px solid var(--green-color);
+    background-color: var(--base-bg-color);
+}
+
+.orange {
+    background-color: var(--orange-color);
+}
+.orange:hover {
+    color: var(--orange-color);
+    border: 1px solid var(--orange-color);
+    background-color: var(--base-bg-color);
+}
+
+.grey {
+    background-color: var(--semi-grey-color);
+}
+.grey:hover {
+    color: var(--semi-grey-color);
+    border: 1px solid var(--semi-grey-color);
     background-color: var(--base-bg-color);
 }
 

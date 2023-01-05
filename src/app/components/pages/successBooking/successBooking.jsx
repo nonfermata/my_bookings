@@ -12,7 +12,7 @@ const SuccessBooking = () => {
             <div className="mainTitle green">
                 Поздравляем, Ваше бронирование подтверждено!
             </div>
-            <RoomExBrief {...booking} />
+            <RoomExBrief booking={booking} />
         </>
     );
 };

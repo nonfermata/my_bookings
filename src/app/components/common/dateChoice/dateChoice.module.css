@@ -29,6 +29,7 @@
     border: var(--light-beige-border);
     border-radius: 5px;
     background-color: var(--base-bg-color);
+    z-index: 1;
 }
 
 .topArrow {

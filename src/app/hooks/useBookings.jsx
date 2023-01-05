@@ -33,6 +33,15 @@ const BookingsProvider = ({ children }) => {
         }
     }
 
+    async function updateBooking(data) {
+        try {
+            await bookingsService.update(data);
+            getBookings();
+        } catch (e) {
+            errorCatcher(e);
+        }
+    }
+
     async function getBookings() {
         try {
             const data = await bookingsService.get();
@@ -43,13 +52,25 @@ const BookingsProvider = ({ children }) => {
         }
     }
 
+    async function getBookingById(id) {
+        try {
+            return await bookingsService.getBookingById(id);
+        } catch (e) {
+            errorCatcher(e);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     function errorCatcher(e) {
         const { message } = e.response.data;
         setError(message);
     }
 
     return (
-        <BookingsContext.Provider value={{ bookings, createBooking }}>
+        <BookingsContext.Provider
+            value={{ bookings, getBookingById, createBooking, updateBooking }}
+        >
             {!isLoading ? children : <Loader />}
         </BookingsContext.Provider>
     );

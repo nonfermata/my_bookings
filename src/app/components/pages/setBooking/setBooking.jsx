@@ -13,6 +13,7 @@ import SpaceDiv from "../../common/spaceDiv";
 import { useBookings } from "../../../hooks/useBookings";
 import { useRooms } from "../../../hooks/useRooms";
 import { resetBooking } from "../../../../redux/bookingReducer";
+import changePhone from "../../common/changePhone";
 
 moment.locale("ru");
 
@@ -24,9 +25,9 @@ const SetBooking = ({ booking, resetBooking }) => {
         }
     }, []);
     const { bookings, createBooking } = useBookings();
-    const { roomId } = useParams();
     const { currentUser } = useAuth();
-    const room = useRooms().rooms.find((item) => item._id === roomId);
+    const { roomId } = useParams();
+    const room = useRooms().getRoomById(roomId);
     const roomBookings = bookings
         ? bookings.filter((item) => item.roomId === roomId)
         : [];
@@ -54,21 +55,10 @@ const SetBooking = ({ booking, resetBooking }) => {
         persons: booking.persons
     });
 
-    const handleChange = (name, value) => {
-        let newValue = value.length < 3 ? "" : value.replace("+7 ", "");
-        newValue = newValue.trim();
-        if (isNaN(newValue)) {
-            const arr = [];
-            for (const i of newValue) {
-                if (i !== " " && !isNaN(i)) {
-                    arr.push(i);
-                }
-            }
-            newValue = arr.join("");
-        }
+    const handleChangePhone = (name, value) => {
         setBookingData((prevState) => ({
             ...prevState,
-            [name]: newValue
+            [name]: changePhone(value)
         }));
     };
 
@@ -141,7 +131,7 @@ const SetBooking = ({ booking, resetBooking }) => {
                         <TextField
                             name="userPhone"
                             value={"+7 " + bookingData.userPhone}
-                            onChange={handleChange}
+                            onChange={handleChangePhone}
                             wrapStyle={{ justifyContent: "flex-start" }}
                             inputStyle={{
                                 padding: "7px",

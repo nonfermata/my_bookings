@@ -79,11 +79,11 @@
     align-items: flex-start;
 }
 
-.title {
+.roomTitle {
     color: var(--header-bg-color);
     font-size: 1.05rem;
     font-weight: 500;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .userTitle {
@@ -96,19 +96,27 @@
     font-size: 0.95rem;
     margin-bottom: 2px;
 }
-
-.cancelBooking {
+.editWrap {
+    margin-top: 10px;
+}
+.edit {
     font-size: 1rem;
     cursor: pointer;
-    color: var(--orange-color);
-    margin-top: 15px;
     padding: 3px 8px 5px;
-    background-color: transparent;
     transition: all ease 0.15s;
+    background-color: transparent;
     border: 1px solid transparent;
+    width: fit-content;
 }
-
-.cancelBooking:hover {
+.edit:hover {
     background-color: var(--base-bg-color);
     border-color: var(--semi-light-beige-color);
+}
+
+.cancelBooking {
+    color: var(--orange-color);
+}
+
+.editBooking {
+    color: var(--bright-brown-color);
 }

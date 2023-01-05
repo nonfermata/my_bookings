@@ -34,13 +34,17 @@ const RoomsProvider = ({ children }) => {
         }
     }
 
+    function getRoomById(id) {
+        return rooms.find((room) => room._id === id);
+    }
+
     function errorCatcher(e) {
         const { message } = e.response.data;
         setError(message);
     }
 
     return (
-        <RoomsContext.Provider value={{ rooms }}>
+        <RoomsContext.Provider value={{ rooms, getRoomById }}>
             {!isLoading ? children : <Loader />}
         </RoomsContext.Provider>
     );

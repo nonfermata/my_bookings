@@ -66,7 +66,7 @@ export const getPossibleStartDate = (choiceName, currentDate, checkInDate) => {
     if (choiceName === "checkIn") {
         return currentDate;
     } else if (choiceName === "checkOut") {
-        if (checkInDate) {
+        if (checkInDate && checkInDate > Date.now()) {
             return checkInDate + 86400000;
         } else {
             return currentDate + 86400000;

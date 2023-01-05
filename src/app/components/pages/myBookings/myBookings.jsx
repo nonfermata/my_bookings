@@ -22,7 +22,7 @@ const MyBookings = () => {
                 orderedBookings.map((item) => (
                     <RoomExBrief
                         key={item._id}
-                        {...item}
+                        booking={item}
                     />
                 ))
             ) : (

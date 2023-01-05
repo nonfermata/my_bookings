@@ -10,14 +10,13 @@ import { useAuth } from "../../../hooks/useAuth";
 import { useRooms } from "../../../hooks/useRooms";
 
 const RoomPage = () => {
-    const { rooms } = useRooms();
     const { currentUser, updateUserFavourites } = useAuth();
     const { roomId } = useParams();
+    const room = useRooms().getRoomById(roomId);
     const isFavourite =
         currentUser &&
         currentUser.favourites &&
         currentUser.favourites.some((item) => item === roomId);
-    const room = rooms.find((room) => room._id === roomId);
     const history = useHistory();
     const handleBack = () => {
         history.goBack();

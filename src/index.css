@@ -18,7 +18,8 @@
     --light-beige-color: #e0e0d1;
     --semi-light-beige-color: #ebebdb;
     --semi-beige-color: #d4d4c6;
-    --brown-grey-color: #665c47;
+    --bright-brown-color: #805326;
+    --brown-grey-color: #80664d;
     --light-orange-color: #ffd580;
     --semi-orange-color: #ffbb33;
     --orange-color: #ee7700;
@@ -32,7 +33,7 @@
     --green-color: #008c75;
     --upcoming: #c5ede4;
     --now: #fafab6;
-    --completed: #d2f7c6;
+    --completed: #d5f2cb;
     --user-cacelled: #e3e5e5;
     --admin-cancelled: #e5dcda;
 }
@@ -92,6 +93,12 @@ a {
     font-weight: 300;
     padding-bottom: 1.2em;
     padding-left: 20px;
+}
+
+.warning {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--orange-color);
 }
 
 .fw300 {
