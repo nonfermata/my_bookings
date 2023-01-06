@@ -1,8 +1,8 @@
 .bookingWrap {
     margin-bottom: 20px;
-    padding: 15px 20px;
+    padding: 30px 20px 15px;
     background-color: var(--ex-light-beige-color);
-    width: 500px;
+    width: 520px;
     border: var(--semi-light-beige-border);
     border-left: 7px solid var(--light-beige-color);
     position: relative;
@@ -38,16 +38,14 @@
 
 .datesAndPersonsWrap {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 15px;
     font-weight: 300;
 }
 
-.dates {
-    font-weight: 500;
-}
-
-.persons {
+.dates,
+.persons,
+.price {
     font-weight: 500;
 }
 
@@ -59,7 +57,8 @@
 .imgWrap {
     position: relative;
     height: 80px;
-    padding-left: 25%;
+    padding-left: 27%;
+    border: 1px solid var(--light-semi-grey-color);
     overflow: hidden;
 }
 
@@ -89,6 +88,7 @@
 .userTitle {
     font-size: 0.95rem;
     font-weight: 600;
+    font-style: italic;
     margin-bottom: 5px;
 }
 
@@ -110,7 +110,7 @@
 }
 .edit:hover {
     background-color: var(--base-bg-color);
-    border-color: var(--semi-light-beige-color);
+    border-color: var(--light-beige-color);
 }
 
 .cancelBooking {
@@ -118,5 +118,5 @@
 }
 
 .editBooking {
-    color: var(--bright-brown-color);
+    color: var(--semi-orange-color);
 }

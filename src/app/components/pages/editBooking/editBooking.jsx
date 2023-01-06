@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./editBooking.module.css";
 import DateChoice from "../../common/dateChoice/dateChoice";
 import Button from "../../common/button";
@@ -13,17 +13,21 @@ import "moment/locale/ru";
 import moment from "moment";
 import TextField from "../../common/form/textField";
 import changePhone from "../../common/changePhone";
+import { useRooms } from "../../../hooks/useRooms";
+import getWordByNumber from "../../../utils/getWordByNumber";
 moment.locale("ru");
 
 const EditBooking = () => {
     const history = useHistory();
-    const initialState = {};
+    const ref = useRef({});
+    const { getRoomById } = useRooms();
     const { currentUser } = useAuth();
     const isAdmin = currentUser._id === process.env.REACT_APP_ADMIN;
+    const { getBookingById, updateBooking } = useBookings();
     const { bookingId } = useParams();
-    const { getBookingById } = useBookings();
-    const [booking, setBooking] = useState(initialState);
+    const [booking, setBooking] = useState({});
     const [activeCalendar, setActiveCalendar] = useState();
+    const [maxPersonsClass, setMaxPersonsClass] = useState("hidden");
     const activateCalendar = (calendar) => {
         setActiveCalendar(calendar);
     };
@@ -36,16 +40,17 @@ const EditBooking = () => {
     };
     useEffect(() => {
         getBookingById(bookingId).then((result) => {
-            localStorage.setItem("checkOut", String(result.checkOut));
+            ref.current.checkIn = result.checkIn;
+            ref.current.checkOut = result.checkOut;
             return setBooking(result);
         });
     }, []);
     useEffect(() => {
         if (booking.checkIn && booking.checkOut) {
-            const totalDays = (booking.checkOut - booking.checkIn) / 86400000;
-            setBooking({ ...booking, totalDays });
+            const totalNights = (booking.checkOut - booking.checkIn) / 86400000;
+            setBooking({ ...booking, totalNights });
         } else {
-            setBooking({ ...booking, totalDays: "" });
+            setBooking({ ...booking, totalNights: "" });
         }
     }, [booking.checkIn, booking.checkOut, booking.persons]);
 
@@ -60,25 +65,45 @@ const EditBooking = () => {
         history.push(isAdmin ? "/admin" : "/my-bookings");
     };
 
-    if (booking !== initialState) {
+    const handleSubmit = async () => {
+        await updateBooking(booking);
+        history.push(isAdmin ? "/admin" : "/my-bookings");
+    };
+    if (booking._id) {
         if (currentUser._id !== booking.userId && !isAdmin) {
             return (
                 <div className="warning">
                     Вы не можете изменять данное бронирование!
                 </div>
             );
-        } else if (Date.now() > Number(localStorage.getItem("checkOut"))) {
+        } else if (
+            Date.now() > ref.current.checkOut ||
+            booking.status !== "ok"
+        ) {
             return (
                 <div className="warning">
                     Данное бронирование изменить невозможно!
                 </div>
             );
         } else {
+            const room = getRoomById(booking.roomId);
+            const getPersons = () => {
+                if (booking.persons > room.capacity) {
+                    setMaxPersonsClass("");
+                    setBooking((prevState) => ({
+                        ...prevState,
+                        persons: String(room.capacity)
+                    }));
+                    return String(room.capacity);
+                } else {
+                    return booking.persons;
+                }
+            };
             return (
                 <>
                     <div className="mainTitle">Изменить бронирование</div>
-                    <div className={classes.bookingFormWrap}>
-                        {Date.now() < booking.checkIn ? (
+                    <div className={classes.datesWrap}>
+                        {Date.now() < ref.current.checkIn ? (
                             <DateChoice
                                 choiceName="checkIn"
                                 choiceValue={booking.checkIn}
@@ -102,33 +127,63 @@ const EditBooking = () => {
                             activeCalendar={activeCalendar}
                             activateCalendar={activateCalendar}
                         />
-                        {booking.totalDays && (
-                            <div className={classes.totalDays}>
-                                Количество ночей:
-                                <span className="fw600">
-                                    {" "}
-                                    {booking.totalDays}
-                                </span>
+                    </div>
+                    <div className={classes.imgAndTitleWrap}>
+                        <div className={classes.imgWrap}>
+                            <img
+                                className={classes.image}
+                                src={room.mainPhoto}
+                                alt="photo"
+                            />
+                        </div>
+                        <div>
+                            <h1 className={classes.roomTitle}>{room.name}</h1>
+                            <div className={classes.totalPrice}>
+                                {booking.totalNights ? (
+                                    <>
+                                        <span className="fw600">
+                                            ${room.price * booking.totalNights}
+                                        </span>{" "}
+                                        за {booking.totalNights}{" "}
+                                        {getWordByNumber(
+                                            booking.totalNights,
+                                            "ночи"
+                                        )}
+                                    </>
+                                ) : (
+                                    ". . ."
+                                )}
                             </div>
-                        )}
+                        </div>
+                    </div>
+                    <div className={classes.personsWrap}>
+                        <SelectField
+                            label="Количество гостей"
+                            options={persons}
+                            defaultOption=""
+                            name="persons"
+                            value={getPersons()}
+                            onChange={handleChange}
+                            style={{
+                                padding: "8px 10px",
+                                border: "1px solid var(--header-bg-color)",
+                                margin: "5px 0 0 10px",
+                                fontWeight: "600"
+                            }}
+                        />
+                        <div
+                            className={
+                                classes.maxPersons + " " + maxPersonsClass
+                            }
+                        >
+                            Максимальная вместимость номера – {room.capacity}{" "}
+                            {getWordByNumber(room.capacity, "люди")}
+                        </div>
                     </div>
                     <SpaceDiv height="30" />
-                    <SelectField
-                        label="Количество человек"
-                        options={persons}
-                        defaultOption=""
-                        name="persons"
-                        value={booking.persons}
-                        onChange={handleChange}
-                        style={{
-                            padding: "8px 10px",
-                            border: "1px solid var(--header-bg-color)",
-                            margin: "5px 0 0 10px",
-                            fontWeight: "600"
-                        }}
-                    />
-                    <SpaceDiv height="30" />
-                    <div className={classes.phoneLabel}>Контактный телефон:</div>
+                    <div className={classes.phoneLabel}>
+                        Контактный телефон:
+                    </div>
                     <TextField
                         name="userPhone"
                         value={"+7 " + booking.userPhone}
@@ -143,8 +198,11 @@ const EditBooking = () => {
                     />
                     <Button
                         color="blue"
-                        onClick={handleBack}
-                        disabled={!booking.totalDays || booking.userPhone.length !== 10}
+                        onClick={handleSubmit}
+                        disabled={
+                            !booking.totalNights ||
+                            booking.userPhone.length !== 10
+                        }
                     >
                         Сохранить изменения
                     </Button>

@@ -18,16 +18,14 @@ const PopupSubmit = ({ children, onSubmit, onExit }) => {
                         color="orange"
                         onClick={onSubmit}
                     >
-                        Да, я абсолютно тверд в своих намерениях и в полной мере
-                        осознаю всю степень ответственности за последствия
-                        принятого решения
+                        Да, решение окончательное
                     </Button>
                     <SpaceDiv height="20" />
                     <Button
                         color="grey"
                         onClick={onExit}
                     >
-                        Ой нет, я передумал
+                        Нет, я передумал
                     </Button>
                 </div>
             </div>

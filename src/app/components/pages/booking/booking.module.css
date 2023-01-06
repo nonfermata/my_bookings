@@ -1,7 +1,8 @@
-.bookingFormWrap {
+.datesWrap {
     display: flex;
     gap: 20px;
     align-items: center;
+    margin-bottom: 30px;
 }
 
 .subtitle {
@@ -12,7 +13,7 @@
     margin-top: -10px;
 }
 
-.totalDays {
+.totalNights {
     font-size: 1rem;
     margin: 0 30px;
 }

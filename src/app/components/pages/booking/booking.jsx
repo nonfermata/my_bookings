@@ -28,12 +28,13 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
     };
     useEffect(() => {
         if (booking.checkIn && booking.checkOut) {
-            const totalDays = (booking.checkOut - booking.checkIn) / 86400000;
-            setBooking({ ...booking, totalDays });
+            const totalNights = (booking.checkOut - booking.checkIn) / 86400000;
+            setBooking({ ...booking, totalNights });
+            setBookingToStore({ ...booking, totalNights });
         } else {
-            setBooking({ ...booking, totalDays: "" });
+            setBooking({ ...booking, totalNights: "" });
+            setBookingToStore({ ...booking, totalNights: "" });
         }
-        setBookingToStore(booking);
     }, [booking.checkIn, booking.checkOut, booking.persons]);
 
     return (
@@ -42,7 +43,7 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
             <div className={classes.subtitle}>
                 и мы подберем для Вас лучшие номера!
             </div>
-            <div className={classes.bookingFormWrap}>
+            <div className={classes.datesWrap}>
                 <DateChoice
                     choiceName="checkIn"
                     choiceValue={booking.checkIn}
@@ -60,16 +61,15 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
                     activeCalendar={activeCalendar}
                     activateCalendar={activateCalendar}
                 />
-                {booking.totalDays && (
-                    <div className={classes.totalDays}>
+                {booking.totalNights && (
+                    <div className={classes.totalNights}>
                         Количество ночей:
-                        <span className="fw600"> {booking.totalDays}</span>
+                        <span className="fw600"> {booking.totalNights}</span>
                     </div>
                 )}
             </div>
-            <SpaceDiv height="30" />
             <SelectField
-                label="Количество человек"
+                label="Количество гостей"
                 options={persons}
                 defaultOption=""
                 name="persons"
@@ -86,7 +86,7 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
             <Link to="/rooms">
                 <Button
                     color="blue"
-                    disabled={!booking.totalDays || !booking.persons}
+                    disabled={!booking.totalNights || !booking.persons}
                 >
                     Выбрать номер
                 </Button>

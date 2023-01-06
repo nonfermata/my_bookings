@@ -9,69 +9,40 @@ import Loader from "../../common/loader/loader";
 import PopupSubmit from "../../common/popupSubmit/popupSubmit";
 import { useBookings } from "../../../hooks/useBookings";
 import { Link } from "react-router-dom";
+import getWordByNumber from "../../../utils/getWordByNumber";
 moment.locale("ru");
 
-const RoomExBrief = ({ booking, admin }) => {
-    const {
-        _id,
-        checkIn,
-        checkOut,
-        persons,
-        roomId,
-        status,
-        userId,
-        userPhone
-    } = booking;
+const RoomExBrief = ({ id }) => {
     const [user, setUser] = useState();
-    const { updateBooking } = useBookings();
+    const { getBookingById, updateBooking } = useBookings();
+    const [booking, setBooking] = useState();
     const { getUserById } = useAuth();
-    const room = useRooms().getRoomById(roomId);
+    const { getRoomById } = useRooms();
+    const { currentUser } = useAuth();
+    const isAdmin = currentUser._id === process.env.REACT_APP_ADMIN;
     const [isPopup, setIsPopup] = useState(false);
-    const extStatus = {};
-    if (status === "ok") {
-        const date = Date.now();
-        if (date < checkIn) {
-            extStatus.name = "предстоящее";
-            extStatus.value = "upcoming";
-        } else if (date >= checkIn && date <= checkOut) {
-            extStatus.name = "сейчас";
-            extStatus.value = "now";
-        } else {
-            extStatus.name = "завершено";
-            extStatus.value = "completed";
-        }
-    } else if (status === "userCancelled") {
-        extStatus.name = "отменено пользователем";
-        extStatus.value = "userCancelled";
-    } else {
-        extStatus.name = "отменено администратором";
-        extStatus.value = "adminCancelled";
-    }
-    const isEdit = extStatus.value === "upcoming" || extStatus.value === "now";
 
     useEffect(() => {
-        getUserById(userId).then((result) => setUser(result));
+        getBookingById(id).then((result) => setBooking(result));
     }, []);
 
-    const getPersonsString = (value) => {
-        if (value === "1") {
-            return "гость";
-        } else if (value === "5") {
-            return "гостей";
-        } else {
-            return "гостя";
+    useEffect(() => {
+        if (booking) {
+            getUserById(booking.userId).then((result) => setUser(result));
         }
-    };
+    }, [booking]);
 
     const handleCancelBooking = () => {
         setIsPopup(true);
     };
 
-    const onSubmitCancellation = async () => {
-        await updateBooking({
+    const onSubmitCancellation = () => {
+        const data = {
             ...booking,
-            status: admin ? "adminCancelled" : "userCancelled"
-        });
+            status: isAdmin ? "adminCancelled" : "userCancelled"
+        };
+        updateBooking(data);
+        setBooking(data);
         setIsPopup(false);
     };
 
@@ -79,7 +50,31 @@ const RoomExBrief = ({ booking, admin }) => {
         setIsPopup(false);
     };
 
-    if (user) {
+    if (user && booking) {
+        const room = getRoomById(booking.roomId);
+        const totalNights = (booking.checkOut - booking.checkIn) / 86400000;
+        const extStatus = {};
+        if (booking.status === "ok") {
+            const date = Date.now();
+            if (date < booking.checkIn) {
+                extStatus.name = "предстоящее";
+                extStatus.value = "upcoming";
+            } else if (date >= booking.checkIn && date <= booking.checkOut) {
+                extStatus.name = "сейчас";
+                extStatus.value = "now";
+            } else {
+                extStatus.name = "завершено";
+                extStatus.value = "completed";
+            }
+        } else if (booking.status === "userCancelled") {
+            extStatus.name = "отменено пользователем";
+            extStatus.value = "userCancelled";
+        } else {
+            extStatus.name = "отменено администратором";
+            extStatus.value = "adminCancelled";
+        }
+        const isEdit =
+            extStatus.value === "upcoming" || extStatus.value === "now";
         return (
             <div className={classes.bookingWrap}>
                 <div
@@ -89,13 +84,21 @@ const RoomExBrief = ({ booking, admin }) => {
                 </div>
                 <div className={classes.datesAndPersonsWrap}>
                     <div className={classes.dates}>
-                        {moment(checkIn).format("DD.MM.YYYY") +
+                        {moment(booking.checkIn).format("DD.MM.YYYY") +
                             " - " +
-                            moment(checkOut).format("DD.MM.YYYY")}
+                            moment(booking.checkOut).format("DD.MM.YYYY")}
                     </div>
                     |
                     <div className={classes.persons}>
-                        {persons} {getPersonsString(persons)}
+                        {booking.persons}{" "}
+                        {getWordByNumber(Number(booking.persons), "гости")}
+                    </div>
+                    |
+                    <div className={classes.price}>
+                        <span className="fw600">
+                            ${room.price * totalNights}
+                        </span>{" "}
+                        за {totalNights} {getWordByNumber(totalNights, "ночи")}
                     </div>
                 </div>
                 <div className={classes.imgAndDecrWrap}>
@@ -108,7 +111,7 @@ const RoomExBrief = ({ booking, admin }) => {
                     </div>
                     <div className={classes.description}>
                         <h1 className={classes.roomTitle}>{room.name}</h1>
-                        {admin && (
+                        {isAdmin && (
                             <>
                                 <h2 className={classes.userTitle}>
                                     Контактное лицо:
@@ -124,14 +127,14 @@ const RoomExBrief = ({ booking, admin }) => {
                                 <p className={classes.userItem}>
                                     Телефон:{" "}
                                     <span className="fw600">
-                                        {"+7 " + userPhone}
+                                        {"+7 " + booking.userPhone}
                                     </span>
                                 </p>
                             </>
                         )}
                         {isEdit && (
                             <div className={classes.editWrap}>
-                                <Link to={"edit-booking/" + _id}>
+                                <Link to={"/edit-booking/" + id}>
                                     <p
                                         className={
                                             classes.edit +
@@ -140,7 +143,7 @@ const RoomExBrief = ({ booking, admin }) => {
                                         }
                                         title="Редактировать"
                                     >
-                                        Редактировать
+                                        Внести изменения
                                     </p>
                                 </Link>
                                 <p
@@ -174,8 +177,7 @@ const RoomExBrief = ({ booking, admin }) => {
 };
 
 RoomExBrief.propTypes = {
-    booking: PropTypes.object,
-    admin: PropTypes.bool
+    id: PropTypes.string
 };
 
 export default RoomExBrief;
