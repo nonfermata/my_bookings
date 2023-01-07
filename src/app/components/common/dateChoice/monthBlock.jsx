@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from "react";
 import { getMonthDays } from "../../../utils/renderCalendar";
 import classes from "./dateChoice.module.css";
@@ -8,9 +9,15 @@ const MonthBlock = ({
     startDate,
     handleSetDate,
     choiceName,
-    possibleStartDate
+    impossibleDates
 }) => {
     const week = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"];
+    const checkDate = (date) => {
+        return !impossibleDates.some(
+            (item) => date >= item.from && date < item.to
+        );
+    };
+
     function getDayNumber(date) {
         const newDate = new Date(date);
         return newDate.getDate();
@@ -28,18 +35,25 @@ const MonthBlock = ({
                     </div>
                 ))}
                 {getMonthDays(startDate).map((date, index) => (
-                    <div
+                    <button
+                        disabled={!checkDate(date)}
                         key={index}
-                        onClick={() => handleSetDate(choiceName, date)}
+                        onClick={
+                            handleSetDate
+                                ? () => handleSetDate(choiceName, date)
+                                : () => {}
+                        }
                         className={
-                            (date >= possibleStartDate
-                                ? classes.dayCell
+                            (checkDate(date)
+                                ? handleSetDate
+                                    ? classes.normalDayCell
+                                    : classes.staticDayCell
                                 : classes.passiveDayCell) +
                             (date ? "" : " invisible")
                         }
                     >
                         <>{date && getDayNumber(date)}</>
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>
@@ -48,9 +62,9 @@ const MonthBlock = ({
 MonthBlock.propTypes = {
     monthName: PropTypes.string,
     startDate: PropTypes.number,
-    handleSetDate: PropTypes.func,
+    handleSetDate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     choiceName: PropTypes.string,
-    possibleStartDate: PropTypes.number
+    impossibleDates: PropTypes.array
 };
 
 export default MonthBlock;

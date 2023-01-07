@@ -23,17 +23,18 @@ const EditBooking = () => {
     const { getRoomById } = useRooms();
     const { currentUser } = useAuth();
     const isAdmin = currentUser._id === process.env.REACT_APP_ADMIN;
-    const { getBookingById, updateBooking } = useBookings();
+    const { getRoomBookings, getBookingById, updateBooking } = useBookings();
     const { bookingId } = useParams();
     const [booking, setBooking] = useState({});
     const [activeCalendar, setActiveCalendar] = useState();
+    const [occupiedDates, setOccupiedDates] = useState();
     const [maxPersonsClass, setMaxPersonsClass] = useState("hidden");
     const activateCalendar = (calendar) => {
         setActiveCalendar(calendar);
     };
-    const handleChange = (name, value, checkOutReset) => {
-        if (checkOutReset) {
-            setBooking({ ...booking, [name]: value, checkOut: "" });
+    const handleChange = (name, value, reset) => {
+        if (reset) {
+            setBooking({ ...booking, [name]: value, [reset]: "" });
         } else {
             setBooking({ ...booking, [name]: value });
         }
@@ -45,6 +46,21 @@ const EditBooking = () => {
             return setBooking(result);
         });
     }, []);
+    useEffect(() => {
+        if (booking) {
+            getRoomBookings(booking.roomId).then((result) => {
+                const filteredBookings = result.filter(
+                    (item) => item._id !== bookingId && item.status === "ok"
+                );
+                setOccupiedDates(
+                    filteredBookings.map(({ checkIn, checkOut }) => ({
+                        checkIn,
+                        checkOut
+                    }))
+                );
+            });
+        }
+    }, [booking._id]);
     useEffect(() => {
         if (booking.checkIn && booking.checkOut) {
             const totalNights = (booking.checkOut - booking.checkIn) / 86400000;
@@ -69,7 +85,7 @@ const EditBooking = () => {
         await updateBooking(booking);
         history.push(isAdmin ? "/admin" : "/my-bookings");
     };
-    if (booking._id) {
+    if (booking._id && occupiedDates) {
         if (currentUser._id !== booking.userId && !isAdmin) {
             return (
                 <div className="warning">
@@ -105,6 +121,7 @@ const EditBooking = () => {
                     <div className={classes.datesWrap}>
                         {Date.now() < ref.current.checkIn ? (
                             <DateChoice
+                                occupiedDates={occupiedDates}
                                 choiceName="checkIn"
                                 choiceValue={booking.checkIn}
                                 onSetDate={handleChange}
@@ -120,6 +137,7 @@ const EditBooking = () => {
 
                         <p>–</p>
                         <DateChoice
+                            occupiedDates={occupiedDates}
                             choiceName="checkOut"
                             choiceValue={booking.checkOut}
                             onSetDate={handleChange}

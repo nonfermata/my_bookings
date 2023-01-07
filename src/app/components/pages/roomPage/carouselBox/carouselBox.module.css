@@ -1,5 +1,5 @@
 .mainContainer {
-    width: 60%;
+    width: 100%;
     position: relative;
     border: var(--light-beige-border);
 }

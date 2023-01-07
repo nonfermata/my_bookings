@@ -23,21 +23,13 @@ const SetBooking = ({ booking, resetBooking }) => {
     const { currentUser } = useAuth();
     const { roomId } = useParams();
     const room = useRooms().getRoomById(roomId);
-    const { getBookings, createBooking } = useBookings();
+    const { getRoomBookings, createBooking } = useBookings();
     const [roomBookings, setRoomBookings] = useState();
     useEffect(() => {
         if (Object.values(booking).some((item) => item === "")) {
             history.push("/");
         }
-        getBookings().then((result) => {
-            if (result) {
-                setRoomBookings(
-                    result.filter((item) => item.roomId === roomId)
-                );
-            } else {
-                setRoomBookings([]);
-            }
-        });
+        getRoomBookings(roomId).then((result) => setRoomBookings(result));
     }, []);
 
     const errorBookingMessage = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Loader from "../../common/loader/loader";
 import Button from "../../common/button";
@@ -8,11 +8,32 @@ import TopButton from "../../common/topButton";
 import heart from "../../common/svg/heart";
 import { useAuth } from "../../../hooks/useAuth";
 import { useRooms } from "../../../hooks/useRooms";
+import DateChoice from "../../common/dateChoice/dateChoice";
+import { useBookings } from "../../../hooks/useBookings";
 
 const RoomPage = () => {
     const { currentUser, updateUserFavourites } = useAuth();
     const { roomId } = useParams();
     const room = useRooms().getRoomById(roomId);
+    const { getRoomBookings } = useBookings();
+    const [activeCalendar, setActiveCalendar] = useState();
+    const activateCalendar = (calendar) => {
+        setActiveCalendar(calendar);
+    };
+    const [occupiedDates, setOccupiedDates] = useState([]);
+    useEffect(() => {
+        getRoomBookings(roomId).then((result) => {
+            const filteredBookings = result.filter(
+                (item) => item.status === "ok"
+            );
+            setOccupiedDates(
+                filteredBookings.map(({ checkIn, checkOut }) => ({
+                    checkIn,
+                    checkOut
+                }))
+            );
+        });
+    }, []);
     const isFavourite =
         currentUser &&
         currentUser.favourites &&
@@ -44,23 +65,25 @@ const RoomPage = () => {
         return (
             <>
                 <div className={classes.roomContentWrap}>
-                    <CarouselBox>
-                        {room.photos.map((photo) => (
-                            <div
-                                className={classes.imgWrap}
-                                key={photo.url}
-                            >
-                                <img
-                                    className={
-                                        photo.orient === "hor"
-                                            ? classes.imageHor
-                                            : classes.imageVert
-                                    }
-                                    src={photo.url}
-                                />
-                            </div>
-                        ))}
-                    </CarouselBox>
+                    <div className={classes.leftPartWrap}>
+                        <CarouselBox>
+                            {room.photos.map((photo) => (
+                                <div
+                                    className={classes.imgWrap}
+                                    key={photo.url}
+                                >
+                                    <img
+                                        className={
+                                            photo.orient === "hor"
+                                                ? classes.imageHor
+                                                : classes.imageVert
+                                        }
+                                        src={photo.url}
+                                    />
+                                </div>
+                            ))}
+                        </CarouselBox>
+                    </div>
                     <div className={classes.roomDescription}>
                         {currentUser && (
                             <TopButton
@@ -105,22 +128,32 @@ const RoomPage = () => {
                         </ul>
                     </div>
                 </div>
-                <div className={classes.buttonsWrap}>
-                    <Button
-                        color="blue"
-                        onClick={handleBack}
-                    >
-                        <div className={classes.buttonSize}>Назад</div>
-                    </Button>
-                    {isBookingButton && (
-                        <Link to={"/set-booking/" + roomId}>
-                            <Button color="green">
-                                <div className={classes.buttonSize}>
-                                    Забронировать
-                                </div>
-                            </Button>
-                        </Link>
-                    )}
+                <div className={classes.footerWrap}>
+                    <div className={classes.calendarWrap}>
+                        <DateChoice
+                            occupiedDates={occupiedDates}
+                            choiceName="checkIn"
+                            activeCalendar={activeCalendar}
+                            activateCalendar={activateCalendar}
+                        />
+                    </div>
+                    <div className={classes.buttonsWrap}>
+                        <Button
+                            color="blue"
+                            onClick={handleBack}
+                        >
+                            <div className={classes.buttonSize}>Назад</div>
+                        </Button>
+                        {isBookingButton && (
+                            <Link to={"/set-booking/" + roomId}>
+                                <Button color="green">
+                                    <div className={classes.buttonSize}>
+                                        Забронировать
+                                    </div>
+                                </Button>
+                            </Link>
+                        )}
+                    </div>
                 </div>
             </>
         );

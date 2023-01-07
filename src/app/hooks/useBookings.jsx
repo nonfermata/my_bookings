@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import bookingsService from "../services/bookings.service";
+import _ from "lodash";
 
 const BookingsContext = React.createContext();
 
@@ -16,6 +17,52 @@ const BookingsProvider = ({ children }) => {
             setError(null);
         }
     }, [error]);
+
+    async function getAllBookings() {
+        try {
+            const data = await bookingsService.get();
+            return _.orderBy(data, ["checkIn"]);
+        } catch (e) {
+            errorCatcher(e);
+        }
+    }
+
+    async function getRoomBookings(roomId) {
+        try {
+            const data = await bookingsService.get();
+            if (data) {
+                return data.filter((item) => item.roomId === roomId);
+            } else {
+                return [];
+            }
+        } catch (e) {
+            errorCatcher(e);
+        }
+    }
+
+    async function getUserBookings(userId) {
+        try {
+            const data = await bookingsService.get();
+            if (data) {
+                const filteredData = data.filter(
+                    (item) => item.userId === userId
+                );
+                return _.orderBy(filteredData, ["checkIn"]);
+            } else {
+                return [];
+            }
+        } catch (e) {
+            errorCatcher(e);
+        }
+    }
+
+    async function getBookingById(id) {
+        try {
+            return await bookingsService.getBookingById(id);
+        } catch (e) {
+            errorCatcher(e);
+        }
+    }
 
     async function createBooking(data) {
         try {
@@ -33,22 +80,6 @@ const BookingsProvider = ({ children }) => {
         }
     }
 
-    async function getBookings() {
-        try {
-            return await bookingsService.get();
-        } catch (e) {
-            errorCatcher(e);
-        }
-    }
-
-    async function getBookingById(id) {
-        try {
-            return await bookingsService.getBookingById(id);
-        } catch (e) {
-            errorCatcher(e);
-        }
-    }
-
     function errorCatcher(e) {
         const { message } = e.response.data;
         setError(message);
@@ -57,7 +88,9 @@ const BookingsProvider = ({ children }) => {
     return (
         <BookingsContext.Provider
             value={{
-                getBookings,
+                getAllBookings,
+                getRoomBookings,
+                getUserBookings,
                 getBookingById,
                 createBooking,
                 updateBooking

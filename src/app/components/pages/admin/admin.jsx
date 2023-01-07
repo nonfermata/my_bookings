@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import classes from "./admin.module.css";
 import { useBookings } from "../../../hooks/useBookings";
-import _ from "lodash";
 import RoomExBrief from "../../ui/roomExBrief/roomExBrief";
 import Loader from "../../common/loader/loader";
 
 const Admin = () => {
     const [bookings, setBookings] = useState();
-    const { getBookings } = useBookings();
+    const { getAllBookings } = useBookings();
     useEffect(() => {
-        getBookings().then((result) => {
+        getAllBookings().then((result) => {
             if (result) {
-                setBookings(_.orderBy(result, ["checkIn"]));
+                setBookings(result);
             } else {
                 setBookings([]);
             }

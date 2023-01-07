@@ -2,11 +2,11 @@ const getList = (first, last, monthsNames) => {
     const arr = [];
     if (monthsNames) {
         for (let i = first; i <= last; i += 1) {
-            arr.push({ name: monthsNames[i - 1], _id: String(i) });
+            arr.push({ name: monthsNames[i - 1], value: String(i) });
         }
     } else {
         for (let i = first; i <= last; i += 1) {
-            arr.push({ name: String(i), _id: String(i) });
+            arr.push({ name: String(i), value: String(i) });
         }
     }
     return arr;

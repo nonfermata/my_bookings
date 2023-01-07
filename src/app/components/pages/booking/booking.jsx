@@ -19,9 +19,9 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
     const activateCalendar = (calendar) => {
         setActiveCalendar(calendar);
     };
-    const handleChange = (name, value, checkOutReset) => {
-        if (checkOutReset) {
-            setBooking({ ...booking, [name]: value, checkOut: "" });
+    const handleChange = (name, value, reset) => {
+        if (reset) {
+            setBooking({ ...booking, [name]: value, [reset]: "" });
         } else {
             setBooking({ ...booking, [name]: value });
         }
@@ -51,6 +51,7 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
                     checkOutDate={booking.checkOut}
                     activeCalendar={activeCalendar}
                     activateCalendar={activateCalendar}
+                    occupiedDates={[]}
                 />
                 <p>–</p>
                 <DateChoice
@@ -60,6 +61,7 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
                     checkInDate={booking.checkIn}
                     activeCalendar={activeCalendar}
                     activateCalendar={activateCalendar}
+                    occupiedDates={[]}
                 />
                 {booking.totalNights && (
                     <div className={classes.totalNights}>

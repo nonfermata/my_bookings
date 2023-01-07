@@ -17,53 +17,72 @@ const DateChoice = ({
     checkOutDate,
     onMainClick,
     activeCalendar,
-    activateCalendar
+    activateCalendar,
+    occupiedDates
 }) => {
     let choiceValueString, dateClass;
     if (!choiceValue) {
         dateClass = classes.choiceInitial;
-        choiceValueString = choiceName === "checkIn" ? "Заезд" : "Выезд";
+        choiceValueString =
+            choiceName === "checkIn"
+                ? onSetDate
+                    ? "Заезд"
+                    : "Доступные даты"
+                : "Выезд";
     } else {
         dateClass = classes.choiceDate;
         choiceValueString = moment(choiceValue).format("D MMMM, ddd");
     }
-    const [possibleStartDate, setPossibleStartDate] = useState();
     const months = getMonths();
-    const date = new Date();
-    const roundDate = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate()
+    const dateNow = new Date();
+    const currentDate = Date.parse(
+        new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate())
     );
-    const currentDate = Date.parse(roundDate);
-    const nextToCurrentDate = currentDate + 86400000;
+    const currentMonthFirstDay = Date.parse(
+        new Date(dateNow.getFullYear(), dateNow.getMonth(), 1)
+    );
     const [monthPosition, setMonthPosition] = useState(0);
     const [showCalendar, setShowCalendar] = useState(false);
 
-    useEffect(() => {
-        setPossibleStartDate(
-            getPossibleStartDate(choiceName, currentDate, checkInDate)
-        );
-    }, [checkInDate]);
+    const getImpossibleDates = () => {
+        const arr = [];
+        const addedDay = choiceName === "checkOut" ? 86400000 : 0;
+        arr.push({
+            from: currentMonthFirstDay,
+            to: getPossibleStartDate(choiceName, currentDate, checkInDate)
+        });
+        occupiedDates.forEach((item) => {
+            arr.push({
+                from: item.checkIn + addedDay,
+                to: item.checkOut + addedDay
+            });
+        });
+        return arr;
+    };
+
+    const impossibleDates = getImpossibleDates();
 
     const handleSetDate = (name, date) => {
-        if (date) {
-            if (choiceName === "checkIn" && date >= currentDate) {
-                setShowCalendar(false);
-                if (date >= checkOutDate) {
-                    onSetDate(name, date, "checkOutReset");
-                } else onSetDate(name, date);
-            } else if (choiceName === "checkOut" && date >= nextToCurrentDate) {
-                setShowCalendar(false);
-                if (!checkInDate) {
-                    onSetDate(name, date);
-                } else {
-                    if (date > checkInDate) {
-                        onSetDate(name, date);
-                    }
-                }
-            }
+        if (choiceName === "checkIn") {
+            if (
+                date >= checkOutDate ||
+                impossibleDates.some(
+                    (item) => date < item.from && checkOutDate > item.to
+                )
+            ) {
+                onSetDate(name, date, "checkOut");
+            } else onSetDate(name, date);
+        } else if (choiceName === "checkOut") {
+            if (
+                impossibleDates.some(
+                    (item) => date > item.to && checkInDate < item.from
+                )
+            ) {
+                console.log("popop");
+                onSetDate(name, date, "checkIn");
+            } else onSetDate(name, date);
         }
+        setShowCalendar(false);
     };
 
     const handleMovePosition = (direction) => {
@@ -125,9 +144,9 @@ const DateChoice = ({
                             key={month.monthName}
                             monthName={month.monthName}
                             startDate={month.startDate}
-                            handleSetDate={handleSetDate}
+                            handleSetDate={onSetDate ? handleSetDate : false}
                             choiceName={choiceName}
-                            possibleStartDate={possibleStartDate}
+                            impossibleDates={impossibleDates}
                         />
                     ))}
                 </div>
@@ -139,6 +158,7 @@ DateChoice.propTypes = {
     choiceValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     checkInDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     checkOutDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    occupiedDates: PropTypes.array,
     choiceName: PropTypes.string,
     onSetDate: PropTypes.func,
     onMainClick: PropTypes.bool,

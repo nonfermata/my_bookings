@@ -4,6 +4,10 @@
     gap: 4%;
 }
 
+.leftPartWrap {
+    width: 60%;
+}
+
 .imageHor,
 .imageVert {
     position: absolute;
@@ -77,9 +81,19 @@
     overflow: hidden;
 }
 
+.footerWrap {
+    display: grid;
+    grid-template-columns: 60% auto;
+    padding-top: 30px;
+}
+
+.calendarWrap {
+    width: fit-content;
+    margin: 0 auto;
+}
+
 .buttonsWrap {
     display: flex;
-    padding-top: 30px;
     padding-right: 30px;
     justify-content: flex-end;
     gap: 30px;
