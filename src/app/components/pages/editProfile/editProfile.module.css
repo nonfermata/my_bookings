@@ -1,3 +1,71 @@
-.editWrap {
+.formContainer {
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 1.05rem;
+}
 
+.title {
+    margin-bottom: 50px;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.commonLabel {
+    margin-bottom: 15px;
+    display: block;
+}
+
+.toggleFormLink {
+    color: var(--header-bg-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.toggleFormLink:hover {
+    text-decoration: none;
+}
+
+.toggleQuestion {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.birthdayWrap {
+    width: 40%;
+    color: var(--dark-grey-color);
+    margin-bottom: 40px;
+}
+
+.birthdaySelectGroup {
+    display: flex;
+    gap: 20px;
+}
+
+.licence {
+    display: inline;
+    color: var(--header-bg-color);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.licence:hover {
+    text-decoration: none;
+}
+
+.error,
+.enterError {
+    font-weight: 300;
+    font-size: 0.9rem;
+    line-height: 1.2em;
+    margin-top: 10px;
+    color: #ff8000;
+    user-select: none;
+}
+
+.enterError {
+    margin-top: -30px;
+    margin-bottom: 13px;
 }

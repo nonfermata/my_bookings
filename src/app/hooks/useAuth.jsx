@@ -23,6 +23,16 @@ const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const history = useHistory();
 
+    async function getAllUsers() {
+        try {
+            return await usersService.get();
+        } catch (e) {
+            errorCatcher(e);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     async function getUserData() {
         try {
             const data = await usersService.getCurrentUser();
@@ -136,7 +146,7 @@ const AuthProvider = ({ children }) => {
     async function updateUserData(data) {
         try {
             const content = await usersService.update(data);
-            setUser(content);
+            await setUser(content);
         } catch (e) {
             errorCatcher(e);
         }
@@ -144,8 +154,8 @@ const AuthProvider = ({ children }) => {
 
     async function updateUserFavourites(id) {
         let newFavourites = currentUser.favourites;
-        if (currentUser.favourites) {
-            if (currentUser.favourites.some((item) => item === id)) {
+        if (newFavourites) {
+            if (newFavourites.some((item) => item === id)) {
                 newFavourites = currentUser.favourites.filter(
                     (item) => item !== id
                 );
@@ -153,8 +163,8 @@ const AuthProvider = ({ children }) => {
         } else newFavourites = [id];
         const newUserData = { ...currentUser, favourites: newFavourites };
         try {
-            const content = await usersService.update(newUserData);
-            setUser(content);
+            await usersService.update(newUserData);
+            setUser(newUserData);
         } catch (e) {
             errorCatcher(e);
         }
@@ -175,7 +185,8 @@ const AuthProvider = ({ children }) => {
                 updateUserData,
                 updateUserFavourites,
                 currentUser,
-                getUserById
+                getUserById,
+                getAllUsers
             }}
         >
             {!isLoading ? children : <Loader />}

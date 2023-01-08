@@ -19,16 +19,15 @@ const ProtectedRoute = ({ component: Component, children, ...rest }) => {
                         />
                     );
                 } else if (
-                    currentUser._id !== process.env.REACT_APP_ADMIN &&
-                    props.location.pathname === "/admin"
+                    (currentUser._id !== process.env.REACT_APP_ADMIN &&
+                        props.location.pathname === "/admin") ||
+                    (currentUser._id === process.env.REACT_APP_ADMIN &&
+                        props.location.pathname === "/booking")
                 ) {
                     return <Redirect to="/rooms" />;
-                } else if (
-                    currentUser._id === process.env.REACT_APP_ADMIN &&
-                    props.location.pathname === "/booking"
-                ) {
-                    return <Redirect to="/rooms" />;
-                } else return Component ? <Component {...props} /> : children;
+                } else {
+                    return Component ? <Component {...props} /> : children;
+                }
             }}
         />
     );
