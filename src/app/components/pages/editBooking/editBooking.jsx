@@ -15,6 +15,7 @@ import TextField from "../../common/form/textField";
 import changePhone from "../../common/changePhone";
 import { useRooms } from "../../../hooks/useRooms";
 import getWordByNumber from "../../../utils/getWordByNumber";
+import _ from "lodash";
 moment.locale("ru");
 
 const EditBooking = () => {
@@ -29,6 +30,15 @@ const EditBooking = () => {
     const [activeCalendar, setActiveCalendar] = useState();
     const [occupiedDates, setOccupiedDates] = useState();
     const [maxPersonsClass, setMaxPersonsClass] = useState("hidden");
+    const dateNow = Date.now();
+    useEffect(() => {
+        getBookingById(bookingId).then((result) => {
+            ref.current.checkIn = result.checkIn;
+            ref.current.checkOut = result.checkOut;
+            return setBooking(result);
+        });
+    }, []);
+    const isStaticCheckIn = dateNow > ref.current.checkIn;
     const activateCalendar = (calendar) => {
         setActiveCalendar(calendar);
     };
@@ -39,21 +49,18 @@ const EditBooking = () => {
             setBooking({ ...booking, [name]: value });
         }
     };
-    useEffect(() => {
-        getBookingById(bookingId).then((result) => {
-            ref.current.checkIn = result.checkIn;
-            ref.current.checkOut = result.checkOut;
-            return setBooking(result);
-        });
-    }, []);
+
     useEffect(() => {
         if (booking) {
             getRoomBookings(booking.roomId).then((result) => {
                 const filteredBookings = result.filter(
                     (item) => item._id !== bookingId && item.status === "ok"
                 );
+                const orderedBookings = _.orderBy(filteredBookings, [
+                    "checkIn"
+                ]);
                 setOccupiedDates(
-                    filteredBookings.map(({ checkIn, checkOut }) => ({
+                    orderedBookings.map(({ checkIn, checkOut }) => ({
                         checkIn,
                         checkOut
                     }))
@@ -92,10 +99,7 @@ const EditBooking = () => {
                     Вы не можете изменять данное бронирование!
                 </div>
             );
-        } else if (
-            Date.now() > ref.current.checkOut ||
-            booking.status !== "ok"
-        ) {
+        } else if (dateNow > ref.current.checkOut || booking.status !== "ok") {
             return (
                 <div className="warning">
                     Данное бронирование изменить невозможно!
@@ -119,7 +123,11 @@ const EditBooking = () => {
                 <>
                     <div className="mainTitle">Изменить бронирование</div>
                     <div className={classes.datesWrap}>
-                        {Date.now() < ref.current.checkIn ? (
+                        {isStaticCheckIn ? (
+                            <div className={classes.staticCheckIn}>
+                                {moment(booking.checkIn).format("D MMMM, ddd")}
+                            </div>
+                        ) : (
                             <DateChoice
                                 occupiedDates={occupiedDates}
                                 choiceName="checkIn"
@@ -129,14 +137,11 @@ const EditBooking = () => {
                                 activeCalendar={activeCalendar}
                                 activateCalendar={activateCalendar}
                             />
-                        ) : (
-                            <div className={classes.staticCheckIn}>
-                                {moment(booking.checkIn).format("D MMMM, ddd")}
-                            </div>
                         )}
 
                         <p>–</p>
                         <DateChoice
+                            isStaticCheckIn={isStaticCheckIn}
                             occupiedDates={occupiedDates}
                             choiceName="checkOut"
                             choiceValue={booking.checkOut}

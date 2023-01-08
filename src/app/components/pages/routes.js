@@ -2,6 +2,7 @@ import Rooms from "./rooms";
 import RoomPage from "./roomPage";
 import Login from "./login";
 import Logout from "../ui/logout/logout";
+import Contacts from "./contacts";
 
 const routes = [
     {
@@ -11,18 +12,19 @@ const routes = [
     },
     {
         path: "/rooms/:roomId",
-        component: RoomPage,
-        exact: false
+        component: RoomPage
+    },
+    {
+        path: "/contacts",
+        component: Contacts
     },
     {
         path: "/logout",
-        component: Logout,
-        exact: false
+        component: Logout
     },
     {
         path: "/login/:type?",
-        component: Login,
-        exact: false
+        component: Login
     }
 ];
 

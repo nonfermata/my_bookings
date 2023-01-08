@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getMonths, getPossibleStartDate } from "../../../utils/renderCalendar";
+import {
+    getMonths,
+    getPossibleStartDate,
+    NUMBER_OF_MONTHS
+} from "../../../utils/renderCalendar";
 import classes from "./dateChoice.module.css";
 import PropTypes from "prop-types";
 import MonthBlock from "./monthBlock";
@@ -18,7 +22,8 @@ const DateChoice = ({
     onMainClick,
     activeCalendar,
     activateCalendar,
-    occupiedDates
+    occupiedDates,
+    isStaticCheckIn
 }) => {
     let choiceValueString, dateClass;
     if (!choiceValue) {
@@ -45,18 +50,36 @@ const DateChoice = ({
     const [showCalendar, setShowCalendar] = useState(false);
 
     const getImpossibleDates = () => {
-        const arr = [];
+        const arr = [
+            {
+                from: currentMonthFirstDay,
+                to: getPossibleStartDate(choiceName, currentDate, checkInDate)
+            }
+        ];
         const addedDay = choiceName === "checkOut" ? 86400000 : 0;
-        arr.push({
-            from: currentMonthFirstDay,
-            to: getPossibleStartDate(choiceName, currentDate, checkInDate)
-        });
-        occupiedDates.forEach((item) => {
+        if (isStaticCheckIn && occupiedDates.length !== 0) {
+            const nearestBooking = occupiedDates.find(
+                (item) => item.checkIn > checkInDate
+            );
+            const lastDate = Date.parse(
+                new Date(
+                    dateNow.getFullYear(),
+                    dateNow.getMonth() + NUMBER_OF_MONTHS,
+                    1
+                )
+            );
             arr.push({
-                from: item.checkIn + addedDay,
-                to: item.checkOut + addedDay
+                from: nearestBooking.checkIn + addedDay,
+                to: lastDate
             });
-        });
+        } else {
+            occupiedDates.forEach((item) => {
+                arr.push({
+                    from: item.checkIn + addedDay,
+                    to: item.checkOut + addedDay
+                });
+            });
+        }
         return arr;
     };
 
@@ -75,10 +98,9 @@ const DateChoice = ({
         } else if (choiceName === "checkOut") {
             if (
                 impossibleDates.some(
-                    (item) => date > item.to && checkInDate < item.from
+                    (item) => date >= item.to && checkInDate < item.from
                 )
             ) {
-                console.log("popop");
                 onSetDate(name, date, "checkIn");
             } else onSetDate(name, date);
         }
@@ -158,6 +180,7 @@ DateChoice.propTypes = {
     choiceValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     checkInDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     checkOutDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    isStaticCheckIn: PropTypes.bool,
     occupiedDates: PropTypes.array,
     choiceName: PropTypes.string,
     onSetDate: PropTypes.func,

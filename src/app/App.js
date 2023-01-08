@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthProvider from "./hooks/useAuth";
 import BookingsProvider from "./hooks/useBookings";
+import CookiesMessage from "./utils/cookiesMessage/cookiesMessage";
 // import Button from "./components/common/button";
 // import initialize from "./mockData/initializeData";
 
@@ -33,6 +34,7 @@ const App = ({ onMainClick }) => {
                 {/*    Восстановить БД*/}
                 {/*</Button>*/}
             </div>
+            <CookiesMessage />
         </AuthProvider>
     );
 };

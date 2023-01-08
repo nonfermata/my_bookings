@@ -19,6 +19,10 @@ const Button = ({ children, color, disabled, onClick }) => {
     );
 };
 
+Button.defaultProps = {
+    color: "blue"
+};
+
 Button.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),

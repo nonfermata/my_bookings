@@ -9,7 +9,8 @@ const Navbar = () => {
     const menu = [
         { path: "rooms", name: "Наши номера" },
         { path: "booking", name: "Забронировать", noadmin: true },
-        { path: "admin", name: "Панель администратора", admin: true }
+        { path: "admin", name: "Панель администратора", admin: true },
+        { path: "contacts", name: "Контакты" }
     ];
     return (
         <nav className={classes.nav}>

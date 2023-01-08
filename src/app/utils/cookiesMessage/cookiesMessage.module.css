@@ -1,0 +1,22 @@
+.messageWrap {
+    position: fixed;
+    left: 35%;
+    width: 30%;
+    text-align: center;
+    padding: 15px;
+    background-color: var(--semi-light-beige-color);
+    font-size: 1rem;
+    line-height: 1.4em;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    bottom: -25vh;
+    transition: 1s ease all;
+}
+
+.messageWrapShown {
+    bottom: 0;
+}
+
+.message {
+    margin-bottom: 10px;
+}
