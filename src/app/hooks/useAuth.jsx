@@ -85,11 +85,6 @@ const AuthProvider = ({ children }) => {
             await createUser({
                 _id: data.localId,
                 email,
-                image: `https://avatars.dicebear.com/api/adventurer-neutral/${(
-                    Math.random() + 1
-                )
-                    .toString(36)
-                    .substring(7)}.svg`,
                 ...rest
             });
         } catch (e) {

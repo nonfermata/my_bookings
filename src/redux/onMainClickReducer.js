@@ -1,27 +1,28 @@
-const changeState = "CHANGE_STATE";
+import { createAction } from "@reduxjs/toolkit";
 
-export const onMainClick = (event) => ({
-    type: changeState,
-    event
-});
+const onClick = createAction("onMainClick");
+
+export const onMainClick = (event) => onClick(event);
 
 const onMainClickReducer = (state = false, action) => {
     switch (action.type) {
-        case changeState:
-            action.event.stopPropagation();
+        case onClick.type:
+            action.payload.stopPropagation();
             if (
-                action.event.target.tagName !== "svg" &&
-                action.event.target.tagName !== "path"
+                action.payload.target.tagName !== "svg" &&
+                action.payload.target.tagName !== "path"
             ) {
                 if (
-                    !action.event.target.className.includes("dateChoice") &&
-                    !action.event.target.className.includes("profile")
+                    !action.payload.target.className.includes("dateChoice") &&
+                    !action.payload.target.className.includes("profile")
                 ) {
                     return !state;
-                } else return state;
-            } else return state;
+                }
+            }
+            return state;
         default:
             return state;
     }
 };
+
 export default onMainClickReducer;

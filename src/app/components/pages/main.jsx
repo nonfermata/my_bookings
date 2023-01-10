@@ -24,7 +24,7 @@ const Main = () => {
                         component={prop.component}
                     />
                 ))}
-                <Redirect to="/booking" />
+                <Redirect to="/home" />
             </Switch>
         </div>
     );

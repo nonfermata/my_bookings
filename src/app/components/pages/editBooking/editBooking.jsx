@@ -16,9 +16,11 @@ import changePhone from "../../common/changePhone";
 import { useRooms } from "../../../hooks/useRooms";
 import getWordByNumber from "../../../utils/getWordByNumber";
 import _ from "lodash";
+import { toast } from "react-toastify";
 moment.locale("ru");
 
 const EditBooking = () => {
+    const [isChanged, setIsChanged] = useState(false);
     const history = useHistory();
     const ref = useRef({});
     const { getRoomById } = useRooms();
@@ -47,6 +49,9 @@ const EditBooking = () => {
             setBooking({ ...booking, [name]: value, [reset]: "" });
         } else {
             setBooking({ ...booking, [name]: value });
+        }
+        if (!isChanged) {
+            setIsChanged(true);
         }
     };
 
@@ -82,6 +87,9 @@ const EditBooking = () => {
             ...prevState,
             [name]: changePhone(value)
         }));
+        if (!isChanged) {
+            setIsChanged(true);
+        }
     };
 
     const handleBack = () => {
@@ -90,6 +98,9 @@ const EditBooking = () => {
 
     const handleSubmit = async () => {
         await updateBooking(booking);
+        toast.success("Ваше бронирование успешно изменено 👌", {
+            position: "top-right"
+        });
         history.push(isAdmin ? "/admin" : "/my-bookings");
     };
     if (booking._id && occupiedDates) {
@@ -189,7 +200,7 @@ const EditBooking = () => {
                             onChange={handleChange}
                             style={{
                                 padding: "8px 10px",
-                                border: "1px solid var(--header-bg-color)",
+                                border: "1px solid var(--base-blue-color)",
                                 margin: "5px 0 0 10px",
                                 fontWeight: "600"
                             }}
@@ -214,7 +225,7 @@ const EditBooking = () => {
                         wrapStyle={{ justifyContent: "flex-start" }}
                         inputStyle={{
                             padding: "7px",
-                            border: "1px solid var(--header-bg-color)",
+                            border: "1px solid var(--base-blue-color)",
                             width: "150px",
                             fontWeight: "600"
                         }}
@@ -224,7 +235,8 @@ const EditBooking = () => {
                         onClick={handleSubmit}
                         disabled={
                             !booking.totalNights ||
-                            booking.userPhone.length !== 10
+                            booking.userPhone.length !== 10 ||
+                            !isChanged
                         }
                     >
                         Сохранить изменения

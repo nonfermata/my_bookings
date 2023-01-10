@@ -1,0 +1,27 @@
+.mainWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titleImageWrap {
+    width: 30%;
+    min-width: 500px;
+}
+
+.logoWrap {
+    margin-top: 10px;
+    width: 25%;
+    min-width: 400px;
+}
+
+.image {
+    width: 100%;
+}
+
+.slogan {
+    margin-top: 40px;
+    color: var(--base-blue-color);
+    font-size: 1.4rem;
+    font-weight: 300;
+}

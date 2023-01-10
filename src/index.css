@@ -6,7 +6,7 @@
     --base-color: #111;
     --base-bg-color: #fffff5;
     --profile-bg-color: #22879a;
-    --header-bg-color: #00758c;
+    --base-blue-color: #00758c;
     --menu-item-color: var(--base-bg-color);
     --menu-item-active-color: #99eeff;
     --ex-light-grey-color: hsl(50, 10%, 90%);
@@ -19,6 +19,7 @@
     --semi-light-beige-color: #ebebdb;
     --semi-beige-color: #d4d4c6;
     --brown-grey-color: #877059;
+    --sand-color: #b99f58;
     --light-orange-color: #ffd580;
     --semi-orange-color: #ffb042;
     --orange-color: #ee7700;
@@ -121,5 +122,5 @@ a {
 }
 
 .blue {
-    color: var(--header-bg-color);
+    color: var(--base-blue-color);
 }

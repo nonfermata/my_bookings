@@ -14,7 +14,7 @@
     padding: 7px 10px;
     min-width: 34px;
     border: var(--light-beige-border);
-    color: var(--header-bg-color);
+    color: var(--base-blue-color);
     transition: .15s ease all;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .pagination li.active {
-    background-color: var(--header-bg-color);
+    background-color: var(--base-blue-color);
     color: var(--base-bg-color);
 }
 

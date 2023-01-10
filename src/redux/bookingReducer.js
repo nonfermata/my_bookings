@@ -1,22 +1,18 @@
+import { createAction } from "@reduxjs/toolkit";
+
 const initialState = { persons: "" };
 
-const SET_BOOKING = "SET_BOOKING";
-const RESET_BOOKING = "RESET_BOOKING";
+const set = createAction("booking/set-booking");
+const reset = createAction("booking/reset");
 
-export const setBooking = (booking) => ({
-    type: SET_BOOKING,
-    booking
-});
-
-export const resetBooking = () => ({
-    type: RESET_BOOKING
-});
+export const setBooking = (booking) => set(booking);
+export const resetBooking = () => reset();
 
 const bookingReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_BOOKING:
-            return { ...action.booking };
-        case RESET_BOOKING:
+        case set.type:
+            return { ...action.payload };
+        case reset.type:
             return initialState;
         default:
             return state;

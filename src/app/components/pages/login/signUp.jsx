@@ -10,6 +10,8 @@ import { days, months, years } from "../../../utils/selectFieldData";
 import validateDate from "../../../utils/validateDate";
 import { useAuth } from "../../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
+import SelectAvatar from "../../common/form/selectAvatar";
+import getRandomImage from "../../../utils/getRandomImage";
 
 const SignUp = () => {
     const history = useHistory();
@@ -17,9 +19,10 @@ const SignUp = () => {
         name: "",
         email: "",
         password: "",
+        birthday: { day: "", month: "", year: "" },
         sex: "male",
-        licence: false,
-        birthday: { day: "", month: "", year: "" }
+        image: getRandomImage(),
+        licence: false
     };
 
     const [data, setData] = useState(initialState);
@@ -177,6 +180,11 @@ const SignUp = () => {
                     ]}
                     name="sex"
                     value={data.sex}
+                    onChange={handleChangeData}
+                />
+                <SelectAvatar
+                    name="image"
+                    value={data.image}
                     onChange={handleChangeData}
                 />
                 <CheckBoxField

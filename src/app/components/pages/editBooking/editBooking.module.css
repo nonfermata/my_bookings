@@ -30,7 +30,7 @@
 }
 
 .roomTitle {
-    color: var(--header-bg-color);
+    color: var(--base-blue-color);
     font-size: 1.15rem;
     font-weight: 500;
     margin-bottom: 20px;

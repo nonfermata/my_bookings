@@ -19,7 +19,7 @@
 }
 
 .toggleFormLink {
-    color: var(--header-bg-color);
+    color: var(--base-blue-color);
     text-decoration: underline;
     cursor: pointer;
 }
@@ -46,7 +46,7 @@
 
 .licence {
     display: inline;
-    color: var(--header-bg-color);
+    color: var(--base-blue-color);
     cursor: pointer;
     text-decoration: underline;
 }

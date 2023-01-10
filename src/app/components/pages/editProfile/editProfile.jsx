@@ -7,6 +7,8 @@ import RadioField from "../../common/form/radioField";
 import { useAuth } from "../../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import SpaceDiv from "../../common/spaceDiv";
+import SelectAvatar from "../../common/form/selectAvatar";
+import { toast } from "react-toastify";
 
 const EditProfile = () => {
     const { currentUser, updateUserData, getAllUsers } = useAuth();
@@ -45,11 +47,13 @@ const EditProfile = () => {
     useEffect(() => {
         validate();
     }, [data]);
+
     useEffect(() => {
         getAllUsers().then((result) =>
             setUsersEmails(result.map((item) => item.email))
         );
     }, []);
+
     const validate = () => {
         const errors = validator(data, validatorConfig);
         setErrors(errors);
@@ -73,6 +77,9 @@ const EditProfile = () => {
         }
         try {
             await updateUserData(data);
+            toast.success("Вы успешно изменили данные профиля 👌", {
+                position: "top-right"
+            });
             history.goBack();
         } catch (e) {
             setErrors(e);
@@ -110,6 +117,11 @@ const EditProfile = () => {
                     ]}
                     name="sex"
                     value={data.sex}
+                    onChange={handleChangeData}
+                />
+                <SelectAvatar
+                    name="image"
+                    value={data.image}
                     onChange={handleChangeData}
                 />
                 <Button

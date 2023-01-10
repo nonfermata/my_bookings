@@ -1,5 +1,5 @@
 .footer {
-    background-color: var(--header-bg-color);
+    background-color: var(--base-blue-color);
     padding: 20px;
     color: var(--base-bg-color);
     min-height: 120px;

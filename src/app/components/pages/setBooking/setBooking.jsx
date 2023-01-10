@@ -176,7 +176,7 @@ const SetBooking = ({ booking, resetBooking }) => {
                     <div className={classes.errorMessage}>
                         {errorBookingMessage()}
                     </div>
-                    <Link to="/">
+                    <Link to="/booking">
                         <Button color="blue">Изменить бронирование</Button>
                     </Link>
                 </>

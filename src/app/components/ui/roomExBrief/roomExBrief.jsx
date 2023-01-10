@@ -10,6 +10,7 @@ import PopupSubmit from "../../common/popupSubmit/popupSubmit";
 import { useBookings } from "../../../hooks/useBookings";
 import { Link } from "react-router-dom";
 import getWordByNumber from "../../../utils/getWordByNumber";
+import { toast } from "react-toastify";
 moment.locale("ru");
 
 const RoomExBrief = ({ id }) => {
@@ -44,6 +45,9 @@ const RoomExBrief = ({ id }) => {
         updateBooking(data);
         setBooking(data);
         setIsPopup(false);
+        toast.info("Бронирование отменено", {
+            position: "top-right"
+        });
     };
 
     const onExit = () => {

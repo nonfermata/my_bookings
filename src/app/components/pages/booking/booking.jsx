@@ -79,7 +79,7 @@ const Booking = ({ booking: bookingState, setBooking: setBookingToStore }) => {
                 onChange={handleChange}
                 style={{
                     padding: "8px 10px",
-                    border: "1px solid var(--header-bg-color)",
+                    border: "1px solid var(--base-blue-color)",
                     margin: "5px 0 0 10px",
                     fontWeight: "600"
                 }}

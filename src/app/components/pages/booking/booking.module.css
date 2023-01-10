@@ -6,7 +6,7 @@
 }
 
 .subtitle {
-    color: var(--header-bg-color);
+    color: var(--base-blue-color);
     font-size: 1.15rem;
     padding-left: 20px;
     padding-bottom: 30px;

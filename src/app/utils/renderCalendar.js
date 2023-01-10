@@ -1,4 +1,4 @@
-export const NUMBER_OF_MONTHS = 6;
+import { NUMBER_OF_MONTHS } from "../constants";
 
 export const getMonthDays = (startDate) => {
     const date = new Date(startDate);

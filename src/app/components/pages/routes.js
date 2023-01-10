@@ -3,8 +3,13 @@ import RoomPage from "./roomPage";
 import Login from "./login";
 import Logout from "../ui/logout/logout";
 import Contacts from "./contacts";
+import Home from "./home/home";
 
 const routes = [
+    {
+        path: "/home",
+        component: Home
+    },
     {
         path: "/rooms",
         component: Rooms,
